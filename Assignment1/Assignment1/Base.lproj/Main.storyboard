@@ -145,6 +145,22 @@
                                 <exclude reference="7Wu-J5-9mD"/>
                             </mask>
                         </variation>
+                        <variation key="heightClass=compact-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="FiA-eL-DDO"/>
+                                <exclude reference="f5j-26-qe4"/>
+                                <include reference="gUE-gA-52P"/>
+                                <include reference="1gi-kf-ezJ"/>
+                                <include reference="584-8X-Y1O"/>
+                                <exclude reference="5hj-En-Feu"/>
+                                <include reference="Fq1-Kr-5jQ"/>
+                                <include reference="bVe-oo-DFO"/>
+                                <include reference="diE-m7-fj7"/>
+                                <exclude reference="v0X-bi-34B"/>
+                                <include reference="7Wu-J5-9mD"/>
+                                <include reference="S0c-tZ-MR7"/>
+                            </mask>
+                        </variation>
                         <variation key="heightClass=compact-widthClass=regular">
                             <mask key="constraints">
                                 <include reference="FiA-eL-DDO"/>
