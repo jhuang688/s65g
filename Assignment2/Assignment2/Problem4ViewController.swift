@@ -10,10 +10,6 @@ import UIKit
 
 class Problem4ViewController: UIViewController {
     
-    @IBAction func buttonClicked(sender: AnyObject) {
-        textView.text = "Button clicked"
-    }
-    
     @IBOutlet weak var textView: UITextView!
     
     override func viewDidLoad() {
@@ -27,5 +23,8 @@ class Problem4ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func buttonClicked(sender: AnyObject) {
+        textView.text = "Button clicked"
+    }
     
 }

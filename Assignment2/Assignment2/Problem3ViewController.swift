@@ -10,10 +10,6 @@ import UIKit
 
 class Problem3ViewController: UIViewController {
     
-    @IBAction func buttonClicked(sender: AnyObject) {
-        textView.text = "Button clicked"
-    }
-    
     @IBOutlet weak var textView: UITextView!
     
     override func viewDidLoad() {
@@ -25,6 +21,10 @@ class Problem3ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func buttonClicked(sender: AnyObject) {
+        textView.text = "Button clicked"
     }
     
     
