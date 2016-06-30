@@ -25,24 +25,22 @@ class Problem2ViewController: UIViewController {
     }
     
     @IBAction func buttonClicked(sender: AnyObject) {
-        textView.text = "Button clicked"
+        // textView.text = "Button clicked" // for testing purposes
+        
         var before: [[Bool]] = []
         var after: [[Bool]] = []
         
-        //       var foo = Array(count:10, repeatedValue:
-        //          Array(count:10, repeatedValue:false))
-        
-        //var array2D = Array<Array<Int>>()
         let rows = 10
         let columns = 10
         
+        // initialise before and after
         for _ in 0..<columns {
             before.append(Array(count:rows, repeatedValue:false))
         }
         for _ in 0..<columns {
             after.append(Array(count:rows, repeatedValue:false))
         }
-        
+        // randomly select 1/3 live cells
         for col in 0..<columns{
             for row in 0..<rows{
                 if arc4random_uniform(3) == 1 {
@@ -51,6 +49,7 @@ class Problem2ViewController: UIViewController {
             }
         }
         
+        // count live cells before
         var countBefore = 0
         for col in 0..<columns{
             for row in 0..<rows{
@@ -61,6 +60,7 @@ class Problem2ViewController: UIViewController {
         }
         textView.text = "Number of living cells before: \(countBefore)"
         
+        // check neighbours and update after
         for col in 0..<columns{
             var prevCol = col - 1
             var nextCol = col + 1
@@ -83,7 +83,7 @@ class Problem2ViewController: UIViewController {
                     nextRow = 0
                 }
 
-                // count living neighbours
+                // check neighbours and update count
                 var livingNeighbours = 0
                 if before[prevCol][prevRow] == true {
                     livingNeighbours += 1
@@ -110,9 +110,9 @@ class Problem2ViewController: UIViewController {
                     livingNeighbours += 1
                 }
                 
-                // switch statement - if 2 living neighbours, check if currently alive or dead
+                // update after accordingly
                 switch livingNeighbours {
-                case 2:
+                case 2:   // 2 living neighbours - check current status
                     if before[col][row] == true {
                         after[col][row] = true
                     }
@@ -127,7 +127,7 @@ class Problem2ViewController: UIViewController {
             }
         }
         
-        // count after
+        // count live cells after
         var countAfter = 0
         for col in 0..<columns{
             for row in 0..<rows{
