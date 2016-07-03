@@ -23,15 +23,23 @@ class Problem4ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // This function randomly assigns 1/3 of cells to be alive to start with
+    // represented by a 2D array of bools.
+    // Then it passes this to step2 function, which returns the next state,
+    // also as a 2D array of bools of the same size.
+    // step2 will invoke neighbours to get the list of neighbours.
+    // The number of living cells is displayed in the text view.
+    // This is used by Problem 4
     @IBAction func buttonClicked(sender: AnyObject) {
         // textView.text = "Button clicked"  // for testing purposes
         
-        // prepare beforeArray to be passed to step2
-        var before: [[Bool]] = []
+        // First, prepare the before array
+        var before: [[Bool]] = []   // before array to be passed to step
         
-        let rows = 10
-        let columns = 10
+        let rows = 10       // num rows
+        let columns = 10    // num cols
         
+        // initialise before array as all false
         for _ in 0..<columns {
             before.append(Array(count:rows, repeatedValue:false))
         }
@@ -46,7 +54,7 @@ class Problem4ViewController: UIViewController {
         }
         
         // pass before to step2 to get after
-        var after: [[Bool]] = step2(beforeArray: before)
+        var after: [[Bool]] = step2(beforeArray: before)  // array representing after state
         
         // count live cells before
         var countBefore = 0
@@ -58,7 +66,7 @@ class Problem4ViewController: UIViewController {
             }
         }
         
-        // count live cells after
+        // count live cells after and display
         var countAfter = 0
         for col in 0..<columns{
             for row in 0..<rows{
@@ -68,7 +76,7 @@ class Problem4ViewController: UIViewController {
             }
         }
         textView.text = "Number of living cells before: \(countBefore)" +
-            "\nNumber of living cells after: \(countAfter)"
+                        "\nNumber of living cells after: \(countAfter)"
 
     }
 

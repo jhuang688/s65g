@@ -8,22 +8,26 @@
 
 import Foundation
 
+// This function takes a before array and returns an after array
+// according to the rules of Conway's Game of Life.
+// The arrays are 2D arrays of bools of the same size
+// It is used by Problem 3
 func step (beforeArray before: Array<Array<Bool>>) -> Array<Array<Bool>> {
 
-    var after: [[Bool]] = []
+    var after: [[Bool]] = []   // after array to be returned
     
-    let columns = before.count
-    let rows = before[0].count
+    let columns = before.count   // number of cols same as before
+    let rows = before[0].count   // number of rows same as before
     
-    // initialise after
+    // initialise after array to all false
     for _ in 0..<columns {
         after.append(Array(count:rows, repeatedValue:false))
     }
     
-    // check neighbours and update after
+    // check neighbours and update after array
     for col in 0..<columns{
-        var prevCol = col - 1
-        var nextCol = col + 1
+        var prevCol = col - 1   // index of previous col
+        var nextCol = col + 1   // index of next col
         // handle wrapping rules
         if prevCol < 0 {
             prevCol = columns - 1
@@ -33,8 +37,8 @@ func step (beforeArray before: Array<Array<Bool>>) -> Array<Array<Bool>> {
         }
         
         for row in 0..<rows{
-            var prevRow = row - 1
-            var nextRow = row + 1
+            var prevRow = row - 1   // index of previous row
+            var nextRow = row + 1   // index of next row
             // handle wrapping rules
             if prevRow < 0 {
                 prevRow = rows - 1
@@ -43,8 +47,8 @@ func step (beforeArray before: Array<Array<Bool>>) -> Array<Array<Bool>> {
                 nextRow = 0
             }
             
-            // check neighbours and update count
-            var livingNeighbours = 0
+            // check neighbours' states and update count
+            var livingNeighbours = 0   // num living neighbours
             if before[prevCol][prevRow] == true {
                 livingNeighbours += 1
             }
@@ -70,7 +74,7 @@ func step (beforeArray before: Array<Array<Bool>>) -> Array<Array<Bool>> {
                 livingNeighbours += 1
             }
             
-            // update after accordingly
+            // update after array accordingly
             switch livingNeighbours {
             case 2:   // 2 living neighbours - check current status
                 if before[col][row] == true {
@@ -79,9 +83,9 @@ func step (beforeArray before: Array<Array<Bool>>) -> Array<Array<Bool>> {
                 else {
                     after[col][row] = false
                 }
-            case 3:
+            case 3:  // 3 living neighbours - born or stay alive
                 after[col][row] = true
-            default:
+            default:  // all others - die or stay dead
                 after[col][row] = false
             }
         }
@@ -90,32 +94,38 @@ func step (beforeArray before: Array<Array<Bool>>) -> Array<Array<Bool>> {
     return after
 }
 
+// This function takes a before array and returns an after array
+// according to the rules of Conway's Game of Life.
+// The arrays are 2D arrays of bools of the same size
+// It invokes neighbours() to find the neighbours according to
+// wrapping rules.
+// It is used by Problem 4
 func step2 (beforeArray before: Array<Array<Bool>>) -> Array<Array<Bool>> {
     
-    var after: [[Bool]] = []
+    var after: [[Bool]] = []   // after array to be returned
     
-    let columns = before.count
-    let rows = before[0].count
+    let columns = before.count   // number of cols same as before
+    let rows = before[0].count   // number of rows same as before
     
-    // initialise after
+    // initialise after to all false
     for _ in 0..<columns {
         after.append(Array(count:rows, repeatedValue:false))
     }
     
-    // check neighbours and update after
+    // check neighbours' states and update count and after
     for col in 0..<columns{
         for row in 0..<rows{
-            // check neighbours and update count
-            var livingNeighbours = 0
-            // for each tuple returned from neighbours, count alive
+            var livingNeighbours = 0  // num living neighbours
+            // get the list of neighbours using the function
             let neighboursList: [(Int, Int)] = neighbours((col, row: row), maxCol: columns, maxRow: rows)
+            // for each tuple returned from neighbours, check status and update count
             for (column, row) in neighboursList {
                 if before[column][row] == true {
                     livingNeighbours += 1
                 }
             }
             
-            // update after accordingly
+            // update after array accordingly
             switch livingNeighbours {
             case 2:   // 2 living neighbours - check current status
                 if before[col][row] == true {
@@ -124,9 +134,9 @@ func step2 (beforeArray before: Array<Array<Bool>>) -> Array<Array<Bool>> {
                 else {
                     after[col][row] = false
                 }
-            case 3:
+            case 3:   // 3 living neighbours - born or stay alive
                 after[col][row] = true
-            default:
+            default:   // all others - die or stay dead
                 after[col][row] = false
             }
         }
@@ -135,18 +145,16 @@ func step2 (beforeArray before: Array<Array<Bool>>) -> Array<Array<Bool>> {
     return after
 }
 
-
+// This function takes a co-ordinate from the before array as a tuple,
+// the max number of cols and rows, and returns an array of tuples
+// representing the 8 different neighbours according to wrapping rules.
+// It is used by Problem 4, invoked by step2
 func neighbours(coords: (col: Int, row: Int), maxCol: Int, maxRow: Int) -> Array<(Int, Int)> {
     
-    var prevCol = coords.col - 1
-    var nextCol = coords.col + 1
-    var prevRow = coords.row - 1
-    var nextRow = coords.row + 1
-    
-    
-    // SHOULD GET THESE VALUES FROM SOMEWHERE
-    //let rows = 10
-    //let columns = 10
+    var prevCol = coords.col - 1   // index of previous col
+    var nextCol = coords.col + 1   // index of next col
+    var prevRow = coords.row - 1   // index of previous row
+    var nextRow = coords.row + 1   // index of next row
     
     // handle wrapping rules
     if prevCol < 0 {
