@@ -116,7 +116,7 @@ class Problem2ViewController: UIViewController {
                     livingNeighbours += 1
                 }
                 
-                // update after array accordingly
+                // update after array accordingly - switch statement here
                 switch livingNeighbours {
                 case 2:   // 2 living neighbours - check current status
                     if before[col][row] == true {
