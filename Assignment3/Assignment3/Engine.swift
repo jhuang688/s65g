@@ -10,10 +10,9 @@ import Foundation
 
 // This function takes a before array and returns an after array
 // according to the rules of Conway's Game of Life.
-// The arrays are 2D arrays of bools of the same size
+// The arrays are 2D arrays of CellState of the same size
 // It invokes neighbours() to find the neighbours according to
 // wrapping rules.
-// It is used by Problem 4
 func step2 (beforeArray before: Array<Array<CellState>>) -> Array<Array<CellState>> {
     
     var after: [[CellState]] = []   // after array to be returned
@@ -21,12 +20,12 @@ func step2 (beforeArray before: Array<Array<CellState>>) -> Array<Array<CellStat
     let columns = before.count   // number of cols same as before
     let rows = before[0].count   // number of rows same as before
     
-    // initialise after to all false
+    // initialise after to all empty
     for _ in 0..<columns {
         after.append(Array(count:rows, repeatedValue:.Empty))
     }
     
-    // check neighbours' states and update count and after
+    // check neighbours' states and update count of living neighbours
     for col in 0..<columns{
         for row in 0..<rows{
             var livingNeighbours = 0  // num living neighbours
@@ -39,17 +38,16 @@ func step2 (beforeArray before: Array<Array<CellState>>) -> Array<Array<CellStat
                 }
             }
             
-            // update after array accordingly - switch statement here
+            // update after array accordingly
             switch livingNeighbours {
             case 2:   // 2 living neighbours - stay living or stay dead
-                // CAN DO SWITCH WITHIN SWITCH HERE!!!
                 if before[col][row] == .Living || before[col][row] == .Born {
                     after[col][row] = .Living
                 }
                 else {
                     after[col][row] = .Empty
                 }
-            case 3:   // 3 living neighbours - born or stay alive
+            case 3:   // 3 living neighbours - stay living or be born
                 if before[col][row] == .Living || before[col][row] == .Born {
                     after[col][row] = .Living
                 }
@@ -73,7 +71,6 @@ func step2 (beforeArray before: Array<Array<CellState>>) -> Array<Array<CellStat
 // This function takes a co-ordinate from the before array as a tuple,
 // the max number of cols and rows, and returns an array of tuples
 // representing the 8 different neighbours according to wrapping rules.
-// It is used by Problem 4, invoked by step2
 func neighbours(coords: (col: Int, row: Int), maxCol: Int, maxRow: Int) -> Array<(Int, Int)> {
     
     var prevCol = coords.col - 1   // index of previous col

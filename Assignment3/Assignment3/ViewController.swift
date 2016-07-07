@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var gridView: GridView!
-    var firstClick: Bool = true
+    var firstClick: Bool = true  // set to false after first click
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,18 +25,15 @@ class ViewController: UIViewController {
     
     @IBAction func buttonClicked(sender: AnyObject) {
 
-        // If first click, prepare the randomly 1/3 alive array and display it
         if firstClick == true {
-            //var before: [[CellState]] = []   // before array to be passed to step
-        
-            //let rows = gridView.rows     // num rows
-            //let columns = gridView.cols    // num cols
-        
-            // initialise before array as all empty
+            // Re-initialise grid as all empty in case user has toggled before starting.
+            // User can choose to toggle to customise the grid after being
+            // provided with the default starting grid (random 1/3 alive)
+            gridView.grid = []
             for _ in 0..<gridView.cols {
                 gridView.grid.append(Array(count:gridView.rows, repeatedValue:.Empty))
             }
-        
+            
             // randomly select 1/3 live cells
             for col in 0..<gridView.cols{
                 for row in 0..<gridView.rows{
@@ -45,18 +42,15 @@ class ViewController: UIViewController {
                     }
                 }
             }
+            // change button text and change firstClick to false for recursion
             sender.setTitle!("Next Generation", forState:.Normal)
-            
             firstClick = false
         }
-        // pass before to step2 to get after
-        // var after: [[CellState]] = step2(beforeArray: before)  // array representing after state
         else {
-            gridView.grid = step2(beforeArray: gridView.grid)
+            gridView.grid = step2(beforeArray: gridView.grid)  // get next generation
         }
         
         gridView.setNeedsDisplay()
-        
 
     }
 

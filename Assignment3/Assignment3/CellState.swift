@@ -15,30 +15,12 @@ enum CellState : String {
     case Died = "died"
     
     func description() -> String {
-//        switch self {
-//        case .Living:
-//            return Living.rawValue
-//        case .Empty:
-//            return Empty.rawValue
-//        case .Born:
-//            return Born.rawValue
-//        case .Died:
-//            return Died.rawValue
-//        }
         return self.rawValue
     }
     
     static func allValues() -> [CellState] {
-//        var allValues: [CellState]
-//        for state in CellState {
-//            allValues += CellState.state    // verify if this works - probably doesn't
-//        }
-//        
-//        return allValues
         return [.Living, .Empty, .Born, .Died]
     }
-    
-    // LEADING DOT???
     
     func toggle(value:CellState) -> CellState {
         switch value {

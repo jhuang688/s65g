@@ -11,7 +11,8 @@ import UIKit
 @IBDesignable class GridView: UIView {
     @IBInspectable var rows: Int = 20 {
         didSet {
-            // re-initialise array as all empty
+            // re-initialise grid as all empty
+            grid = []
             for _ in 0..<cols {
                 grid.append(Array(count:rows, repeatedValue:.Empty))
             }
@@ -19,7 +20,8 @@ import UIKit
     }
     @IBInspectable var cols: Int = 20 {
         didSet {
-            // re-initialise array as all empty
+            // re-initialise grid as all empty
+            grid = []
             for _ in 0..<cols {
                 grid.append(Array(count:rows, repeatedValue:.Empty))
             }
@@ -32,16 +34,16 @@ import UIKit
     @IBInspectable var diedColor: UIColor = UIColor.brownColor()
     
     @IBInspectable var gridColor: UIColor = UIColor.grayColor()
-    @IBInspectable var gridWidth: CGFloat = 2.0   // what initial value?
+    @IBInspectable var gridWidth: CGFloat = 2.0
     
     var grid: [[CellState]] = []
     
     override func drawRect(rect: CGRect) {
-       // super.drawRect(CGRect)  // not needed?
+       // super.drawRect(CGRect)  // not needed
         
         // calculate size
         let cellWidth: CGFloat = self.frame.size.width / CGFloat(cols)
-        let cellHeight = cellWidth    // not really necessary - easier to read logic
+        let cellHeight: CGFloat = self.frame.size.height / CGFloat (rows)  // in case we don't want squares someday
         
         
         // draw gridlines
@@ -64,7 +66,6 @@ import UIKit
  
 
         // draw circles in cells
-        
         for col in 0..<cols {
             for row in 0..<rows {
                 let aCell = CGRectMake(CGFloat(col)*cellWidth, CGFloat(row)*cellHeight, cellWidth, cellHeight);
@@ -87,20 +88,10 @@ import UIKit
         }
     }
     
-    
-//    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//        let touch = touches.anyObject()! as UITouch
-//        let location = touch.locationInView(self)
-//    }
-    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//          if let touch = touches.first {
-//          }
-
         for touch in touches {
             self.processTouch(touch)
         }
-
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -114,10 +105,9 @@ import UIKit
     }
     
     func processTouch(touch: UITouch) {
-        
-        // calculate size - need to make this redundant??
+        // calculate size
         let cellWidth: CGFloat = self.frame.size.width / CGFloat(cols)
-        let cellHeight = cellWidth    // not really necessary - easier to read logic
+        let cellHeight: CGFloat = self.frame.size.height / CGFloat (rows)  // in case we don't want squares someday
         
         let point: CGPoint = touch.locationInView(self)
         let row: Int = Int (floor(point.y / cellHeight))
