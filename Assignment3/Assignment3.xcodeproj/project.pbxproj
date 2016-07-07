@@ -14,6 +14,7 @@
 		96009B9A1D2D7415005763CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96009B981D2D7415005763CF /* LaunchScreen.storyboard */; };
 		96009BA21D2D7524005763CF /* CellState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96009BA11D2D7524005763CF /* CellState.swift */; };
 		96009BA41D2D7C57005763CF /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96009BA31D2D7C57005763CF /* GridView.swift */; };
+		96123CE51D2EC047008B185F /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96123CE41D2EC047008B185F /* Engine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		96009B9B1D2D7415005763CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96009BA11D2D7524005763CF /* CellState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellState.swift; sourceTree = "<group>"; };
 		96009BA31D2D7C57005763CF /* GridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		96123CE41D2EC047008B185F /* Engine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				96009B931D2D7415005763CF /* Main.storyboard */,
 				96009BA11D2D7524005763CF /* CellState.swift */,
 				96009BA31D2D7C57005763CF /* GridView.swift */,
+				96123CE41D2EC047008B185F /* Engine.swift */,
 				96009B961D2D7415005763CF /* Assets.xcassets */,
 				96009B981D2D7415005763CF /* LaunchScreen.storyboard */,
 				96009B9B1D2D7415005763CF /* Info.plist */,
@@ -145,6 +148,7 @@
 				96009BA21D2D7524005763CF /* CellState.swift in Sources */,
 				96009BA41D2D7C57005763CF /* GridView.swift in Sources */,
 				96009B901D2D7415005763CF /* AppDelegate.swift in Sources */,
+				96123CE51D2EC047008B185F /* Engine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +300,7 @@
 				96009BA01D2D7415005763CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
