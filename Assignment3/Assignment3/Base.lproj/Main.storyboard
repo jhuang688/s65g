@@ -53,8 +53,8 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4P-WZ-MRU">
-                                <rect key="frame" x="285" y="540" width="30" height="30"/>
-                                <state key="normal" title="Run"/>
+                                <rect key="frame" x="283" y="540" width="34" height="30"/>
+                                <state key="normal" title="Start"/>
                                 <connections>
                                     <action selector="buttonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x71-uG-K7r"/>
                                 </connections>

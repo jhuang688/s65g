@@ -45,6 +45,8 @@ class ViewController: UIViewController {
                     }
                 }
             }
+            sender.setTitle!("Next Generation", forState:.Normal)
+            
             firstClick = false
         }
         // pass before to step2 to get after
