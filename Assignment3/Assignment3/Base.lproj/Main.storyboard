@@ -27,7 +27,7 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="rows">
-                                        <integer key="value" value="20"/>
+                                        <integer key="value" value="15"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="livingColor">
                                         <color key="value" red="0.039616934955120087" green="0.93033009767532349" blue="0.155313640832901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -39,7 +39,7 @@
                                         <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cols">
-                                        <integer key="value" value="20"/>
+                                        <integer key="value" value="15"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="diedColor">
                                         <color key="value" white="0.33333333333333331" alpha="0.60466056034482762" colorSpace="calibratedWhite"/>
@@ -53,7 +53,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4P-WZ-MRU">
-                                <rect key="frame" x="283" y="540" width="34" height="30"/>
+                                <rect key="frame" x="283" y="530" width="34" height="30"/>
                                 <state key="normal" title="Start"/>
                                 <connections>
                                     <action selector="buttonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x71-uG-K7r"/>
@@ -63,7 +63,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="lgN-yr-BfR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="60C-Uw-5W2"/>
-                            <constraint firstItem="f4P-WZ-MRU" firstAttribute="top" secondItem="lgN-yr-BfR" secondAttribute="bottom" constant="20" id="AJ8-FL-sIm"/>
+                            <constraint firstItem="f4P-WZ-MRU" firstAttribute="top" secondItem="lgN-yr-BfR" secondAttribute="bottom" constant="10" id="AJ8-FL-sIm"/>
                             <constraint firstItem="lgN-yr-BfR" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.8" priority="750" id="LTu-Hl-kxh"/>
                             <constraint firstItem="lgN-yr-BfR" firstAttribute="width" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="RU9-SF-9Zg"/>
                             <constraint firstItem="f4P-WZ-MRU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Rfr-np-hZP"/>

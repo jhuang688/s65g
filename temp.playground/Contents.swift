@@ -56,10 +56,44 @@ enum CellState : String {
             return .Empty
         }
     }
+    
+    //static func toggle2(value: CellState) -> CellState {
+    func toggle2(value: CellState) -> CellState {
+    
+        switch value {
+            
+        case .Living:
+            
+            return .Empty
+            
+        case .Born:
+            
+            return .Empty
+            
+        case .Died:
+            
+            return .Living
+            
+        case .Empty:
+            
+            return .Living
+            
+            
+            
+        }
+        
+    }
 }
 
 CellState.allValues()
 CellState.Living.toggle(.Living)
 CellState.Died.toggle(.Died)
 CellState.Born.description()
+
+
+
+
+CellState.toggle2(.Died) // will output " CellState -> CellState"
+
+CellState.Died.toggle2(.Died) // will output living
 

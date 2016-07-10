@@ -50,7 +50,26 @@ class ViewController: UIViewController {
             gridView.grid = step2(beforeArray: gridView.grid)  // get next generation
         }
         
+        // THIS WORKS BUT GRIDLINES ARE REDRAWN UNNECESSARILY
+        gridView.gridlinesDrawn = false
         gridView.setNeedsDisplay()
+        
+        // TOO COMPLEX - DOESN'T WORK
+//        let cellWidth: CGFloat = gridView.frame.size.width / CGFloat(gridView.cols)
+//        let cellHeight: CGFloat = gridView.frame.size.height / CGFloat (gridView.rows)
+//        for col in 0..<gridView.cols {
+//            for row in 0..<gridView.rows {
+//                gridView.touchCol = col
+//                gridView.touchRow = row
+//                let cellToRedraw = CGRectMake(CGFloat(col)*cellWidth + gridView.gridWidth/2, CGFloat(row)*cellHeight + gridView.gridWidth/2, cellWidth - gridView.gridWidth, cellHeight - gridView.gridWidth)
+//                gridView.touched = true
+//                gridView.setNeedsDisplayInRect(cellToRedraw)
+//            }
+//        }
+
+        
+        // DOESN'T WORK - GRID LINES ERASED
+        //gridView.setNeedsDisplayInRect(CGRectMake(0, 0, gridView.frame.size.width, gridView.frame.size.height))
 
     }
 
