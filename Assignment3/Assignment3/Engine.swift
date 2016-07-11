@@ -28,8 +28,8 @@ func step2 (beforeArray before: Array<Array<CellState>>) -> Array<Array<CellStat
     // check neighbours' states and update count of living neighbours
     for col in 0..<columns{
         for row in 0..<rows{
-            var livingNeighbours = 0  // num living neighbours
-            // get the list of neighbours using the function
+            var livingNeighbours = 0  // stores count of living neighbours
+            // get the list of neighbours
             let neighboursList: [(Int, Int)] = neighbours((col, row: row), maxCol: columns, maxRow: rows)
             // for each tuple returned from neighbours, check status and update count
             for (column, row) in neighboursList {

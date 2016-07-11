@@ -9,9 +9,10 @@
 import UIKit
 
 @IBDesignable class GridView: UIView {
+    // number of rows and cols
     @IBInspectable var rows: Int = 20 {
         didSet {
-            // re-initialise grid as all empty
+            // re-initialise grid as all empty upon change
             grid = []
             for _ in 0..<cols {
                 grid.append(Array(count:rows, repeatedValue:.Empty))
@@ -20,7 +21,7 @@ import UIKit
     }
     @IBInspectable var cols: Int = 20 {
         didSet {
-            // re-initialise grid as all empty
+            // re-initialise grid as all empty upon change
             grid = []
             for _ in 0..<cols {
                 grid.append(Array(count:rows, repeatedValue:.Empty))
@@ -28,28 +29,34 @@ import UIKit
         }
     }
     
+    // default cell colours
     @IBInspectable var livingColor: UIColor = UIColor.yellowColor()
-    @IBInspectable var emptyColor: UIColor = UIColor.grayColor()  //UIColor.clearColor()
+    @IBInspectable var emptyColor: UIColor = UIColor.clearColor()  // UIColor.grayColor()
     @IBInspectable var bornColor: UIColor = UIColor.greenColor()
     @IBInspectable var diedColor: UIColor = UIColor.brownColor()
     
-    @IBInspectable var gridColor: UIColor = UIColor.grayColor()
+    // colour and width of grid lines
+    @IBInspectable var gridColor: UIColor = UIColor.blackColor()
     @IBInspectable var gridWidth: CGFloat = 2.0
     
+    // 2D array of CellState representing the grid
     var grid: [[CellState]] = []
     
-    // SHOULDN'T NEED THESE
+    // used as flags for what needs to drawn
     var gridlinesDrawn = false
     var touched = false
+    
+    // col and row of touched cell to redraw - this is set by processTouch
     var touchCol = 0
     var touchRow = 0
     
     override func drawRect(rect: CGRect) {
-       // super.drawRect(rect)  // not needed
+        // super.drawRect(rect)  // not needed
         
-        // calculate size
+        // calculate cell size. This allows for non-square cells.
+        // If they must be squares, they can both equal the minimum of the two.
         let cellWidth: CGFloat = self.frame.size.width / CGFloat(cols)
-        let cellHeight: CGFloat = self.frame.size.height / CGFloat (rows)  // in case we don't want squares someday
+        let cellHeight: CGFloat = self.frame.size.height / CGFloat (rows)
         
         if gridlinesDrawn == false {
             // draw gridlines
@@ -70,14 +77,13 @@ import UIKit
             gridColor.setStroke()
             gridLines.stroke()
             
-            gridlinesDrawn = true
+            gridlinesDrawn = true  // set to true to avoid unnecessary redraw
         }
 
         if touched == false {
-            // draw circles in cells
+            // draw all circles in cells
             for col in 0..<cols {
                 for row in 0..<rows {
-                    //let aCell = CGRectMake(CGFloat(col)*cellWidth, CGFloat(row)*cellHeight, cellWidth, cellHeight);
                     let aCell = CGRectMake(CGFloat(col)*cellWidth + gridWidth/2, CGFloat(row)*cellHeight + gridWidth/2, cellWidth - gridWidth, cellHeight - gridWidth)
 
                     let circle = UIBezierPath(ovalInRect: aCell)
@@ -97,7 +103,7 @@ import UIKit
                 }
             }
         }
-        else {     // touched = true
+        else {     // touched = true - only redraw touched cell
             let aCell = CGRectMake(CGFloat(touchCol)*cellWidth + gridWidth/2, CGFloat(touchRow)*cellHeight + gridWidth/2, cellWidth - gridWidth, cellHeight - gridWidth)
             
             let circle = UIBezierPath(ovalInRect: aCell)
@@ -115,7 +121,7 @@ import UIKit
             cellColor.setFill()
             circle.fill()
             
-            touched = false
+            touched = false  // set back to false - will be set true by processTouch as triggered
         }
     }
 
@@ -132,50 +138,34 @@ import UIKit
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        // DO NOTHING
+        // do nothing
     }
     
     func processTouch(touch: UITouch) {
-        // calculate size
+        // calculate cell size. This allows for non-square cells.
+        // If they must be squares, they can both equal the minimum of the two.
         let cellWidth: CGFloat = self.frame.size.width / CGFloat(cols)
-        let cellHeight: CGFloat = self.frame.size.height / CGFloat (rows)  // in case we don't want squares someday
+        let cellHeight: CGFloat = self.frame.size.height / CGFloat (rows)
         
+        // set touchRow and touchCol
         let point: CGPoint = touch.locationInView(self)
         touchRow = Int (floor(point.y / cellHeight))
         touchCol  = Int (floor(point.x / cellWidth))
-        grid[touchCol][touchRow] = grid[touchCol][touchRow].toggle(grid[touchCol][touchRow])
         
-        //let cellToRedraw: CGRect = CGRectMake(CGFloat(touchCol)*cellWidth, CGFloat(touchRow)*cellHeight, cellWidth, cellHeight)
-        
-        let cellToRedraw = CGRectMake(CGFloat(touchCol)*cellWidth + gridWidth/2, CGFloat(touchRow)*cellHeight + gridWidth/2, cellWidth - gridWidth, cellHeight - gridWidth)
-        touched = true
-
-        
-      //  self.clearsContextBeforeDrawing = false   // doesn't work
-
-        self.setNeedsDisplayInRect(cellToRedraw)
-        
+        // Only toggle and redraw if it is a valid cell location.
+        // This avoids a crash when the user's touch begins in the grid, and moves outside,
+        // a very possible accident.
+        // A touch that begins outside the grid is invalid and will get no response,
+        // even if it then moves inside.
+        if touchRow >= 0 && touchRow < rows && touchCol >= 0 && touchCol < cols {
+            // toggle touched cell
+            grid[touchCol][touchRow] = grid[touchCol][touchRow].toggle(grid[touchCol][touchRow])
+            
+            // define cell to redraw as CGRect, set touched to true, and redraw only that cell
+            let cellToRedraw = CGRectMake(CGFloat(touchCol)*cellWidth + gridWidth/2, CGFloat(touchRow)*cellHeight + gridWidth/2, cellWidth - gridWidth, cellHeight - gridWidth)
+            touched = true
+            self.setNeedsDisplayInRect(cellToRedraw)
+        }
     }
-    
-//    override func setNeedsDisplayInRect(aCell: CGRect) {
-//        
-//        
-//        let circle = UIBezierPath(ovalInRect: aCell)
-//        var cellColor: UIColor
-//        switch (grid[touchCol][touchRow]) {
-//        case .Living:
-//            cellColor = livingColor
-//        case .Empty:
-//            cellColor = emptyColor
-//        case .Born:
-//            cellColor = bornColor
-//        case .Died:
-//            cellColor = diedColor
-//        }
-//        cellColor.setFill()
-//        circle.fill()
-//        super.setNeedsDisplayInRect(aCell)
-//        
-//    }
 }
 
