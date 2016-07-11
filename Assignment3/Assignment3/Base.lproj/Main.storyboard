@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lgN-yr-BfR" customClass="GridView" customModule="Assignment3" customModuleProvider="target">
-                                <rect key="frame" x="60" y="40" width="480" height="480"/>
+                                <rect key="frame" x="75" y="75" width="450" height="450"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="lgN-yr-BfR" secondAttribute="height" multiplier="1:1" id="P6w-kU-TQt"/>
@@ -62,14 +62,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="lgN-yr-BfR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="60C-Uw-5W2"/>
-                            <constraint firstItem="f4P-WZ-MRU" firstAttribute="top" secondItem="lgN-yr-BfR" secondAttribute="bottom" constant="10" id="AJ8-FL-sIm"/>
-                            <constraint firstItem="lgN-yr-BfR" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.8" priority="750" id="LTu-Hl-kxh"/>
-                            <constraint firstItem="lgN-yr-BfR" firstAttribute="width" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="RU9-SF-9Zg"/>
+                            <constraint firstItem="f4P-WZ-MRU" firstAttribute="top" secondItem="lgN-yr-BfR" secondAttribute="bottom" constant="5" id="AJ8-FL-sIm"/>
+                            <constraint firstItem="lgN-yr-BfR" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="L0f-dF-cVp"/>
+                            <constraint firstItem="lgN-yr-BfR" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.75" priority="750" id="LTu-Hl-kxh"/>
+                            <constraint firstItem="lgN-yr-BfR" firstAttribute="width" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.75" id="RU9-SF-9Zg"/>
                             <constraint firstItem="f4P-WZ-MRU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Rfr-np-hZP"/>
-                            <constraint firstItem="lgN-yr-BfR" firstAttribute="height" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.8" id="pV3-d5-Smr"/>
+                            <constraint firstItem="lgN-yr-BfR" firstAttribute="height" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.75" id="pV3-d5-Smr"/>
                             <constraint firstItem="lgN-yr-BfR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sQe-9y-UWn"/>
-                            <constraint firstItem="lgN-yr-BfR" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" priority="750" id="sx0-BX-aKJ"/>
+                            <constraint firstItem="lgN-yr-BfR" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.75" priority="750" id="sx0-BX-aKJ"/>
                         </constraints>
                     </view>
                     <connections>
