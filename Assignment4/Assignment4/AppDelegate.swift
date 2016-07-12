@@ -6,6 +6,10 @@
 //  Copyright © 2016 Joanne Huang. All rights reserved.
 //
 
+
+
+// App icons by icons8 available at https://icons8.com/
+
 import UIKit
 
 @UIApplicationMain

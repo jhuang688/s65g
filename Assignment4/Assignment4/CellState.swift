@@ -1,6 +1,6 @@
 //
 //  CellState.swift
-//  Assignment3
+//  Assignment4
 //
 //  Created by Joanne Huang on 6/07/2016.
 //  Copyright © 2016 Joanne Huang. All rights reserved.

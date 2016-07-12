@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		960359931D347E0F00901622 /* GridProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960359921D347E0F00901622 /* GridProtocol.swift */; };
+		960359951D347F7200901622 /* EngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960359941D347F7200901622 /* EngineDelegate.swift */; };
+		960359971D347FD500901622 /* EngineProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960359961D347FD500901622 /* EngineProtocol.swift */; };
+		960359991D34827700901622 /* StandardEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960359981D34827700901622 /* StandardEngine.swift */; };
 		9612D4C91D3324BB00D30415 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9612D4C81D3324BB00D30415 /* AppDelegate.swift */; };
 		9612D4CB1D3324BB00D30415 /* InstrumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9612D4CA1D3324BB00D30415 /* InstrumentationViewController.swift */; };
 		9612D4CD1D3324BB00D30415 /* SimulationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9612D4CC1D3324BB00D30415 /* SimulationViewController.swift */; };
@@ -19,6 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		960359921D347E0F00901622 /* GridProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridProtocol.swift; sourceTree = "<group>"; };
+		960359941D347F7200901622 /* EngineDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EngineDelegate.swift; sourceTree = "<group>"; };
+		960359961D347FD500901622 /* EngineProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EngineProtocol.swift; sourceTree = "<group>"; };
+		960359981D34827700901622 /* StandardEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardEngine.swift; sourceTree = "<group>"; };
 		9612D4C51D3324BB00D30415 /* Assignment4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9612D4C81D3324BB00D30415 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9612D4CA1D3324BB00D30415 /* InstrumentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentationViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +75,10 @@
 				9612D4CC1D3324BB00D30415 /* SimulationViewController.swift */,
 				9612D4DC1D3337D500D30415 /* StatisticsViewController.swift */,
 				9612D4CE1D3324BB00D30415 /* Main.storyboard */,
+				960359921D347E0F00901622 /* GridProtocol.swift */,
+				960359941D347F7200901622 /* EngineDelegate.swift */,
+				960359961D347FD500901622 /* EngineProtocol.swift */,
+				960359981D34827700901622 /* StandardEngine.swift */,
 				9612D4DE1D3356F400D30415 /* GridView.swift */,
 				9612D4E01D335A7600D30415 /* CellState.swift */,
 				9612D4D11D3324BB00D30415 /* Assets.xcassets */,
@@ -149,10 +161,14 @@
 			files = (
 				9612D4CD1D3324BB00D30415 /* SimulationViewController.swift in Sources */,
 				9612D4E11D335A7600D30415 /* CellState.swift in Sources */,
+				960359951D347F7200901622 /* EngineDelegate.swift in Sources */,
 				9612D4C91D3324BB00D30415 /* AppDelegate.swift in Sources */,
+				960359991D34827700901622 /* StandardEngine.swift in Sources */,
 				9612D4CB1D3324BB00D30415 /* InstrumentationViewController.swift in Sources */,
 				9612D4DF1D3356F400D30415 /* GridView.swift in Sources */,
 				9612D4DD1D3337D500D30415 /* StatisticsViewController.swift in Sources */,
+				960359931D347E0F00901622 /* GridProtocol.swift in Sources */,
+				960359971D347FD500901622 /* EngineProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +318,7 @@
 				9612D4DB1D3324BB00D30415 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
