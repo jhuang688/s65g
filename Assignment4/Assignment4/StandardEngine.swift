@@ -20,18 +20,35 @@ class StandardEngine: EngineProtocol {
         self.cols = cols
         self.rows = rows
         grid = Grid(cols: cols, rows: rows)
+        
     }
 
-    var rows: Int = 10 {
+    var rows: Int {
         didSet {
+            grid = Grid(cols: cols, rows: rows)
+            for col in 0..<cols {
+                for row in 0..<rows {
+                    grid![col,row] = .Empty
+                }
+            }
+            
+            // PROBLEM HERE: DELEGATE IS NOT YET SET GETTING NIL ON UNWRAP
             if let delegate = delegate {
                 delegate.engineDidUpdate(grid!)
             }
         }
     }
 
-    var cols: Int = 10 {
+    var cols: Int {
         didSet {
+            grid = Grid(cols: cols, rows: rows)
+            for col in 0..<cols {
+                for row in 0..<rows {
+                    grid![col,row] = .Empty
+                }
+            }
+            
+            // PROBLEM HERE: DELEGATE IS NOT YET SET  GETTING NIL ON  UNWRAP
             if let delegate = delegate {
                 delegate.engineDidUpdate(grid!)
             }
@@ -39,7 +56,16 @@ class StandardEngine: EngineProtocol {
     }
 
     var delegate: EngineDelegateProtocol?
-    var grid: GridProtocol?
+    var grid: GridProtocol? //{
+//        get {
+//            
+//        }
+//        didSet {
+//            if let delegate = delegate {
+//                delegate.engineDidUpdate(grid!)
+//            }
+//        }
+//    }
     var refreshRate: Double = 0.0 {
         didSet {
             if refreshRate != 0 {
@@ -58,7 +84,11 @@ class StandardEngine: EngineProtocol {
         }
     }
 
-    var refreshTimer: NSTimer? = NSTimer()
+    var refreshTimer: NSTimer? = nil //{
+//        didSet {
+//
+//        }
+//    }
 
     func step() -> GridProtocol {
         var after: GridProtocol? = grid
@@ -107,11 +137,10 @@ class StandardEngine: EngineProtocol {
     }
 
     @objc func timerDidFire(timer:NSTimer) {
-        //self.rows += 1
         let center = NSNotificationCenter.defaultCenter()
-        let n = NSNotification(name: "TimerFired",
+        let n = NSNotification(name: "EngineUpdate",
                                object: nil,
-                               userInfo: nil)
+                               userInfo: ["gridObject": grid! as! AnyObject])
         center.postNotification(n)
         //print ("\(timer.userInfo?["name"] ?? "not fred")")
     }

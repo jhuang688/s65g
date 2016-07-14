@@ -27,19 +27,22 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fGj-sT-NYx" userLabel="EmbedView">
                                 <rect key="frame" x="139.5" y="218.5" width="321" height="134"/>
                                 <subviews>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AlQ-9f-3g1">
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="AlQ-9f-3g1">
                                         <rect key="frame" x="157" y="98" width="51" height="31"/>
                                         <connections>
                                             <action selector="toggleTimedRefresh:" destination="9pv-A4-QxB" eventType="valueChanged" id="Ihf-ob-nSZ"/>
                                         </connections>
                                     </switch>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PtZ-TE-qUB">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="10" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PtZ-TE-qUB">
                                         <rect key="frame" x="157" y="36" width="50" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="k3f-o8-HRE"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="didUpdateCols:" destination="9pv-A4-QxB" eventType="editingDidEnd" id="2eW-kO-sLv"/>
+                                        </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timed Refresh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wdl-Ni-ozk">
                                         <rect key="frame" x="10" y="103" width="112" height="21"/>
@@ -91,13 +94,16 @@
                                             <action selector="changeRefreshRate:" destination="9pv-A4-QxB" eventType="valueChanged" id="adW-D1-UKf"/>
                                         </connections>
                                     </slider>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Pe-la-cP0">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="10" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Pe-la-cP0">
                                         <rect key="frame" x="157" y="5" width="50" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="pEs-NL-uid"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="didUpdateRows:" destination="9pv-A4-QxB" eventType="editingDidEnd" id="I49-Nz-GMd"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -358,6 +364,12 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Statistics" image="Statistics" id="4PX-db-3KS" userLabel="Statistics"/>
+                    <connections>
+                        <outlet property="bornCount" destination="xaZ-j9-Hrg" id="Fvb-ns-wq1"/>
+                        <outlet property="diedCount" destination="GTx-Tk-vDM" id="h4D-jd-LLD"/>
+                        <outlet property="emptyCount" destination="DEv-LJ-MXy" id="t1r-1M-peT"/>
+                        <outlet property="livingCount" destination="5vv-Dj-Osm" id="f2D-6W-5TP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ohB-Du-VL2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

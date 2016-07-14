@@ -20,6 +20,7 @@
 		9612D4DD1D3337D500D30415 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9612D4DC1D3337D500D30415 /* StatisticsViewController.swift */; };
 		9612D4DF1D3356F400D30415 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9612D4DE1D3356F400D30415 /* GridView.swift */; };
 		9612D4E11D335A7600D30415 /* CellState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9612D4E01D335A7600D30415 /* CellState.swift */; };
+		969387281D3847ED005ACDC4 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969387271D3847ED005ACDC4 /* Grid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		9612D4DC1D3337D500D30415 /* StatisticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		9612D4DE1D3356F400D30415 /* GridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		9612D4E01D335A7600D30415 /* CellState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellState.swift; sourceTree = "<group>"; };
+		969387271D3847ED005ACDC4 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				9612D4DC1D3337D500D30415 /* StatisticsViewController.swift */,
 				9612D4CE1D3324BB00D30415 /* Main.storyboard */,
 				960359921D347E0F00901622 /* GridProtocol.swift */,
+				969387271D3847ED005ACDC4 /* Grid.swift */,
 				960359941D347F7200901622 /* EngineDelegateProtocol.swift */,
 				960359961D347FD500901622 /* EngineProtocol.swift */,
 				960359981D34827700901622 /* StandardEngine.swift */,
@@ -163,6 +166,7 @@
 				9612D4E11D335A7600D30415 /* CellState.swift in Sources */,
 				960359951D347F7200901622 /* EngineDelegateProtocol.swift in Sources */,
 				9612D4C91D3324BB00D30415 /* AppDelegate.swift in Sources */,
+				969387281D3847ED005ACDC4 /* Grid.swift in Sources */,
 				960359991D34827700901622 /* StandardEngine.swift in Sources */,
 				9612D4CB1D3324BB00D30415 /* InstrumentationViewController.swift in Sources */,
 				9612D4DF1D3356F400D30415 /* GridView.swift in Sources */,
