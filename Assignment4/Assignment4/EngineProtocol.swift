@@ -11,10 +11,10 @@ import Foundation
 protocol EngineProtocol {
     init(cols: Int, rows: Int)
     
-    var delegate: EngineDelegate? {get set}
+    var delegate: EngineDelegateProtocol? {get set}
     var grid: GridProtocol? {get}
     var refreshRate: Double {get set} //= 0.0
-    var refreshTimer: NSTimer {get set}
+    var refreshTimer: NSTimer? {get set}
     var rows: Int { get set }
     var cols: Int { get set }
     

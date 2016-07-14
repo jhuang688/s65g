@@ -162,8 +162,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZCg-if-YJH" userLabel="PastelView">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fB1-P9-y8T" customClass="GridView" customModule="Assignment4" customModuleProvider="target">
-                                <rect key="frame" x="101" y="86.5" width="398" height="398"/>
+                                <rect key="frame" x="101" y="86" width="398" height="398"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="fB1-P9-y8T" secondAttribute="height" multiplier="1:1" id="LEB-o4-mTk"/>
@@ -196,13 +200,12 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="an7-jb-X1m">
-                                <rect key="frame" x="285" y="489.5" width="30" height="30"/>
-                                <state key="normal" title="Run"/>
+                                <rect key="frame" x="284" y="489.5" width="32" height="30"/>
+                                <state key="normal" title="Step"/>
+                                <connections>
+                                    <action selector="buttonClicked:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="vG8-s8-cNG"/>
+                                </connections>
                             </button>
-                            <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZCg-if-YJH" userLabel="PastelView">
-                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
-                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -221,6 +224,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Simulation" image="Simulation" id="cPa-gy-q4n" userLabel="Simulation"/>
+                    <connections>
+                        <outlet property="gridView" destination="ZCg-if-YJH" id="3jm-Vn-X3a"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>

@@ -8,8 +8,10 @@
 
 import UIKit
 
-class SimulationViewController: UIViewController, EngineDelegate {
+class SimulationViewController: UIViewController, EngineDelegateProtocol {
 
+    @IBOutlet weak var gridView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -22,6 +24,9 @@ class SimulationViewController: UIViewController, EngineDelegate {
     
     func engineDidUpdate(withGrid: GridProtocol) {
         
+    }
+    
+    @IBAction func buttonClicked(sender: AnyObject) {
     }
 
 
