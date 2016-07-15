@@ -125,12 +125,13 @@ class InstrumentationViewController: UIViewController {
             StandardEngine.sharedInstance.refreshTimer = nil
         }
         else {
-            let sel = #selector(StandardEngine.timerDidFire(_:))
+            let sel = #selector(InstrumentationViewController.timerDidFire(_:))
             
             // THIS PART IS CAUSING A CRASH!
             
             
-            // NEED TO SET REFRESH RATE TO VALUE OF SLIDER IN CASE IT HASN'T BEEN TOUCHED YET
+            // need to set refresh rate to value of slider in case it hasn't been touched yet
+            // if we don't do this, it will still be at the default value of 0.0
             StandardEngine.sharedInstance.refreshRate = Double(refreshRateSlider.value)
             
             StandardEngine.sharedInstance.refreshTimer = NSTimer.scheduledTimerWithTimeInterval(
@@ -156,9 +157,18 @@ class InstrumentationViewController: UIViewController {
         let newGrid = StandardEngine.sharedInstance.step()
         StandardEngine.sharedInstance.grid = newGrid
         if let delegate = StandardEngine.sharedInstance.delegate {
-            delegate.engineDidUpdate(StandardEngine.sharedInstance.grid! as! Grid)
+            delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
         }
         
+    }
+    
+    @objc func timerDidFire(timer:NSTimer) {
+        let center = NSNotificationCenter.defaultCenter()
+        let n = NSNotification(name: "TimerFired",
+                               object: nil,
+                               userInfo: nil)
+        //userInfo: ["gridObject": grid! as! AnyObject])
+        center.postNotification(n)
     }
     
 }

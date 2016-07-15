@@ -19,6 +19,7 @@ class StandardEngine: EngineProtocol {
     required init(cols: Int, rows: Int) {
         self.cols = cols
         self.rows = rows
+        refreshRate = 0.0
         grid = Grid(cols: cols, rows: rows)
         
     }
@@ -34,7 +35,7 @@ class StandardEngine: EngineProtocol {
             
             // PROBLEM HERE: DELEGATE IS NOT YET SET, GETTING NIL ON UNWRAP GRID
             if let delegate = delegate {
-                delegate.engineDidUpdate(grid! as! Grid)
+                delegate.engineDidUpdate(grid!)
             }
         }
     }
@@ -50,7 +51,7 @@ class StandardEngine: EngineProtocol {
             
             // PROBLEM HERE: DELEGATE IS NOT YET SET  GETTING NIL ON  UNWRAP
             if let delegate = delegate {
-                delegate.engineDidUpdate(grid! as! Grid)
+                delegate.engineDidUpdate(grid!)
             }
         }
     }
@@ -58,7 +59,7 @@ class StandardEngine: EngineProtocol {
     var delegate: EngineDelegateProtocol?
     var grid: GridProtocol?
     
-    var refreshRate: Double = 0.0 {
+    var refreshRate: Double { //= 0.0 {
         didSet {
             if refreshRate != 0 {
                 if let refreshTimer = refreshTimer { refreshTimer.invalidate() }

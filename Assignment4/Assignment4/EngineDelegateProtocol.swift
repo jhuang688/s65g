@@ -7,5 +7,5 @@
 //
 
 protocol EngineDelegateProtocol {
-    func engineDidUpdate(withGrid: Grid)
+    func engineDidUpdate(withGrid: GridProtocol)
 }

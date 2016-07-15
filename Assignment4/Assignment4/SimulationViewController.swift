@@ -57,7 +57,7 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         // Dispose of any resources that can be recreated.
     }
     
-    func engineDidUpdate(withGrid: Grid) {
+    func engineDidUpdate(withGrid: GridProtocol) {
         // publish Grid as notification
         // each controller subscribes to notifications and updates its own appearance
         //gridView.setNeedsDisplay()
@@ -83,7 +83,7 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         let newGrid = StandardEngine.sharedInstance.step()
         StandardEngine.sharedInstance.grid = newGrid
         if let delegate = StandardEngine.sharedInstance.delegate {
-            delegate.engineDidUpdate(StandardEngine.sharedInstance.grid! as! Grid)
+            delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
         }
     }
 }

@@ -155,7 +155,7 @@ import UIKit
 //            self.setNeedsDisplayInRect(cellToRedraw)
             
             if let delegate = StandardEngine.sharedInstance.delegate {
-                delegate.engineDidUpdate(StandardEngine.sharedInstance.grid! as! Grid)
+                delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
             }
         }
     }
