@@ -57,9 +57,12 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         
         // PROBLEM HERE - THROWING NSException
         let center = NSNotificationCenter.defaultCenter()
+//        let n = NSNotification(name: "EngineUpdate",
+//                               object: nil,
+//                               userInfo: ["gridObject": (withGrid as? AnyObject)!])
         let n = NSNotification(name: "EngineUpdate",
                                object: nil,
-                               userInfo: ["gridObject": (withGrid as? AnyObject)!])
+                               userInfo: nil)
         center.postNotification(n)
     }
     
