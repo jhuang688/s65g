@@ -77,14 +77,14 @@ class StandardEngine: EngineProtocol {
                                                                userInfo: nil,
                                                                repeats: true)
             }
-            else if let refreshTimer = refreshTimer {
+            else if let refreshTimer = refreshTimer {   // IT WILL NEVER BE 0 SINCE SLIDER DOESN'T GO TO 0!!!
                 refreshTimer.invalidate()
                 self.refreshTimer = nil
             }
         }
     }
 
-    var refreshTimer: NSTimer? = nil //{
+    var refreshTimer: NSTimer? = nil //{  // BY DEFAULT, TIMER IS OFF
 //        didSet {
 //
 //        }

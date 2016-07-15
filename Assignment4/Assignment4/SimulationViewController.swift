@@ -11,7 +11,8 @@ import UIKit
 class SimulationViewController: UIViewController, EngineDelegateProtocol {
 
     var stdEngine: EngineProtocol!
-    @IBOutlet weak var gridView: UIView!
+
+    @IBOutlet weak var gridView: GridView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,15 +29,17 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
 
     }
     
-    override func viewWillAppear(animated: Bool) {
-        gridView.setNeedsDisplay()
-    }
+//    override func viewWillAppear(animated: Bool) {
+//        gridView.gridlinesDrawn = false
+//        gridView.setNeedsDisplay()
+//    }
     
     func watchForNotifications(notification:NSNotification) {
         //print("\(notification.userInfo)")
         
         // get latest grid - CHECK THIS - grid is get only, no set
         //StandardEngine.sharedInstance.grid = notification.userInfo as? GridProtocol
+        gridView.gridlinesDrawn = false
         gridView.setNeedsDisplay()
 
     }
@@ -50,10 +53,13 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         // publish Grid as notification
         // each controller subscribes to notifications and updates its own appearance
         //gridView.setNeedsDisplay()
+        
+        
+        // PROBLEM HERE - THROWING NSException
         let center = NSNotificationCenter.defaultCenter()
         let n = NSNotification(name: "EngineUpdate",
                                object: nil,
-                               userInfo: ["gridObject": withGrid as! AnyObject])
+                               userInfo: ["gridObject": (withGrid as? AnyObject)!])
         center.postNotification(n)
     }
     

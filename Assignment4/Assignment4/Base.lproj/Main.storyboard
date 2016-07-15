@@ -68,13 +68,13 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minimumValue="10" maximumValue="100" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="dwh-g7-yMw">
+                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumValue="-10" maximumValue="10" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="dwh-g7-yMw">
                                         <rect key="frame" x="217" y="37" width="94" height="29"/>
                                         <connections>
                                             <action selector="incrementCols:" destination="9pv-A4-QxB" eventType="valueChanged" id="8WK-y6-z8U"/>
                                         </connections>
                                     </stepper>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minimumValue="10" maximumValue="100" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="rye-in-U70">
+                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumValue="-10" maximumValue="10" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="rye-in-U70">
                                         <rect key="frame" x="217" y="6" width="94" height="29"/>
                                         <connections>
                                             <action selector="incrementRows:" destination="9pv-A4-QxB" eventType="valueChanged" id="hcY-5k-NmI"/>
@@ -150,6 +150,7 @@
                     <connections>
                         <outlet property="cols" destination="PtZ-TE-qUB" id="CYA-CQ-NDB"/>
                         <outlet property="rows" destination="8Pe-la-cP0" id="7gV-4Z-F8I"/>
+                        <outlet property="timerSwitch" destination="AlQ-9f-3g1" id="RyB-xT-myU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -231,7 +232,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Simulation" image="Simulation" id="cPa-gy-q4n" userLabel="Simulation"/>
                     <connections>
-                        <outlet property="gridView" destination="ZCg-if-YJH" id="3jm-Vn-X3a"/>
+                        <outlet property="gridView" destination="fB1-P9-y8T" id="1iK-8y-82f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>

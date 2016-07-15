@@ -13,6 +13,8 @@ class InstrumentationViewController: UIViewController {
     @IBOutlet weak var rows: UITextField!
     @IBOutlet weak var cols: UITextField!
     
+    @IBOutlet weak var timerSwitch: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -33,11 +35,10 @@ class InstrumentationViewController: UIViewController {
             if numRows > 0 {
                 StandardEngine.sharedInstance.rows = numRows
             }
-            
-            //StandardEngine.sharedInstance.grid!.rows = numRows
-            
-            //StandardEngine.sharedInstance.delegate!.engineDidUpdate()
-           // StandardEngine.
+            else {
+                // set to 0?? SHOULD 0 be allowed???
+                // HANDLE IN SAME WAY AS STEPPER
+            }
         }
     }
     
@@ -47,19 +48,35 @@ class InstrumentationViewController: UIViewController {
             if numCols > 0 {
                 StandardEngine.sharedInstance.cols = numCols
             }
+            else {
+                // set to 0?? SHOULD 0 be allowed???
+                // HANDLE IN SAME WAY AS STEPPER
+            }
         }
     }
     
     @IBAction func incrementCols(sender: UIStepper) {
         if let text = cols.text,
             numCols = Int(text)  {
-            cols.text = String(numCols + 10)
-            StandardEngine.sharedInstance.cols = Int(cols.text!)!
+            if (sender.value == 10) {
+                cols.text = String(numCols + 10)
+            }
+            if (sender.value == -10) {
+                cols.text = String(numCols - 10)
+            }
             
-            // should + or - 10 depending on what was clicked
-            // should check new value is a valid number
+            // SHOULD 0 BE ALLOWED???
+            if Int(cols.text!)! > 0 {
+                StandardEngine.sharedInstance.cols = Int(cols.text!)!
+            }
+            else {
+                StandardEngine.sharedInstance.cols = 1
+                cols.text = "1"
+            }
+            
+            sender.value = 0  // ready for next click
         }
-        else  {   // no text
+        else  {   // no text - set to default
             cols.text = "10"
             StandardEngine.sharedInstance.cols = 10
         }
@@ -68,13 +85,25 @@ class InstrumentationViewController: UIViewController {
     @IBAction func incrementRows(sender: UIStepper) {
         if let text = rows.text,
             numRows = Int(text)  {
-            rows.text = String(numRows + 10)
-            StandardEngine.sharedInstance.rows = Int(rows.text!)!
+            if (sender.value == 10) {
+                rows.text = String(numRows + 10)
+            }
+            if (sender.value == -10) {
+                rows.text = String(numRows - 10)
+            }
             
-            // should + or - 10 depending on what was clicked
-            // should check new value is a valid number
+            // SHOULD 0 BE ALLOWED???
+            if Int(rows.text!)! > 0 {
+                StandardEngine.sharedInstance.rows = Int(rows.text!)!
+            }
+            else {
+                StandardEngine.sharedInstance.rows = 1
+                rows.text = "1"
+            }
+            
+            sender.value = 0    // ready for next click
         }
-        else  {   // no text
+        else  {   // no text - set to default
             rows.text = "10"
             StandardEngine.sharedInstance.rows = 10
         }
@@ -82,6 +111,12 @@ class InstrumentationViewController: UIViewController {
 
     @IBAction func changeRefreshRate(sender: UISlider) {
         StandardEngine.sharedInstance.refreshRate = Double(sender.value)
+        
+        // setting refreshRate will install a timer. Change UI to reflect that timer is now on.
+        // user needs to turn it off if they want it off.
+        // by default, refreshRate is 0.0, and timer is off
+        timerSwitch.on = true
+        
     }
     
     @IBAction func toggleTimedRefresh(sender: UISwitch) {

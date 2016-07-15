@@ -167,6 +167,11 @@ import UIKit
             // toggle touched cell
             StandardEngine.sharedInstance.grid![touchCol,touchRow]! = StandardEngine.sharedInstance.grid![touchCol,touchRow]!.toggle(StandardEngine.sharedInstance.grid![touchCol,touchRow]!)
             
+            if let delegate = StandardEngine.sharedInstance.delegate {
+                delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
+            }
+            
+            
             // define cell to redraw as CGRect, set touched to true, and redraw only that cell
             let cellToRedraw = CGRectMake(CGFloat(touchCol)*cellWidth + gridWidth/2, CGFloat(touchRow)*cellHeight + gridWidth/2, cellWidth - gridWidth, cellHeight - gridWidth)
             touched = true
