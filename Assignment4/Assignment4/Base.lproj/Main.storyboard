@@ -149,6 +149,7 @@
                     <tabBarItem key="tabBarItem" title="Instrumentation" image="Instrumentation" id="acW-dT-cKf" userLabel="Instrumentation"/>
                     <connections>
                         <outlet property="cols" destination="PtZ-TE-qUB" id="CYA-CQ-NDB"/>
+                        <outlet property="refreshRateSlider" destination="cJk-Do-ywN" id="MQ1-KC-gqF"/>
                         <outlet property="rows" destination="8Pe-la-cP0" id="7gV-4Z-F8I"/>
                         <outlet property="timerSwitch" destination="AlQ-9f-3g1" id="RyB-xT-myU"/>
                     </connections>

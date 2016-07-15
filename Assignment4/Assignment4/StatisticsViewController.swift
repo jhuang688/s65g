@@ -18,10 +18,17 @@ class StatisticsViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let sel = #selector(SimulationViewController.watchForNotifications(_:))
+        updateCounts()
+        
+        let sel = #selector(StatisticsViewController.watchForNotifications(_:))
         let center  = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: sel, name: "EngineUpdate", object: nil)
     }
+    
+//    override func viewWillAppear(animated: Bool) {
+//        
+//        //loadView()
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -30,9 +37,16 @@ class StatisticsViewController: UIViewController {
     
     func watchForNotifications(notification:NSNotification) {
 
-        // get latest grid - CHECK THIS - grid is get only, no set
         //StandardEngine.sharedInstance.grid = notification.userInfo as? GridProtocol
-   
+        
+        // UPDATE COUNT USING LATEST GRID HERE
+        updateCounts()
+        
+        // loadView()
+        
+    }
+    
+    func updateCounts() {
         // stores count of each type of cell
         var livingTotal = 0
         var bornTotal = 0
@@ -54,11 +68,12 @@ class StatisticsViewController: UIViewController {
             }
         }
         
-        livingCount.text = String(livingTotal)
-        bornCount.text = String(bornTotal)
-        emptyCount.text = String(emptyTotal)
-        diedCount.text = String(diedTotal)
-        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.livingCount.text = String(livingTotal)
+            self.bornCount.text = String(bornTotal)
+            self.emptyCount.text = String(emptyTotal)
+            self.diedCount.text = String(diedTotal)
+        }
     }
 }
 

@@ -14,6 +14,6 @@ protocol GridProtocol {
     
     func neighbours(coords: (col: Int, row: Int), maxCol: Int, maxRow: Int) -> Array<(Int, Int)>
     
-    subscript(row: Int, col: Int) -> CellState? { get set }
+    subscript(col: Int, row: Int) -> CellState? { get set }
 }
 

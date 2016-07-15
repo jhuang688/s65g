@@ -12,16 +12,18 @@ class InstrumentationViewController: UIViewController {
 
     @IBOutlet weak var rows: UITextField!
     @IBOutlet weak var cols: UITextField!
-    
     @IBOutlet weak var timerSwitch: UISwitch!
+    @IBOutlet weak var refreshRateSlider: UISlider!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let sel = #selector(SimulationViewController.watchForNotifications(_:))
+        let sel = #selector(InstrumentationViewController.watchForNotifications(_:))
         let center  = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: sel, name: "EngineUpdate", object: nil)
+        center.addObserver(self, selector: sel, name: "TimerFired", object: nil)
+        // we don't really need to listen for EngineUpdate since the settings will all be the latest
+        // and cannot be changed anywhere but in this view
     }
 
     override func didReceiveMemoryWarning() {
@@ -124,6 +126,10 @@ class InstrumentationViewController: UIViewController {
         }
         else {
             let sel = #selector(StandardEngine.timerDidFire(_:))
+            
+            // NEED TO SET REFRESH RATE TO VALUE OF SLIDER IN CASE IT HASN'T BEEN TOUCHED YET
+            StandardEngine.sharedInstance.refreshRate = Double(refreshRateSlider.value)
+            
             StandardEngine.sharedInstance.refreshTimer = NSTimer.scheduledTimerWithTimeInterval(
                                                                 StandardEngine.sharedInstance.refreshRate,
                                                                 target: self,
@@ -133,6 +139,24 @@ class InstrumentationViewController: UIViewController {
         }
     }
     
+    func watchForNotifications(notification:NSNotification) {
+        // technically, this view controller doesn't need to watch for notifications?
+
+        // SETTINGS SHOULD ALREADY BE THE LATEST - DO NOTHING
+        
+        // get latest grid - CHECK THIS - grid is get only, no set
+        //StandardEngine.sharedInstance.grid = notification.userInfo as? GridProtocol
+//        if let info = notification.userInfo {
+//            StandardEngine.sharedInstance.grid! =  info as! GridProtocol
+//        }
+        
+        let newGrid = StandardEngine.sharedInstance.step()
+        StandardEngine.sharedInstance.grid = newGrid
+        if let delegate = StandardEngine.sharedInstance.delegate {
+            delegate.engineDidUpdate(StandardEngine.sharedInstance.grid! as! Grid)
+        }
+        
+    }
     
 }
 

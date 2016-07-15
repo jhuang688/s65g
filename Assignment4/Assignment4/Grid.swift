@@ -48,7 +48,7 @@ class Grid: GridProtocol {
     
     private var cells : [[CellState]] =  []
     
-    subscript(row: Int, col: Int) -> CellState? {
+    subscript(col: Int, row: Int) -> CellState? {
         get {
             if row < 0 || row >= rows || col < 0 || col >= cols {
                 return nil

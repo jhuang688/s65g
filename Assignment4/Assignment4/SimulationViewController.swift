@@ -18,8 +18,7 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        stdEngine = StandardEngine.sharedInstance
-        stdEngine.delegate = self
+        StandardEngine.sharedInstance.delegate = self
         
         let sel = #selector(SimulationViewController.watchForNotifications(_:))
         let center  = NSNotificationCenter.defaultCenter()
@@ -36,13 +35,18 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
     
     func watchForNotifications(notification:NSNotification) {
         
-        // get latest grid - CHECK THIS - grid is get only, no set
         //StandardEngine.sharedInstance.grid = notification.userInfo as? GridProtocol
-        if let info = notification.userInfo {
-            StandardEngine.sharedInstance.grid! =  info as! GridProtocol
-        }
-        gridView.gridlinesDrawn = false
-        gridView.setNeedsDisplay()
+//        if let info = notification.userInfo {
+//            StandardEngine.sharedInstance.grid! =  info as! GridProtocol
+//        }
+        
+        // REDRAW USING LATEST GRID HERE
+        
+        loadView()
+        
+//        gridView.gridlinesDrawn = false
+//        gridView.touched = false
+//        gridView.setNeedsDisplay()
 
     }
 
@@ -63,9 +67,13 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
 //                               object: nil,
 //                               userInfo: ["gridObject": (withGrid as? AnyObject)!])
         //center.postNotificationName("EngineUpdate", object: nil, userInfo: ["gridObject":withGrid])
+//        let n = NSNotification(name: "EngineUpdate",
+//                               object: nil,
+//                               userInfo: ["gridObject": withGrid])
         let n = NSNotification(name: "EngineUpdate",
                                object: nil,
-                               userInfo: ["gridObject": withGrid])
+                               userInfo: nil)
+
         center.postNotification(n)
     }
     

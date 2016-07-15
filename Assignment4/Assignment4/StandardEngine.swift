@@ -77,7 +77,7 @@ class StandardEngine: EngineProtocol {
         }
     }
 
-    var refreshTimer: NSTimer? = nil // by default, the timer is off
+    var refreshTimer: NSTimer? //= nil // by default, the timer is off
 
     func step() -> GridProtocol {
         var after: GridProtocol? = grid
@@ -127,9 +127,10 @@ class StandardEngine: EngineProtocol {
 
     @objc func timerDidFire(timer:NSTimer) {
         let center = NSNotificationCenter.defaultCenter()
-        let n = NSNotification(name: "EngineUpdate",
+        let n = NSNotification(name: "TimerFired",
                                object: nil,
-                               userInfo: ["gridObject": grid! as! AnyObject])
+                               userInfo: nil)
+                               //userInfo: ["gridObject": grid! as! AnyObject])
         center.postNotification(n)
     }
 }

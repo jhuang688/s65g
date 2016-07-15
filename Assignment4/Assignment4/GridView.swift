@@ -9,25 +9,6 @@
 import UIKit
 
 @IBDesignable class GridView: UIView {
-    // number of rows and cols
-//    @IBInspectable var rows: Int = 20 {
-//        didSet {
-//            // re-initialise grid as all empty upon change
-//            grid = []
-//            for _ in 0..<cols {
-//                grid.append(Array(count:rows, repeatedValue:.Empty))
-//            }
-//        }
-//    }
-//    @IBInspectable var cols: Int = 20 {
-//        didSet {
-//            // re-initialise grid as all empty upon change
-//            grid = []
-//            for _ in 0..<cols {
-//                grid.append(Array(count:rows, repeatedValue:.Empty))
-//            }
-//        }
-//    }
     
     // default cell colours
     @IBInspectable var livingColor: UIColor = UIColor.yellowColor()
@@ -38,9 +19,6 @@ import UIKit
     // colour and width of grid lines
     @IBInspectable var gridColor: UIColor = UIColor.blackColor()
     @IBInspectable var gridWidth: CGFloat = 2.0
-    
-    // 2D array of CellState representing the grid
-    //var grid: [[CellState]] = []
     
     // used as flags for what needs to drawn
     var gridlinesDrawn = false
@@ -171,15 +149,14 @@ import UIKit
             // set grid = newGrid
             StandardEngine.sharedInstance.grid = newGrid
             
-            if let delegate = StandardEngine.sharedInstance.delegate {
-                delegate.engineDidUpdate(StandardEngine.sharedInstance.grid! as! Grid)
-            }
-            
-            
             // define cell to redraw as CGRect, set touched to true, and redraw only that cell
             let cellToRedraw = CGRectMake(CGFloat(touchCol)*cellWidth + gridWidth/2, CGFloat(touchRow)*cellHeight + gridWidth/2, cellWidth - gridWidth, cellHeight - gridWidth)
             touched = true
             self.setNeedsDisplayInRect(cellToRedraw)
+            
+            if let delegate = StandardEngine.sharedInstance.delegate {
+                delegate.engineDidUpdate(StandardEngine.sharedInstance.grid! as! Grid)
+            }
         }
     }
 }
