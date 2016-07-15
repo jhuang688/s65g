@@ -19,15 +19,12 @@ class StandardEngine: EngineProtocol {
     required init(cols: Int, rows: Int) {
         self.cols = cols
         self.rows = rows
-        //grid!.cols = cols
-        //grid.rows = rows
         grid = Grid(cols: cols, rows: rows)
         
     }
 
     var rows: Int {
         didSet {
-            // THE GRID IS GET ONLY
             grid = Grid(cols: cols, rows: rows)
             for col in 0..<cols {
                 for row in 0..<rows {
@@ -37,7 +34,7 @@ class StandardEngine: EngineProtocol {
             
             // PROBLEM HERE: DELEGATE IS NOT YET SET, GETTING NIL ON UNWRAP GRID
             if let delegate = delegate {
-                delegate.engineDidUpdate(grid!)
+                delegate.engineDidUpdate(grid! as! Grid)
             }
         }
     }
@@ -53,24 +50,14 @@ class StandardEngine: EngineProtocol {
             
             // PROBLEM HERE: DELEGATE IS NOT YET SET  GETTING NIL ON  UNWRAP
             if let delegate = delegate {
-                delegate.engineDidUpdate(grid!)
+                delegate.engineDidUpdate(grid! as! Grid)
             }
         }
     }
 
-    var delegate: EngineDelegateProtocol? {
-        get {
-            return self.delegate
-        }
-        set {
-            self.delegate = newValue
-        }
-    }
-    var grid: GridProtocol? {
-        get {
-            return self.grid
-        }
-    }
+    var delegate: EngineDelegateProtocol?
+    var grid: GridProtocol?
+    
     var refreshRate: Double = 0.0 {
         didSet {
             if refreshRate != 0 {
@@ -82,18 +69,15 @@ class StandardEngine: EngineProtocol {
                                                                userInfo: nil,
                                                                repeats: true)
             }
-            else if let refreshTimer = refreshTimer {   // IT WILL NEVER BE 0 SINCE SLIDER DOESN'T GO TO 0!!!
+            else if let refreshTimer = refreshTimer {   // it should never be 0 since slider doesn't go to 0, but
+                                                        // in case it does one day, leave the logic here
                 refreshTimer.invalidate()
                 self.refreshTimer = nil
             }
         }
     }
 
-    var refreshTimer: NSTimer? = nil //{  // BY DEFAULT, TIMER IS OFF
-//        didSet {
-//
-//        }
-//    }
+    var refreshTimer: NSTimer? = nil // by default, the timer is off
 
     func step() -> GridProtocol {
         var after: GridProtocol? = grid
@@ -147,6 +131,5 @@ class StandardEngine: EngineProtocol {
                                object: nil,
                                userInfo: ["gridObject": grid! as! AnyObject])
         center.postNotification(n)
-        //print ("\(timer.userInfo?["name"] ?? "not fred")")
     }
 }

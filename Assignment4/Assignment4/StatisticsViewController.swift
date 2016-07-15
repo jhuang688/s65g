@@ -29,11 +29,12 @@ class StatisticsViewController: UIViewController {
     }
     
     func watchForNotifications(notification:NSNotification) {
-        //print("\(notification.userInfo)")
+
         // get latest grid - CHECK THIS - grid is get only, no set
         //StandardEngine.sharedInstance.grid = notification.userInfo as? GridProtocol
    
-        var livingTotal = 0  // stores count of living cells
+        // stores count of each type of cell
+        var livingTotal = 0
         var bornTotal = 0
         var emptyTotal = 0
         var diedTotal = 0

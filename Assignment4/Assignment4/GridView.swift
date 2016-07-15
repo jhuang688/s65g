@@ -164,11 +164,15 @@ import UIKit
         // A touch that begins outside the grid is invalid and will get no response,
         // even if it then moves inside.
         if touchRow >= 0 && touchRow < rows && touchCol >= 0 && touchCol < cols {
-            // toggle touched cell
-            StandardEngine.sharedInstance.grid![touchCol,touchRow]! = StandardEngine.sharedInstance.grid![touchCol,touchRow]!.toggle(StandardEngine.sharedInstance.grid![touchCol,touchRow]!)
+            // toggle touched cell in newGrid (replica of grid)
+            var newGrid: GridProtocol = StandardEngine.sharedInstance.grid!
+            newGrid[touchCol,touchRow]! = newGrid[touchCol,touchRow]!.toggle(newGrid[touchCol,touchRow]!)
+            
+            // set grid = newGrid
+            StandardEngine.sharedInstance.grid = newGrid
             
             if let delegate = StandardEngine.sharedInstance.delegate {
-                delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
+                delegate.engineDidUpdate(StandardEngine.sharedInstance.grid! as! Grid)
             }
             
             

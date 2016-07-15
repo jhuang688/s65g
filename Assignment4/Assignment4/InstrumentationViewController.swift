@@ -36,10 +36,10 @@ class InstrumentationViewController: UIViewController {
                 StandardEngine.sharedInstance.rows = numRows
             }
             else {
-                // set to 0?? SHOULD 0 be allowed???
-                // HANDLE IN SAME WAY AS STEPPER
+                // invalid number - do nothing
             }
         }
+        // else (no text, or non-integer text) do nothing
     }
     
     @IBAction func didUpdateCols(sender: UITextField) {
@@ -49,10 +49,10 @@ class InstrumentationViewController: UIViewController {
                 StandardEngine.sharedInstance.cols = numCols
             }
             else {
-                // set to 0?? SHOULD 0 be allowed???
-                // HANDLE IN SAME WAY AS STEPPER
+                // invalid number - do nothing
             }
         }
+        // else (no text, or non-integer text) do nothing
     }
     
     @IBAction func incrementCols(sender: UIStepper) {
@@ -64,19 +64,18 @@ class InstrumentationViewController: UIViewController {
             if (sender.value == -10) {
                 cols.text = String(numCols - 10)
             }
-            
-            // SHOULD 0 BE ALLOWED???
+
             if Int(cols.text!)! > 0 {
                 StandardEngine.sharedInstance.cols = Int(cols.text!)!
             }
-            else {
+            else {  // got a negative number. set to smallest possible, ie. 1
                 StandardEngine.sharedInstance.cols = 1
                 cols.text = "1"
             }
             
             sender.value = 0  // ready for next click
         }
-        else  {   // no text - set to default
+        else  {   // no text or invalid text - set to default
             cols.text = "10"
             StandardEngine.sharedInstance.cols = 10
         }
@@ -92,18 +91,17 @@ class InstrumentationViewController: UIViewController {
                 rows.text = String(numRows - 10)
             }
             
-            // SHOULD 0 BE ALLOWED???
             if Int(rows.text!)! > 0 {
                 StandardEngine.sharedInstance.rows = Int(rows.text!)!
             }
-            else {
+            else {  // got a negative number. set to smallest possible, ie. 1
                 StandardEngine.sharedInstance.rows = 1
                 rows.text = "1"
             }
             
             sender.value = 0    // ready for next click
         }
-        else  {   // no text - set to default
+        else  {   // no text or invalid text - set to default
             rows.text = "10"
             StandardEngine.sharedInstance.rows = 10
         }

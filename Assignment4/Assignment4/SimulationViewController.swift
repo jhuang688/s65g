@@ -35,10 +35,12 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
 //    }
     
     func watchForNotifications(notification:NSNotification) {
-        //print("\(notification.userInfo)")
         
         // get latest grid - CHECK THIS - grid is get only, no set
         //StandardEngine.sharedInstance.grid = notification.userInfo as? GridProtocol
+        if let info = notification.userInfo {
+            StandardEngine.sharedInstance.grid! =  info as! GridProtocol
+        }
         gridView.gridlinesDrawn = false
         gridView.setNeedsDisplay()
 
@@ -49,7 +51,7 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         // Dispose of any resources that can be recreated.
     }
     
-    func engineDidUpdate(withGrid: GridProtocol) {
+    func engineDidUpdate(withGrid: Grid) {
         // publish Grid as notification
         // each controller subscribes to notifications and updates its own appearance
         //gridView.setNeedsDisplay()
@@ -60,9 +62,10 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
 //        let n = NSNotification(name: "EngineUpdate",
 //                               object: nil,
 //                               userInfo: ["gridObject": (withGrid as? AnyObject)!])
+        //center.postNotificationName("EngineUpdate", object: nil, userInfo: ["gridObject":withGrid])
         let n = NSNotification(name: "EngineUpdate",
                                object: nil,
-                               userInfo: nil)
+                               userInfo: ["gridObject": withGrid])
         center.postNotification(n)
     }
     
@@ -70,7 +73,7 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         let newGrid = StandardEngine.sharedInstance.step()
         StandardEngine.sharedInstance.grid = newGrid
         if let delegate = StandardEngine.sharedInstance.delegate {
-            delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
+            delegate.engineDidUpdate(StandardEngine.sharedInstance.grid! as! Grid)
         }
     }
 }
