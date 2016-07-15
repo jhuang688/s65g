@@ -127,6 +127,9 @@ class InstrumentationViewController: UIViewController {
         else {
             let sel = #selector(StandardEngine.timerDidFire(_:))
             
+            // THIS PART IS CAUSING A CRASH!
+            
+            
             // NEED TO SET REFRESH RATE TO VALUE OF SLIDER IN CASE IT HASN'T BEEN TOUCHED YET
             StandardEngine.sharedInstance.refreshRate = Double(refreshRateSlider.value)
             

@@ -42,11 +42,13 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         
         // REDRAW USING LATEST GRID HERE
         
-        loadView()
+        //self.view.layoutIfNeeded()
+  //      loadView()
+        //self.view.layoutIfNeeded()
         
-//        gridView.gridlinesDrawn = false
+        gridView.gridlinesDrawn = false
 //        gridView.touched = false
-//        gridView.setNeedsDisplay()
+        gridView.setNeedsDisplay()
 
     }
 

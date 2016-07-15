@@ -149,10 +149,10 @@ import UIKit
             // set grid = newGrid
             StandardEngine.sharedInstance.grid = newGrid
             
-            // define cell to redraw as CGRect, set touched to true, and redraw only that cell
-            let cellToRedraw = CGRectMake(CGFloat(touchCol)*cellWidth + gridWidth/2, CGFloat(touchRow)*cellHeight + gridWidth/2, cellWidth - gridWidth, cellHeight - gridWidth)
-            touched = true
-            self.setNeedsDisplayInRect(cellToRedraw)
+//            // define cell to redraw as CGRect, set touched to true, and redraw only that cell
+//            let cellToRedraw = CGRectMake(CGFloat(touchCol)*cellWidth + gridWidth/2, CGFloat(touchRow)*cellHeight + gridWidth/2, cellWidth - gridWidth, cellHeight - gridWidth)
+//            touched = true
+//            self.setNeedsDisplayInRect(cellToRedraw)
             
             if let delegate = StandardEngine.sharedInstance.delegate {
                 delegate.engineDidUpdate(StandardEngine.sharedInstance.grid! as! Grid)
