@@ -13,6 +13,7 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
     var stdEngine: EngineProtocol!
 
     @IBOutlet weak var gridView: GridView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,16 +66,11 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         
         // PROBLEM HERE - THROWING NSException
         let center = NSNotificationCenter.defaultCenter()
-//        let n = NSNotification(name: "EngineUpdate",
-//                               object: nil,
-//                               userInfo: ["gridObject": (withGrid as? AnyObject)!])
-        //center.postNotificationName("EngineUpdate", object: nil, userInfo: ["gridObject":withGrid])
-//        let n = NSNotification(name: "EngineUpdate",
-//                               object: nil,
-//                               userInfo: ["gridObject": withGrid])
+
         let n = NSNotification(name: "EngineUpdate",
                                object: nil,
-                               userInfo: nil)
+                               userInfo: ["gridObject": withGrid as! AnyObject])
+                               //userInfo: nil)
 
         center.postNotification(n)
     }

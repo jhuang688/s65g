@@ -24,6 +24,7 @@ class InstrumentationViewController: UIViewController {
         center.addObserver(self, selector: sel, name: "TimerFired", object: nil)
         // we don't really need to listen for EngineUpdate since the settings will all be the latest
         // and cannot be changed anywhere but in this view
+        // we will use this view controller to handle timer fired notifications
     }
 
     override func didReceiveMemoryWarning() {
@@ -127,9 +128,6 @@ class InstrumentationViewController: UIViewController {
         else {
             let sel = #selector(InstrumentationViewController.timerDidFire(_:))
             
-            // THIS PART IS CAUSING A CRASH!
-            
-            
             // need to set refresh rate to value of slider in case it hasn't been touched yet
             // if we don't do this, it will still be at the default value of 0.0
             StandardEngine.sharedInstance.refreshRate = Double(refreshRateSlider.value)
@@ -144,11 +142,7 @@ class InstrumentationViewController: UIViewController {
     }
     
     func watchForNotifications(notification:NSNotification) {
-        // technically, this view controller doesn't need to watch for notifications?
 
-        // SETTINGS SHOULD ALREADY BE THE LATEST - DO NOTHING
-        
-        // get latest grid - CHECK THIS - grid is get only, no set
         //StandardEngine.sharedInstance.grid = notification.userInfo as? GridProtocol
 //        if let info = notification.userInfo {
 //            StandardEngine.sharedInstance.grid! =  info as! GridProtocol
@@ -166,8 +160,8 @@ class InstrumentationViewController: UIViewController {
         let center = NSNotificationCenter.defaultCenter()
         let n = NSNotification(name: "TimerFired",
                                object: nil,
-                               userInfo: nil)
-        //userInfo: ["gridObject": grid! as! AnyObject])
+                               userInfo: ["gridObject": StandardEngine.sharedInstance.grid! as! AnyObject])
+                               //userInfo: nil)
         center.postNotification(n)
     }
     

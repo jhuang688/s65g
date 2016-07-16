@@ -233,7 +233,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Simulation" image="Simulation" id="cPa-gy-q4n" userLabel="Simulation"/>
                     <connections>
-                        <outlet property="gridView" destination="fB1-P9-y8T" id="1iK-8y-82f"/>
+                        <outlet property="gridView" destination="fB1-P9-y8T" id="350-rO-UnE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>

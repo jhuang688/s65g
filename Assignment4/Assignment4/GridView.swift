@@ -9,7 +9,8 @@
 import UIKit
 
 @IBDesignable class GridView: UIView {
-    
+//class GridView: UIView {
+
     // default cell colours
     @IBInspectable var livingColor: UIColor = UIColor.yellowColor()
     @IBInspectable var emptyColor: UIColor = UIColor.clearColor()  // UIColor.grayColor()
@@ -19,6 +20,10 @@ import UIKit
     // colour and width of grid lines
     @IBInspectable var gridColor: UIColor = UIColor.blackColor()
     @IBInspectable var gridWidth: CGFloat = 2.0
+    
+    // num rows and cols - give default values to silence warnings - update with latest values later
+    var cols: Int = 10
+    var rows: Int = 10
     
     // used as flags for what needs to drawn
     var gridlinesDrawn = false
@@ -31,8 +36,9 @@ import UIKit
     override func drawRect(rect: CGRect) {
         // super.drawRect(rect)  // not needed
         
-        let cols = StandardEngine.sharedInstance.cols
-        let rows = StandardEngine.sharedInstance.rows
+        // in case they have changed, get them again
+        cols = StandardEngine.sharedInstance.cols
+        rows = StandardEngine.sharedInstance.rows
         
         // calculate cell size. This allows for non-square cells.
         // If they must be squares, they can both equal the minimum of the two.

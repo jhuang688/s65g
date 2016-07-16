@@ -18,7 +18,7 @@ class StatisticsViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        updateCounts()
+        updateCounts()   // initial counts
         
         let sel = #selector(StatisticsViewController.watchForNotifications(_:))
         let center  = NSNotificationCenter.defaultCenter()
