@@ -24,10 +24,6 @@ import UIKit
     var cols: Int = 10
     var rows: Int = 10
     
-    // used as flags for what needs to drawn
-    var gridlinesDrawn = false
-    var touched = false
-    
     // col and row of touched cell to redraw - this is set by processTouch
     var touchCol = 0
     var touchRow = 0
@@ -44,70 +40,46 @@ import UIKit
         let cellWidth: CGFloat = self.frame.size.width / CGFloat(cols)
         let cellHeight: CGFloat = self.frame.size.height / CGFloat (rows)
         
-        if gridlinesDrawn == false {
-            // draw gridlines
-            let gridLines = UIBezierPath()
-            
-            gridLines.lineWidth = gridWidth
-            
-            for col in 0...cols {
-                gridLines.moveToPoint(CGPoint(x: CGFloat(col) * cellWidth, y: 0))
-                gridLines.addLineToPoint(CGPoint(x: CGFloat(col) * cellWidth, y: CGFloat(rows) * cellHeight))
-            }
-            
-            for row in 0...rows {
-                gridLines.moveToPoint(CGPoint(x: 0, y: CGFloat(row) * cellHeight))
-                gridLines.addLineToPoint(CGPoint(x: CGFloat(cols) * cellWidth, y: CGFloat(row) * cellHeight))
-            }
-            
-            gridColor.setStroke()
-            gridLines.stroke()
-            
-            gridlinesDrawn = true  // set to true to avoid unnecessary redraw
+
+        // draw gridlines
+        let gridLines = UIBezierPath()
+        
+        gridLines.lineWidth = gridWidth
+        
+        for col in 0...cols {
+            gridLines.moveToPoint(CGPoint(x: CGFloat(col) * cellWidth, y: 0))
+            gridLines.addLineToPoint(CGPoint(x: CGFloat(col) * cellWidth, y: CGFloat(rows) * cellHeight))
         }
         
-        if touched == false {
-            // draw all circles in cells
-            for col in 0..<cols {
-                for row in 0..<rows {
-                    let aCell = CGRectMake(CGFloat(col)*cellWidth + gridWidth/2, CGFloat(row)*cellHeight + gridWidth/2, cellWidth - gridWidth, cellHeight - gridWidth)
-                    
-                    let circle = UIBezierPath(ovalInRect: aCell)
-                    var cellColor: UIColor
-                    switch (StandardEngine.sharedInstance.grid![col,row]!) {
-                    case .Living:
-                        cellColor = livingColor
-                    case .Empty:
-                        cellColor = emptyColor
-                    case .Born:
-                        cellColor = bornColor
-                    case .Died:
-                        cellColor = diedColor
-                    }
-                    cellColor.setFill()
-                    circle.fill()
-                }
-            }
+        for row in 0...rows {
+            gridLines.moveToPoint(CGPoint(x: 0, y: CGFloat(row) * cellHeight))
+            gridLines.addLineToPoint(CGPoint(x: CGFloat(cols) * cellWidth, y: CGFloat(row) * cellHeight))
         }
-        else {     // touched = true - only redraw touched cell
-            let aCell = CGRectMake(CGFloat(touchCol)*cellWidth + gridWidth/2, CGFloat(touchRow)*cellHeight + gridWidth/2, cellWidth - gridWidth, cellHeight - gridWidth)
-            
-            let circle = UIBezierPath(ovalInRect: aCell)
-            var cellColor: UIColor
-            switch (StandardEngine.sharedInstance.grid![touchCol,touchRow]!) {
-            case .Living:
-                cellColor = livingColor
-            case .Empty:
-                cellColor = emptyColor
-            case .Born:
-                cellColor = bornColor
-            case .Died:
-                cellColor = diedColor
+        
+        gridColor.setStroke()
+        gridLines.stroke()
+        
+
+        // draw all circles in cells
+        for col in 0..<cols {
+            for row in 0..<rows {
+                let aCell = CGRectMake(CGFloat(col)*cellWidth + gridWidth/2, CGFloat(row)*cellHeight + gridWidth/2, cellWidth - gridWidth, cellHeight - gridWidth)
+                
+                let circle = UIBezierPath(ovalInRect: aCell)
+                var cellColor: UIColor
+                switch (StandardEngine.sharedInstance.grid![col,row]!) {
+                case .Living:
+                    cellColor = livingColor
+                case .Empty:
+                    cellColor = emptyColor
+                case .Born:
+                    cellColor = bornColor
+                case .Died:
+                    cellColor = diedColor
+                }
+                cellColor.setFill()
+                circle.fill()
             }
-            cellColor.setFill()
-            circle.fill()
-            
-            touched = false  // set back to false - will be set true by processTouch as triggered
         }
     }
     
@@ -141,7 +113,7 @@ import UIKit
         touchRow = Int (floor(point.y / cellHeight))
         touchCol  = Int (floor(point.x / cellWidth))
         
-        // Only toggle and redraw if it is a valid cell location.
+        // Only toggle if it is a valid cell location.
         // This avoids a crash when the user's touch begins in the grid, and moves outside,
         // a very possible accident.
         // A touch that begins outside the grid is invalid and will get no response,
@@ -154,11 +126,7 @@ import UIKit
             // set grid = newGrid
             StandardEngine.sharedInstance.grid = newGrid
             
-//            // define cell to redraw as CGRect, set touched to true, and redraw only that cell
-//            let cellToRedraw = CGRectMake(CGFloat(touchCol)*cellWidth + gridWidth/2, CGFloat(touchRow)*cellHeight + gridWidth/2, cellWidth - gridWidth, cellHeight - gridWidth)
-//            touched = true
-//            self.setNeedsDisplayInRect(cellToRedraw)
-            
+            // send EngineUpdate notification
             if let delegate = StandardEngine.sharedInstance.delegate {
                 delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
             }

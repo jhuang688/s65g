@@ -29,9 +29,7 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
     
     func watchForNotifications(notification:NSNotification) {
         // redraw
-        gridView.gridlinesDrawn = false
         gridView.setNeedsDisplay()
-
     }
 
     override func didReceiveMemoryWarning() {

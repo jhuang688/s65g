@@ -9,6 +9,7 @@
 import Foundation
 
 class StandardEngine: EngineProtocol {
+    // singleton
     private static var _sharedInstance = StandardEngine(cols: 10, rows: 10)
     static var sharedInstance: StandardEngine {
         get {
