@@ -20,6 +20,7 @@ class StatisticsViewController: UIViewController {
         
         updateCounts()   // initial counts
         
+        // subscribe to EngineUpdate notifications
         let sel = #selector(StatisticsViewController.watchForNotifications(_:))
         let center  = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: sel, name: "EngineUpdate", object: nil)
@@ -31,12 +32,10 @@ class StatisticsViewController: UIViewController {
     }
     
     func watchForNotifications(notification:NSNotification) {
-
-        //StandardEngine.sharedInstance.grid = notification.userInfo as? GridProtocol
-
         updateCounts()
     }
     
+    // this function recounts and updates the labels on statistics view
     func updateCounts() {
         // stores count of each type of cell
         var livingTotal = 0

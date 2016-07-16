@@ -19,12 +19,13 @@ class InstrumentationViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        // subscribe to TimerFired notifications
+        // We don't need to listen for EngineUpdate notifications since the settings
+        // will always be whatever was set last and cannot be changed anywhere but in this view
+        // We will use this view controller to handle TimerFired notifications
         let sel = #selector(InstrumentationViewController.watchForNotifications(_:))
         let center  = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: sel, name: "TimerFired", object: nil)
-        // we don't really need to listen for EngineUpdate since the settings will all be the latest
-        // and cannot be changed anywhere but in this view
-        // we will use this view controller to handle timer fired notifications
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,6 +33,7 @@ class InstrumentationViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // updates from text field
     @IBAction func didUpdateRows(sender: UITextField) {
         if let text = rows.text,
             numRows = Int(text)  {
@@ -45,6 +47,7 @@ class InstrumentationViewController: UIViewController {
         // else (no text, or non-integer text) do nothing
     }
     
+    // updates from text field
     @IBAction func didUpdateCols(sender: UITextField) {
         if let text = cols.text,
             numCols = Int(text)  {
@@ -58,6 +61,7 @@ class InstrumentationViewController: UIViewController {
         // else (no text, or non-integer text) do nothing
     }
     
+    // updates from stepper
     @IBAction func incrementCols(sender: UIStepper) {
         if let text = cols.text,
             numCols = Int(text)  {
@@ -76,7 +80,7 @@ class InstrumentationViewController: UIViewController {
                 cols.text = "1"
             }
             
-            sender.value = 0  // ready for next click
+            sender.value = 0  // reset, ready for next click
         }
         else  {   // no text or invalid text - set to default
             cols.text = "10"
@@ -84,6 +88,7 @@ class InstrumentationViewController: UIViewController {
         }
     }
     
+    // updates from stepper
     @IBAction func incrementRows(sender: UIStepper) {
         if let text = rows.text,
             numRows = Int(text)  {
@@ -102,7 +107,7 @@ class InstrumentationViewController: UIViewController {
                 rows.text = "1"
             }
             
-            sender.value = 0    // ready for next click
+            sender.value = 0    // reset, ready for next click
         }
         else  {   // no text or invalid text - set to default
             rows.text = "10"
@@ -113,47 +118,32 @@ class InstrumentationViewController: UIViewController {
     @IBAction func changeRefreshRate(sender: UISlider) {
         StandardEngine.sharedInstance.refreshRate = Double(sender.value)
         
-        // setting refreshRate will install a timer. Change UI to reflect that timer is now on.
-        // user needs to turn it off if they want it off.
-        // by default, refreshRate is 0.0, and timer is off
+        // Setting refreshRate will install a timer. Change UI to reflect that timer is now on.
+        // User needs to turn it off if they want it off.
+        // By default, refreshRate is 0.0, and timer is off
+        
         timerSwitch.on = true
         
     }
     
     @IBAction func toggleTimedRefresh(sender: UISwitch) {
-        
-        // check status of UISwitch! - done
-        
         if let _ = StandardEngine.sharedInstance.refreshTimer {
             StandardEngine.sharedInstance.refreshRate = 0.0   // this will remove the timer in refreshRate's didSet
         }
-        else if sender.on == true {
+        else {
             StandardEngine.sharedInstance.refreshRate = Double(refreshRateSlider.value)   // this will set the timer in refreshRate's didSet
         }
     }
     
     func watchForNotifications(notification:NSNotification) {
-
-        //StandardEngine.sharedInstance.grid = notification.userInfo as? GridProtocol
-//        if let info = notification.userInfo {
-//            StandardEngine.sharedInstance.grid! =  info as! GridProtocol
-//        }
-        
+        // step
         let newGrid = StandardEngine.sharedInstance.step()
         StandardEngine.sharedInstance.grid = newGrid
+        // send EngineUpdate notification
         if let delegate = StandardEngine.sharedInstance.delegate {
             delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
         }
         
-    }
-    
-    @objc func timerDidFire(timer:NSTimer) {
-        let center = NSNotificationCenter.defaultCenter()
-        let n = NSNotification(name: "TimerFired",
-                               object: nil,
-                               userInfo: ["gridObject": StandardEngine.sharedInstance.grid! as! AnyObject])
-
-        center.postNotification(n)
     }
     
 }

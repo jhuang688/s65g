@@ -11,6 +11,7 @@ class Grid: GridProtocol {
     required init(cols: Int, rows: Int) {
         self.rows = rows
         self.cols = cols
+        // initialise as all empty
         for _ in 0..<cols {
             cells.append(Array(count:rows, repeatedValue:.Empty))
         }
@@ -19,6 +20,7 @@ class Grid: GridProtocol {
     var rows: Int
     var cols: Int
     
+    // returns the neighbours of a cell as an array of tuples
     func neighbours(coords: (col: Int, row: Int), maxCol: Int, maxRow: Int) -> Array<(Int, Int)> {
         var prevCol = coords.col - 1   // index of previous col
         var nextCol = coords.col + 1   // index of next col
@@ -46,8 +48,10 @@ class Grid: GridProtocol {
                 (nextCol, prevRow), (nextCol, coords.row), (nextCol, nextRow)]
     }
     
+    // 2D array of cell states representing the grid
     private var cells : [[CellState]] =  []
     
+    // used to get and set cells, given col and row
     subscript(col: Int, row: Int) -> CellState? {
         get {
             if row < 0 || row >= rows || col < 0 || col >= cols {

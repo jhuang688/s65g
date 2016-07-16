@@ -14,13 +14,13 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
 
     @IBOutlet weak var gridView: GridView!
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        StandardEngine.sharedInstance.delegate = self
+        StandardEngine.sharedInstance.delegate = self   // SimulationVC is the delegate
         
+        // subscribe to EngineUpdate notifications
         let sel = #selector(SimulationViewController.watchForNotifications(_:))
         let center  = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: sel, name: "EngineUpdate", object: nil)
@@ -28,15 +28,8 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
     }
     
     func watchForNotifications(notification:NSNotification) {
-        
-        //StandardEngine.sharedInstance.grid = notification.userInfo as? GridProtocol
-//        if let info = notification.userInfo {
-//            StandardEngine.sharedInstance.grid! =  info as! GridProtocol
-//        }
-        
         // redraw
         gridView.gridlinesDrawn = false
-//        gridView.touched = false
         gridView.setNeedsDisplay()
 
     }
@@ -47,21 +40,19 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
     }
     
     func engineDidUpdate(withGrid: GridProtocol) {
-        // publish Grid as notification
-        // each controller subscribes to notifications and updates its own appearance
-
+        // post EngineUpdate notification
         let center = NSNotificationCenter.defaultCenter()
-
         let n = NSNotification(name: "EngineUpdate",
                                object: nil,
                                userInfo: ["gridObject": withGrid as! AnyObject])
-
         center.postNotification(n)
     }
     
     @IBAction func buttonClicked(sender: AnyObject) {
+        // step
         let newGrid = StandardEngine.sharedInstance.step()
         StandardEngine.sharedInstance.grid = newGrid
+        // send EngineUpdate notification
         if let delegate = StandardEngine.sharedInstance.delegate {
             delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
         }

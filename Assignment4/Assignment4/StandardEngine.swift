@@ -19,21 +19,21 @@ class StandardEngine: EngineProtocol {
     required init(cols: Int, rows: Int) {
         self.cols = cols
         self.rows = rows
-        refreshRate = 0.0
+        refreshRate = 0.0    // set default refreshRate
         grid = Grid(cols: cols, rows: rows)
         
     }
 
     var rows: Int {
         didSet {
+            // re-initialise grid
             grid = Grid(cols: cols, rows: rows)
             for col in 0..<cols {
                 for row in 0..<rows {
                     grid![col,row] = .Empty
                 }
             }
-            
-            // PROBLEM HERE: DELEGATE IS NOT YET SET, GETTING NIL ON UNWRAP GRID
+            // send EngineUpdate notification
             if let delegate = delegate {
                 delegate.engineDidUpdate(grid!)
             }
@@ -42,14 +42,14 @@ class StandardEngine: EngineProtocol {
 
     var cols: Int {
         didSet {
+            // re-initialise grid
             grid = Grid(cols: cols, rows: rows)
             for col in 0..<cols {
                 for row in 0..<rows {
                     grid![col,row] = .Empty
                 }
             }
-            
-            // PROBLEM HERE: DELEGATE IS NOT YET SET  GETTING NIL ON  UNWRAP
+            // send EngineUpdate notification
             if let delegate = delegate {
                 delegate.engineDidUpdate(grid!)
             }
@@ -59,9 +59,9 @@ class StandardEngine: EngineProtocol {
     var delegate: EngineDelegateProtocol?
     var grid: GridProtocol?
     
-    var refreshRate: Double { //= 0.0 {
+    var refreshRate: Double {
         didSet {
-            if refreshRate != 0 {
+            if refreshRate != 0 {   // remove existing timer if necessary and install new one
                 if let refreshTimer = refreshTimer {
                     refreshTimer.invalidate()
                     self.refreshTimer = nil
@@ -74,14 +74,14 @@ class StandardEngine: EngineProtocol {
                                                                userInfo: nil,
                                                                repeats: true)
             }
-            else if let refreshTimer = refreshTimer {
+            else if let refreshTimer = refreshTimer {   // refreshRate = 0 -> remove existing timer
                 refreshTimer.invalidate()
                 self.refreshTimer = nil
             }
         }
     }
 
-    var refreshTimer: NSTimer? //= nil // by default, the timer is off
+    var refreshTimer: NSTimer?   // by default, the timer is off, and refreshRate is 0.0
 
     func step() -> GridProtocol {
         var after: GridProtocol? = grid
@@ -129,6 +129,7 @@ class StandardEngine: EngineProtocol {
         return after!
     }
 
+    // TimerFired notifications are sent by the timer
     @objc func timerDidFire(timer:NSTimer) {
         let center = NSNotificationCenter.defaultCenter()
         let n = NSNotification(name: "TimerFired",

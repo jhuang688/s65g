@@ -35,7 +35,7 @@ import UIKit
     override func drawRect(rect: CGRect) {
         // super.drawRect(rect)  // not needed
         
-        // in case they have changed, get them again
+        // get the latest values
         cols = StandardEngine.sharedInstance.cols
         rows = StandardEngine.sharedInstance.rows
         
