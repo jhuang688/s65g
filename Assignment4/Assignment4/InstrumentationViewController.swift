@@ -121,23 +121,14 @@ class InstrumentationViewController: UIViewController {
     }
     
     @IBAction func toggleTimedRefresh(sender: UISwitch) {
-        if let timer = StandardEngine.sharedInstance.refreshTimer {
-            timer.invalidate()
-            StandardEngine.sharedInstance.refreshTimer = nil
+        
+        // check status of UISwitch! - done
+        
+        if let _ = StandardEngine.sharedInstance.refreshTimer {
+            StandardEngine.sharedInstance.refreshRate = 0.0   // this will remove the timer in refreshRate's didSet
         }
-        else {
-            let sel = #selector(InstrumentationViewController.timerDidFire(_:))
-            
-            // need to set refresh rate to value of slider in case it hasn't been touched yet
-            // if we don't do this, it will still be at the default value of 0.0
-            StandardEngine.sharedInstance.refreshRate = Double(refreshRateSlider.value)
-            
-            StandardEngine.sharedInstance.refreshTimer = NSTimer.scheduledTimerWithTimeInterval(
-                                                                StandardEngine.sharedInstance.refreshRate,
-                                                                target: self,
-                                                                selector: sel,
-                                                                userInfo: nil,
-                                                                repeats: true)
+        else if sender.on == true {
+            StandardEngine.sharedInstance.refreshRate = Double(refreshRateSlider.value)   // this will set the timer in refreshRate's didSet
         }
     }
     
@@ -161,7 +152,7 @@ class InstrumentationViewController: UIViewController {
         let n = NSNotification(name: "TimerFired",
                                object: nil,
                                userInfo: ["gridObject": StandardEngine.sharedInstance.grid! as! AnyObject])
-                               //userInfo: nil)
+
         center.postNotification(n)
     }
     

@@ -24,15 +24,8 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         let sel = #selector(SimulationViewController.watchForNotifications(_:))
         let center  = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: sel, name: "EngineUpdate", object: nil)
-        
-        //gridView.setNeedsDisplay()
 
     }
-    
-//    override func viewWillAppear(animated: Bool) {
-//        gridView.gridlinesDrawn = false
-//        gridView.setNeedsDisplay()
-//    }
     
     func watchForNotifications(notification:NSNotification) {
         
@@ -41,12 +34,7 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
 //            StandardEngine.sharedInstance.grid! =  info as! GridProtocol
 //        }
         
-        // REDRAW USING LATEST GRID HERE
-        
-        //self.view.layoutIfNeeded()
-  //      loadView()
-        //self.view.layoutIfNeeded()
-        
+        // redraw
         gridView.gridlinesDrawn = false
 //        gridView.touched = false
         gridView.setNeedsDisplay()
@@ -61,16 +49,12 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
     func engineDidUpdate(withGrid: GridProtocol) {
         // publish Grid as notification
         // each controller subscribes to notifications and updates its own appearance
-        //gridView.setNeedsDisplay()
-        
-        
-        // PROBLEM HERE - THROWING NSException
+
         let center = NSNotificationCenter.defaultCenter()
 
         let n = NSNotification(name: "EngineUpdate",
                                object: nil,
                                userInfo: ["gridObject": withGrid as! AnyObject])
-                               //userInfo: nil)
 
         center.postNotification(n)
     }

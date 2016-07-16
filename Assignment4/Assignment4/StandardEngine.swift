@@ -62,16 +62,19 @@ class StandardEngine: EngineProtocol {
     var refreshRate: Double { //= 0.0 {
         didSet {
             if refreshRate != 0 {
-                if let refreshTimer = refreshTimer { refreshTimer.invalidate() }
+                if let refreshTimer = refreshTimer {
+                    refreshTimer.invalidate()
+                    self.refreshTimer = nil
+                }
                 let sel = #selector(StandardEngine.timerDidFire(_:))
+                
                 refreshTimer = NSTimer.scheduledTimerWithTimeInterval(refreshRate,
                                                                target: self,
                                                                selector: sel,
                                                                userInfo: nil,
                                                                repeats: true)
             }
-            else if let refreshTimer = refreshTimer {   // it should never be 0 since slider doesn't go to 0, but
-                                                        // in case it does one day, leave the logic here
+            else if let refreshTimer = refreshTimer {
                 refreshTimer.invalidate()
                 self.refreshTimer = nil
             }
@@ -130,8 +133,7 @@ class StandardEngine: EngineProtocol {
         let center = NSNotificationCenter.defaultCenter()
         let n = NSNotification(name: "TimerFired",
                                object: nil,
-                               userInfo: nil)
-                               //userInfo: ["gridObject": grid! as! AnyObject])
+                               userInfo: ["gridObject": StandardEngine.sharedInstance.grid! as! AnyObject])
         center.postNotification(n)
     }
 }

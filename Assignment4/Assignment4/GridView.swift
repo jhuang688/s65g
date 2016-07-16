@@ -9,7 +9,6 @@
 import UIKit
 
 @IBDesignable class GridView: UIView {
-//class GridView: UIView {
 
     // default cell colours
     @IBInspectable var livingColor: UIColor = UIColor.yellowColor()

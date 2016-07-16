@@ -25,11 +25,6 @@ class StatisticsViewController: UIViewController {
         center.addObserver(self, selector: sel, name: "EngineUpdate", object: nil)
     }
     
-//    override func viewWillAppear(animated: Bool) {
-//        
-//        //loadView()
-//    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -38,12 +33,8 @@ class StatisticsViewController: UIViewController {
     func watchForNotifications(notification:NSNotification) {
 
         //StandardEngine.sharedInstance.grid = notification.userInfo as? GridProtocol
-        
-        // UPDATE COUNT USING LATEST GRID HERE
+
         updateCounts()
-        
-        // loadView()
-        
     }
     
     func updateCounts() {
@@ -53,6 +44,7 @@ class StatisticsViewController: UIViewController {
         var emptyTotal = 0
         var diedTotal = 0
         
+        // do the counting
         for col in 0..<StandardEngine.sharedInstance.cols{
             for row in 0..<StandardEngine.sharedInstance.rows{
                 switch StandardEngine.sharedInstance.grid![col,row]! {
@@ -68,6 +60,7 @@ class StatisticsViewController: UIViewController {
             }
         }
         
+        // update labels
         dispatch_async(dispatch_get_main_queue()) {
             self.livingCount.text = String(livingTotal)
             self.bornCount.text = String(bornTotal)
