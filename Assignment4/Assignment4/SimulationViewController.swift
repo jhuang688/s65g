@@ -28,7 +28,7 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
     }
     
     func watchForNotifications(notification:NSNotification) {
-        // redraw
+        // re-draw
         gridView.setNeedsDisplay()
     }
 

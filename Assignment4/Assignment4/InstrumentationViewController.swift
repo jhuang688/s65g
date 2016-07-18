@@ -37,28 +37,44 @@ class InstrumentationViewController: UIViewController {
     @IBAction func didUpdateRows(sender: UITextField) {
         if let text = rows.text,
             numRows = Int(text)  {
-            if numRows > 0 {
+            if numRows > 0 && numRows <= 50 {   // set between 1 and 50
                 StandardEngine.sharedInstance.rows = numRows
             }
-            else {
-                // invalid number - do nothing
+            else if numRows <= 0 {   // number too small. set to smallest possible, ie. 1
+                StandardEngine.sharedInstance.rows = 1
+                rows.text = "1"
+            }
+            else { // numRows > 50 { // number too large. set to largest possible, ie. 50
+                StandardEngine.sharedInstance.rows = 50
+                rows.text = "50"
             }
         }
-        // else (no text, or non-integer text) do nothing
+        else { // else (no text, or non-integer text) - set to default
+            rows.text = "10"
+            StandardEngine.sharedInstance.rows = 10
+        }
     }
     
     // updates from text field
     @IBAction func didUpdateCols(sender: UITextField) {
         if let text = cols.text,
             numCols = Int(text)  {
-            if numCols > 0 {
+            if numCols > 0 && numCols <= 50 {   // set between 1 and 50
                 StandardEngine.sharedInstance.cols = numCols
             }
-            else {
-                // invalid number - do nothing
+            else if numCols <= 0 {   // number too small. set to smallest possible, ie. 1
+                StandardEngine.sharedInstance.cols = 1
+                cols.text = "1"
+            }
+            else { // numCols > 50 { // number too large. set to largest possible, ie. 50
+                StandardEngine.sharedInstance.cols = 50
+                cols.text = "50"
             }
         }
-        // else (no text, or non-integer text) do nothing
+        else { // else (no text, or non-integer text) - set to default
+            cols.text = "10"
+            StandardEngine.sharedInstance.cols = 10
+        }
     }
     
     // updates from stepper
@@ -72,14 +88,17 @@ class InstrumentationViewController: UIViewController {
                 cols.text = String(numCols - 10)
             }
 
-            if Int(cols.text!)! > 0 {
+            if Int(cols.text!)! > 0 && Int(cols.text!)! <= 50 {  // set between 1 and 50
                 StandardEngine.sharedInstance.cols = Int(cols.text!)!
             }
-            else {  // got a negative number. set to smallest possible, ie. 1
+            else if Int(cols.text!)! <= 0 {  // number too small. set to smallest possible, ie. 1
                 StandardEngine.sharedInstance.cols = 1
                 cols.text = "1"
             }
-            
+            else { // Int(cols.text!)! > 50 {   // number too large. set to largest possible, ie. 50
+                StandardEngine.sharedInstance.cols = 50
+                cols.text = "50"
+            }
             sender.value = 0  // reset, ready for next click
         }
         else  {   // no text or invalid text - set to default
@@ -99,12 +118,16 @@ class InstrumentationViewController: UIViewController {
                 rows.text = String(numRows - 10)
             }
             
-            if Int(rows.text!)! > 0 {
+            if Int(rows.text!)! > 0 && Int(rows.text!)! <= 50 {  // set between 1 and 50
                 StandardEngine.sharedInstance.rows = Int(rows.text!)!
             }
-            else {  // got a negative number. set to smallest possible, ie. 1
+            else if Int(rows.text!)! <= 0 {  // number too small. set to smallest possible, ie. 1
                 StandardEngine.sharedInstance.rows = 1
                 rows.text = "1"
+            }
+            else { // Int(rows.text!)! > 50 {   // number too large. set to largest possible, ie. 50
+                StandardEngine.sharedInstance.rows = 50
+                rows.text = "50"
             }
             
             sender.value = 0    // reset, ready for next click
@@ -116,22 +139,23 @@ class InstrumentationViewController: UIViewController {
     }
 
     @IBAction func changeRefreshRate(sender: UISlider) {
-        StandardEngine.sharedInstance.refreshRate = Double(sender.value)
         
         // Setting refreshRate will install a timer. Change UI to reflect that timer is now on.
         // User needs to turn it off if they want it off.
         // By default, refreshRate is 0.0, and timer is off
-        
+        StandardEngine.sharedInstance.refreshRate = Double(sender.value)
         timerSwitch.on = true
         
     }
     
     @IBAction func toggleTimedRefresh(sender: UISwitch) {
         if let _ = StandardEngine.sharedInstance.refreshTimer {
-            StandardEngine.sharedInstance.refreshRate = 0.0   // this will remove the timer in refreshRate's didSet
+            // this will remove the timer in refreshRate's didSet
+            StandardEngine.sharedInstance.refreshRate = 0.0
         }
         else {
-            StandardEngine.sharedInstance.refreshRate = Double(refreshRateSlider.value)   // this will set the timer in refreshRate's didSet
+            // this will set the timer in refreshRate's didSet
+            StandardEngine.sharedInstance.refreshRate = Double(refreshRateSlider.value)
         }
     }
     
