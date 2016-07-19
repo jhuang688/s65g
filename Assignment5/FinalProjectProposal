@@ -1,0 +1,9 @@
+Name: Joanne Huang
+
+Final Project Proposal : Adding diseased cells (red colour)
+
+- There will be a switch to let the user decide if they want this feature or not. (Flicking the switch on/off will reset the grid)
+- If the user opts to have this feature, a cell is randomly selected to be diseased at the start of the grid.
+- Upon step, the living cells that are neighbours of the diseased cell also become diseased, and so the disease spreads.
+- When counting living neighbours, diseased cells are considered living.
+- Diseased cells remain diseased for the remainder of the run, unless the user decides to toggle it, in which case it becomes a living cell. Toggling it again will not make it diseased again, but empty. Basically, it become a regular cell upon toggle.
