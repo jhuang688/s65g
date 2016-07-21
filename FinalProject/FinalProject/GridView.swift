@@ -21,12 +21,35 @@ import UIKit
     @IBInspectable var gridWidth: CGFloat = 2.0
     
     // num rows and cols - give default values to silence warnings - update with latest values later
-    var cols: Int = 10
-    var rows: Int = 10
+    var cols: Int = 20
+    var rows: Int = 20
     
-    // col and row of touched cell to redraw - this is set by processTouch
-    var touchCol = 0
-    var touchRow = 0
+//    // col and row of touched cell to redraw - this is set by processTouch
+//    var touchCol = 0
+//    var touchRow = 0
+    
+    var points: [Position]? {
+        didSet {
+            let array: [Int] = points!.map { $0.row * cols + $0.col }
+            for i in 0..<rows*cols {
+                if array.contains(i) {
+                    StandardEngine.sharedInstance.grid!.cells[i].state = .Living
+                }
+                else {
+                    StandardEngine.sharedInstance.grid!.cells[i].state = .Empty
+                }
+            }
+        }
+//        get {
+//            var livingArray: [Position] = []
+//            for i in 0..<rows*cols {
+//                if StandardEngine.sharedInstance.grid!.cells[i].state.isAlive() {
+//                    livingArray.append(StandardEngine.sharedInstance.grid!.cells[i].position)
+//                }
+//            }
+//            return livingArray
+//        }
+    }
     
     override func drawRect(rect: CGRect) {
         // super.drawRect(rect)  // not needed
@@ -67,7 +90,7 @@ import UIKit
                 
                 let circle = UIBezierPath(ovalInRect: aCell)
                 var cellColor: UIColor
-                switch (StandardEngine.sharedInstance.grid![col,row]!) {
+                switch (StandardEngine.sharedInstance.grid!.cells[row * cols + col].state) {
                 case .Living:
                     cellColor = livingColor
                 case .Empty:
@@ -108,10 +131,10 @@ import UIKit
         let cellWidth: CGFloat = self.frame.size.width / CGFloat(cols)
         let cellHeight: CGFloat = self.frame.size.height / CGFloat (rows)
         
-        // set touchRow and touchCol
+        // find touched row and col
         let point: CGPoint = touch.locationInView(self)
-        touchRow = Int (floor(point.y / cellHeight))
-        touchCol  = Int (floor(point.x / cellWidth))
+        let touchRow = Int (floor(point.y / cellHeight))
+        let touchCol  = Int (floor(point.x / cellWidth))
         
         // Only toggle if it is a valid cell location.
         // This avoids a crash when the user's touch begins in the grid, and moves outside,
@@ -121,7 +144,7 @@ import UIKit
         if touchRow >= 0 && touchRow < rows && touchCol >= 0 && touchCol < cols {
             // toggle touched cell in newGrid (replica of grid)
             var newGrid: GridProtocol = StandardEngine.sharedInstance.grid!
-            newGrid[touchCol,touchRow]! = newGrid[touchCol,touchRow]!.toggle(newGrid[touchCol,touchRow]!)
+            newGrid[touchRow,touchCol]!.state = newGrid[touchRow,touchCol]!.state.toggle(newGrid[touchRow,touchCol]!.state)
             
             // set grid = newGrid
             StandardEngine.sharedInstance.grid = newGrid

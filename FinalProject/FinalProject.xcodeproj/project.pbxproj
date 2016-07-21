@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96274CFA1D3FF54A00CCA262 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96274CF91D3FF54A00CCA262 /* Position.swift */; };
+		96274CFC1D3FF5D400CCA262 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96274CFB1D3FF5D400CCA262 /* Cell.swift */; };
 		969C86A21D3FB37C00FB48BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969C86A11D3FB37C00FB48BC /* AppDelegate.swift */; };
 		969C86A41D3FB37C00FB48BC /* InstrumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969C86A31D3FB37C00FB48BC /* InstrumentationViewController.swift */; };
 		969C86A61D3FB37C00FB48BC /* SimulationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969C86A51D3FB37C00FB48BC /* SimulationViewController.swift */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		96274CF91D3FF54A00CCA262 /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
+		96274CFB1D3FF5D400CCA262 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		969C869E1D3FB37C00FB48BC /* FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		969C86A11D3FB37C00FB48BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		969C86A31D3FB37C00FB48BC /* InstrumentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentationViewController.swift; sourceTree = "<group>"; };
@@ -79,11 +83,13 @@
 				969C86A71D3FB37C00FB48BC /* Main.storyboard */,
 				969C86B71D3FB47E00FB48BC /* GridProtocol.swift */,
 				969C86B91D3FB48A00FB48BC /* Grid.swift */,
+				96274CF91D3FF54A00CCA262 /* Position.swift */,
 				969C86BB1D3FB4D400FB48BC /* EngineDelegateProtocol.swift */,
 				969C86BD1D3FB56B00FB48BC /* EngineProtocol.swift */,
 				969C86BF1D3FB59400FB48BC /* StandardEngine.swift */,
 				969C86C11D3FB5D400FB48BC /* GridView.swift */,
 				969C86C31D3FB5DB00FB48BC /* CellState.swift */,
+				96274CFB1D3FF5D400CCA262 /* Cell.swift */,
 				969C86AA1D3FB37C00FB48BC /* Assets.xcassets */,
 				969C86AC1D3FB37C00FB48BC /* LaunchScreen.storyboard */,
 				969C86AF1D3FB37C00FB48BC /* Info.plist */,
@@ -164,8 +170,10 @@
 			files = (
 				969C86BC1D3FB4D400FB48BC /* EngineDelegateProtocol.swift in Sources */,
 				969C86A61D3FB37C00FB48BC /* SimulationViewController.swift in Sources */,
+				96274CFA1D3FF54A00CCA262 /* Position.swift in Sources */,
 				969C86A21D3FB37C00FB48BC /* AppDelegate.swift in Sources */,
 				969C86A41D3FB37C00FB48BC /* InstrumentationViewController.swift in Sources */,
+				96274CFC1D3FF5D400CCA262 /* Cell.swift in Sources */,
 				969C86B81D3FB47E00FB48BC /* GridProtocol.swift in Sources */,
 				969C86B61D3FB43300FB48BC /* StatisticsViewConrtoller.swift in Sources */,
 				969C86BA1D3FB48A00FB48BC /* Grid.swift in Sources */,
@@ -324,6 +332,7 @@
 				969C86B41D3FB37C00FB48BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

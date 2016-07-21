@@ -42,15 +42,35 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         let center = NSNotificationCenter.defaultCenter()
         let n = NSNotification(name: "EngineUpdate",
                                object: nil,
-                               userInfo: ["gridObject": withGrid as! AnyObject])
+                               userInfo: nil)
+//                               userInfo: ["gridObject": withGrid as! AnyObject])
         center.postNotification(n)
     }
     
-    @IBAction func buttonClicked(sender: AnyObject) {
+    @IBAction func saveButtonClicked(sender: AnyObject) {
+    }
+    
+    @IBAction func stepButtonClicked(sender: AnyObject) {
         // step
         let newGrid = StandardEngine.sharedInstance.step()
         StandardEngine.sharedInstance.grid = newGrid
         // send EngineUpdate notification
+        if let delegate = StandardEngine.sharedInstance.delegate {
+            delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
+        }
+        
+//        // TESTING AREA:
+//        gridView.points = [Position(1, 3), Position(3, 5)]
+//        print(gridView.points)
+    }
+    
+    @IBAction func resetButtonClicked(sender: AnyObject) {
+        // SHOULD THIS RESET GRIDVIEW ONLY AND NOT THE GRID ITSELF???
+        let emptyGrid = Grid(rows: StandardEngine.sharedInstance.rows, cols: StandardEngine.sharedInstance.cols) {
+            .Empty
+        }
+        StandardEngine.sharedInstance.grid = emptyGrid
+        
         if let delegate = StandardEngine.sharedInstance.delegate {
             delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
         }

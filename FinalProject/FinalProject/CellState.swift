@@ -33,4 +33,12 @@ enum CellState : String {
             return .Empty
         }
     }
+    
+    // returns true if alive, false if dead
+    func isAlive() -> Bool {
+        switch self {
+        case .Living, .Born: return true
+        case .Died, .Empty: return false
+        }
+    }
 }

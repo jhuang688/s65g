@@ -50,8 +50,8 @@ class InstrumentationViewController: UIViewController {
             }
         }
         else { // else (no text, or non-integer text) - set to default
-            rows.text = "10"
-            StandardEngine.sharedInstance.rows = 10
+            rows.text = "20"
+            StandardEngine.sharedInstance.rows = 20
         }
     }
     
@@ -72,8 +72,8 @@ class InstrumentationViewController: UIViewController {
             }
         }
         else { // else (no text, or non-integer text) - set to default
-            cols.text = "10"
-            StandardEngine.sharedInstance.cols = 10
+            cols.text = "20"
+            StandardEngine.sharedInstance.cols = 20
         }
     }
     
@@ -102,8 +102,8 @@ class InstrumentationViewController: UIViewController {
             sender.value = 0  // reset, ready for next click
         }
         else  {   // no text or invalid text - set to default
-            cols.text = "10"
-            StandardEngine.sharedInstance.cols = 10
+            cols.text = "20"
+            StandardEngine.sharedInstance.cols = 20
         }
     }
     
@@ -133,8 +133,8 @@ class InstrumentationViewController: UIViewController {
             sender.value = 0    // reset, ready for next click
         }
         else  {   // no text or invalid text - set to default
-            rows.text = "10"
-            StandardEngine.sharedInstance.rows = 10
+            rows.text = "20"
+            StandardEngine.sharedInstance.rows = 20
         }
     }
     

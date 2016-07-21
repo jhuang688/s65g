@@ -33,7 +33,7 @@
                                             <action selector="toggleTimedRefresh:" destination="MxI-pY-inr" eventType="valueChanged" id="LsG-lN-wih"/>
                                         </connections>
                                     </switch>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="10" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yd6-dq-3XM">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="20" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yd6-dq-3XM">
                                         <rect key="frame" x="157" y="36" width="50" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="Q2G-8S-Csg"/>
@@ -94,7 +94,7 @@
                                             <action selector="changeRefreshRate:" destination="MxI-pY-inr" eventType="valueChanged" id="vjT-cV-wcb"/>
                                         </connections>
                                     </slider>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="10" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="20t-8Y-gMD">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="20" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="20t-8Y-gMD">
                                         <rect key="frame" x="157" y="5" width="50" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="wy5-k7-mt6"/>
@@ -156,7 +156,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k4v-Nf-Ne9" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="754" y="-410"/>
+            <point key="canvasLocation" x="914" y="-746"/>
         </scene>
         <!--Simulation-->
         <scene sceneID="9lQ-JE-s0Y">
@@ -208,25 +208,43 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xvy-XB-4M8">
-                                <rect key="frame" x="284" y="489.5" width="32" height="30"/>
+                                <rect key="frame" x="284" y="489" width="32" height="30"/>
                                 <state key="normal" title="Step"/>
                                 <connections>
-                                    <action selector="buttonClicked:" destination="HOV-F4-WOO" eventType="touchUpInside" id="9vn-mw-s48"/>
+                                    <action selector="stepButtonClicked:" destination="HOV-F4-WOO" eventType="touchUpInside" id="afr-bp-xZ5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cd-Z8-pxn">
+                                <rect key="frame" x="396" y="489" width="39" height="30"/>
+                                <state key="normal" title="Reset"/>
+                                <connections>
+                                    <action selector="resetButtonClicked:" destination="HOV-F4-WOO" eventType="touchUpInside" id="kal-Ht-yh5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0W-YW-Rxg">
+                                <rect key="frame" x="170" y="489" width="34" height="30"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveButtonClicked:" destination="HOV-F4-WOO" eventType="touchUpInside" id="Kdg-bO-nbS"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="hE7-Z9-dlb" firstAttribute="centerY" secondItem="t46-Eu-Hie" secondAttribute="centerY" id="Czr-4Q-gHZ"/>
+                            <constraint firstItem="Xvy-XB-4M8" firstAttribute="leading" secondItem="V0W-YW-Rxg" secondAttribute="trailing" constant="80" id="GKu-la-9Re"/>
                             <constraint firstItem="hE7-Z9-dlb" firstAttribute="centerX" secondItem="t46-Eu-Hie" secondAttribute="centerX" id="HSN-ms-O9B"/>
                             <constraint firstItem="t46-Eu-Hie" firstAttribute="top" secondItem="eIH-g4-J2s" secondAttribute="bottom" id="JVl-fS-IyH"/>
                             <constraint firstItem="z4d-ca-qKq" firstAttribute="top" secondItem="t46-Eu-Hie" secondAttribute="bottom" id="LBx-nv-Qgn"/>
+                            <constraint firstItem="2Cd-Z8-pxn" firstAttribute="leading" secondItem="Xvy-XB-4M8" secondAttribute="trailing" constant="80" id="Pha-JE-IB2"/>
                             <constraint firstItem="Xvy-XB-4M8" firstAttribute="top" secondItem="hE7-Z9-dlb" secondAttribute="bottom" constant="5" id="ZNs-u7-I7g"/>
                             <constraint firstItem="Xvy-XB-4M8" firstAttribute="centerX" secondItem="t46-Eu-Hie" secondAttribute="centerX" id="ZXr-0i-55N"/>
                             <constraint firstItem="hE7-Z9-dlb" firstAttribute="width" secondItem="t46-Eu-Hie" secondAttribute="width" multiplier="0.75" priority="750" id="cQb-gH-6nj"/>
                             <constraint firstItem="t46-Eu-Hie" firstAttribute="leading" secondItem="c9N-oZ-INj" secondAttribute="leadingMargin" constant="-20" id="dUE-cc-hsl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="t46-Eu-Hie" secondAttribute="trailing" constant="-20" id="ev2-8z-bK2"/>
+                            <constraint firstItem="2Cd-Z8-pxn" firstAttribute="top" secondItem="Xvy-XB-4M8" secondAttribute="top" id="mr7-cZ-gga"/>
                             <constraint firstItem="hE7-Z9-dlb" firstAttribute="height" secondItem="t46-Eu-Hie" secondAttribute="height" multiplier="0.75" priority="750" id="n3x-SQ-B0P"/>
+                            <constraint firstItem="Xvy-XB-4M8" firstAttribute="top" secondItem="V0W-YW-Rxg" secondAttribute="top" id="ouo-8g-aRb"/>
                             <constraint firstItem="hE7-Z9-dlb" firstAttribute="height" relation="lessThanOrEqual" secondItem="t46-Eu-Hie" secondAttribute="height" multiplier="0.75" id="rQ0-0m-dRn"/>
                             <constraint firstItem="hE7-Z9-dlb" firstAttribute="width" relation="lessThanOrEqual" secondItem="t46-Eu-Hie" secondAttribute="width" multiplier="0.75" id="z5U-6V-XLl"/>
                         </constraints>
@@ -238,7 +256,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFD-fW-uNP" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="762" y="238"/>
+            <point key="canvasLocation" x="922" y="-98"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="BdR-T8-N9n">
@@ -258,7 +276,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eQe-qZ-y0P" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-36" y="30"/>
+            <point key="canvasLocation" x="124" y="-306"/>
         </scene>
         <!--Statistics-->
         <scene sceneID="IVz-GW-Rbf">
@@ -375,7 +393,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cPA-QX-qTK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="762" y="987"/>
+            <point key="canvasLocation" x="922" y="651"/>
         </scene>
     </scenes>
     <resources>
