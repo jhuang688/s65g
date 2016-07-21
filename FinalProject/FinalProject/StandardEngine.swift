@@ -149,6 +149,8 @@ class StandardEngine: EngineProtocol {
 //        return after!
 //    }
     
+    
+    // ADD DISEASED HERE!!!!!
     func step() -> GridProtocol {
         var newGrid = Grid(rows: grid!.rows, cols: grid!.cols) { .Empty }
         newGrid.cells = grid!.cells.map {

@@ -36,6 +36,7 @@ struct Grid : GridProtocol {
     var born:   Int { return cells.reduce(0) { return  $1.state == .Born   ?  $0 + 1 : $0 } }
     var died:   Int { return cells.reduce(0) { return  $1.state == .Died   ?  $0 + 1 : $0 } }
     var empty:  Int { return cells.reduce(0) { return  $1.state == .Empty  ?  $0 + 1 : $0 } }
+    var diseased:  Int { return cells.reduce(0) { return  $1.state == .Diseased  ?  $0 + 1 : $0 } }
     
     init (rows: Int, cols: Int, cellInitializer: CellInitializer) {
         self.rows = rows

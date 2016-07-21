@@ -205,6 +205,9 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="gridWidth">
                                         <real key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="diseasedColor">
+                                        <color key="value" red="0.95509880781173706" green="0.30972793698310852" blue="0.081994302570819855" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xvy-XB-4M8">
@@ -295,7 +298,7 @@
                                 <color key="backgroundColor" red="0.011317982339999999" green="0.93009120229999998" blue="0.98665636779999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFG-U5-pdO" userLabel="EmbedView">
-                                <rect key="frame" x="161" y="233" width="278" height="134"/>
+                                <rect key="frame" x="161" y="217" width="278" height="165"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCL-mF-rom">
                                         <rect key="frame" x="257" y="41" width="11" height="21"/>
@@ -345,14 +348,27 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Diseased Cells:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCu-ps-k47">
+                                        <rect key="frame" x="10" y="134" width="203" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8sr-eh-K6d" userLabel="Diseased Count">
+                                        <rect key="frame" x="257.5" y="134" width="10.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="134" id="1DI-KX-7YW"/>
+                                    <constraint firstAttribute="height" constant="165" id="1DI-KX-7YW"/>
                                     <constraint firstItem="zCL-mF-rom" firstAttribute="centerY" secondItem="gtZ-kx-phP" secondAttribute="centerY" id="1oC-Od-6z1"/>
                                     <constraint firstItem="afM-ZW-nPP" firstAttribute="top" secondItem="WFG-U5-pdO" secondAttribute="top" constant="10" id="8Y5-xH-MKW"/>
                                     <constraint firstAttribute="trailing" secondItem="ebh-Qq-7Cq" secondAttribute="trailing" constant="10" id="B2x-GB-hUK"/>
                                     <constraint firstItem="ebh-Qq-7Cq" firstAttribute="leading" secondItem="afM-ZW-nPP" secondAttribute="trailing" constant="20" id="F67-PK-yDr"/>
+                                    <constraint firstItem="QGg-fi-MFy" firstAttribute="trailing" secondItem="8sr-eh-K6d" secondAttribute="trailing" id="FSk-fJ-rj8"/>
                                     <constraint firstAttribute="width" constant="278" id="GSs-JR-yEq"/>
                                     <constraint firstItem="gtZ-kx-phP" firstAttribute="leading" secondItem="afM-ZW-nPP" secondAttribute="leading" id="H9A-MI-qz2"/>
                                     <constraint firstItem="zCL-mF-rom" firstAttribute="trailing" secondItem="ebh-Qq-7Cq" secondAttribute="trailing" id="Lj9-uC-uUu"/>
@@ -360,7 +376,9 @@
                                     <constraint firstItem="ebh-Qq-7Cq" firstAttribute="centerY" secondItem="afM-ZW-nPP" secondAttribute="centerY" id="O20-ee-hgQ"/>
                                     <constraint firstItem="QGg-fi-MFy" firstAttribute="trailing" secondItem="ebh-Qq-7Cq" secondAttribute="trailing" id="PVP-4t-Mvs"/>
                                     <constraint firstItem="QGg-fi-MFy" firstAttribute="width" secondItem="ebh-Qq-7Cq" secondAttribute="width" id="PpJ-h8-DBs"/>
+                                    <constraint firstItem="vCu-ps-k47" firstAttribute="leading" secondItem="Ewk-b0-3Rj" secondAttribute="leading" id="R5S-pd-vsn"/>
                                     <constraint firstItem="0DN-IP-C5c" firstAttribute="leading" secondItem="afM-ZW-nPP" secondAttribute="leading" id="RpV-Fh-N7q"/>
+                                    <constraint firstItem="8sr-eh-K6d" firstAttribute="centerY" secondItem="vCu-ps-k47" secondAttribute="centerY" id="Vag-H0-D3B"/>
                                     <constraint firstItem="gtZ-kx-phP" firstAttribute="top" secondItem="afM-ZW-nPP" secondAttribute="bottom" constant="10" id="aM9-zD-gcl"/>
                                     <constraint firstItem="0DN-IP-C5c" firstAttribute="top" secondItem="gtZ-kx-phP" secondAttribute="bottom" constant="10" id="eZb-tx-wQe"/>
                                     <constraint firstItem="Nm3-u8-mf4" firstAttribute="trailing" secondItem="ebh-Qq-7Cq" secondAttribute="trailing" id="if3-HC-nMQ"/>
@@ -370,6 +388,7 @@
                                     <constraint firstItem="Ewk-b0-3Rj" firstAttribute="top" secondItem="0DN-IP-C5c" secondAttribute="bottom" constant="10" id="s3O-OJ-1Zr"/>
                                     <constraint firstItem="Nm3-u8-mf4" firstAttribute="width" secondItem="ebh-Qq-7Cq" secondAttribute="width" id="say-7n-6dL"/>
                                     <constraint firstItem="QGg-fi-MFy" firstAttribute="centerY" secondItem="Ewk-b0-3Rj" secondAttribute="centerY" id="xwe-aG-4Pi"/>
+                                    <constraint firstItem="vCu-ps-k47" firstAttribute="top" secondItem="Ewk-b0-3Rj" secondAttribute="bottom" constant="10" id="yS3-ME-8zG"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -387,6 +406,7 @@
                     <connections>
                         <outlet property="bornCount" destination="zCL-mF-rom" id="ht7-1U-lzd"/>
                         <outlet property="diedCount" destination="QGg-fi-MFy" id="Scn-w0-eXi"/>
+                        <outlet property="diseasedCount" destination="8sr-eh-K6d" id="Muf-lp-gqd"/>
                         <outlet property="emptyCount" destination="Nm3-u8-mf4" id="U05-Hn-cse"/>
                         <outlet property="livingCount" destination="ebh-Qq-7Cq" id="PwC-cH-Yvg"/>
                     </connections>

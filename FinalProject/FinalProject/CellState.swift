@@ -13,6 +13,7 @@ enum CellState : String {
     case Empty = "Empty"
     case Born = "Born"
     case Died = "Died"
+    case Diseased = "Diseased"
     
     // returns raw value
     func description() -> String {
@@ -21,13 +22,13 @@ enum CellState : String {
     
     // returns array of all values
     static func allValues() -> [CellState] {
-        return [.Living, .Empty, .Born, .Died]
+        return [.Living, .Empty, .Born, .Died, .Diseased]
     }
     
     // toggles CellState from dead to living and vice versa
     func toggle(value:CellState) -> CellState {
         switch value {
-        case .Empty, .Died:
+        case .Empty, .Died, .Diseased:
             return .Living
         case .Living, .Born:
             return .Empty
@@ -37,7 +38,7 @@ enum CellState : String {
     // returns true if alive, false if dead
     func isAlive() -> Bool {
         switch self {
-        case .Living, .Born: return true
+        case .Living, .Born, .Diseased: return true
         case .Died, .Empty: return false
         }
     }

@@ -25,5 +25,6 @@ protocol GridProtocol {
     var born: Int { get }
     var died: Int { get }
     var empty: Int { get }
+    var diseased: Int { get }
 }
 

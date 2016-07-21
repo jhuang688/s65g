@@ -13,6 +13,7 @@ class StatisticsViewController: UIViewController {
     @IBOutlet weak var diedCount: UILabel!
     @IBOutlet weak var emptyCount: UILabel!
     @IBOutlet weak var bornCount: UILabel!
+    @IBOutlet weak var diseasedCount: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +83,7 @@ class StatisticsViewController: UIViewController {
         self.bornCount.text = String(StandardEngine.sharedInstance.grid!.born)
         self.emptyCount.text = String(StandardEngine.sharedInstance.grid!.empty)
         self.diedCount.text = String(StandardEngine.sharedInstance.grid!.died)
+        self.diseasedCount.text = String(StandardEngine.sharedInstance.grid!.diseased)
     }
 }
 

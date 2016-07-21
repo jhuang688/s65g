@@ -15,6 +15,7 @@ import UIKit
     @IBInspectable var emptyColor: UIColor = UIColor.clearColor()  // UIColor.grayColor()
     @IBInspectable var bornColor: UIColor = UIColor.greenColor()
     @IBInspectable var diedColor: UIColor = UIColor.brownColor()
+    @IBInspectable var diseasedColor: UIColor = UIColor.redColor()
     
     // colour and width of grid lines
     @IBInspectable var gridColor: UIColor = UIColor.blackColor()
@@ -99,6 +100,8 @@ import UIKit
                     cellColor = bornColor
                 case .Died:
                     cellColor = diedColor
+                case .Diseased:
+                    cellColor = diseasedColor
                 }
                 cellColor.setFill()
                 circle.fill()
