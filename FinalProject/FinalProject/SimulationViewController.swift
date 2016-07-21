@@ -71,6 +71,20 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         }
         StandardEngine.sharedInstance.grid = emptyGrid
         
+//        // TESTING AREA:
+//        // randomly select 1/20 diseased cells
+//        var newGrid = Grid(rows: StandardEngine.sharedInstance.rows, cols: StandardEngine.sharedInstance.cols) {
+//            .Empty
+//        }
+//        for col in 0..<newGrid.cols{
+//            for row in 0..<newGrid.rows{
+//                if arc4random_uniform(20) == 1 {
+//                    newGrid[row, col]!.state = .Diseased
+//                }
+//            }
+//        }
+//        StandardEngine.sharedInstance.grid = newGrid
+        
         if let delegate = StandardEngine.sharedInstance.delegate {
             delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
         }

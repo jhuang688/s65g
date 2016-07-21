@@ -150,19 +150,37 @@ class StandardEngine: EngineProtocol {
 //    }
     
     
-    // ADD DISEASED HERE!!!!!
     func step() -> GridProtocol {
         var newGrid = Grid(rows: grid!.rows, cols: grid!.cols) { .Empty }
         newGrid.cells = grid!.cells.map {
-            switch grid!.livingNeighbors($0) {
-            case 2 where $0.state.isAlive(),
-            3 where $0.state.isAlive():  return Cell($0.position, .Living)
-            case 3 where !$0.state.isAlive(): return Cell($0.position, .Born)
-            case _ where $0.state.isAlive():  return Cell($0.position, .Died)
-            default:                           return Cell($0.position, .Empty)
+            if $0.state == .Diseased {    // diseased cells will stay diseased
+                return Cell($0.position, .Diseased)
+            }
+            else if $0.state.isAlive() && hasDiseasedNeighbor($0.position) {   // living neighbours of diseased cells become diseased
+                return Cell($0.position, .Diseased)
+            }
+            else {        // all other cells are treated as usual
+                switch grid!.livingNeighbors($0) {
+                case 2 where $0.state.isAlive(),
+                3 where $0.state.isAlive():  return Cell($0.position, .Living)
+                case 3 where !$0.state.isAlive(): return Cell($0.position, .Born)
+                case _ where $0.state.isAlive():  return Cell($0.position, .Died)
+                default:                           return Cell($0.position, .Empty)
+                }
+
             }
         }
         return newGrid
+    }
+    
+    func hasDiseasedNeighbor (pos: Position) -> Bool {
+        let neighborArray = grid!.neighbors(pos)
+        for i in 0..<neighborArray.count {
+            if grid![neighborArray[i].row, neighborArray[i].col]!.state == .Diseased {
+                return true
+            }
+        }
+        return false
     }
     
     // TimerFired notifications are sent by the timer
