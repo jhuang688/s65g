@@ -10,6 +10,11 @@ import UIKit
 
 class InstrumentationViewController: UIViewController {
     
+//    @IBOutlet weak var rows: UITextField!
+//    @IBOutlet weak var cols: UITextField!
+//    @IBOutlet weak var timerSwitch: UISwitch!
+//    @IBOutlet weak var refreshRateSlider: UISlider!
+    
     @IBOutlet weak var rows: UITextField!
     @IBOutlet weak var cols: UITextField!
     @IBOutlet weak var timerSwitch: UISwitch!
@@ -55,6 +60,8 @@ class InstrumentationViewController: UIViewController {
         }
     }
     
+
+    
     // updates from text field
     @IBAction func didUpdateCols(sender: UITextField) {
         if let text = cols.text,
@@ -72,36 +79,6 @@ class InstrumentationViewController: UIViewController {
             }
         }
         else { // else (no text, or non-integer text) - set to default
-            cols.text = "20"
-            StandardEngine.sharedInstance.cols = 20
-        }
-    }
-    
-    // updates from stepper
-    @IBAction func incrementCols(sender: UIStepper) {
-        if let text = cols.text,
-            numCols = Int(text)  {
-            if (sender.value == 10) {
-                cols.text = String(numCols + 10)
-            }
-            if (sender.value == -10) {
-                cols.text = String(numCols - 10)
-            }
-            
-            if Int(cols.text!)! > 0 && Int(cols.text!)! <= 50 {  // set between 1 and 50
-                StandardEngine.sharedInstance.cols = Int(cols.text!)!
-            }
-            else if Int(cols.text!)! <= 0 {  // number too small. set to smallest possible, ie. 1
-                StandardEngine.sharedInstance.cols = 1
-                cols.text = "1"
-            }
-            else { // Int(cols.text!)! > 50 {   // number too large. set to largest possible, ie. 50
-                StandardEngine.sharedInstance.cols = 50
-                cols.text = "50"
-            }
-            sender.value = 0  // reset, ready for next click
-        }
-        else  {   // no text or invalid text - set to default
             cols.text = "20"
             StandardEngine.sharedInstance.cols = 20
         }
@@ -135,19 +112,51 @@ class InstrumentationViewController: UIViewController {
         else  {   // no text or invalid text - set to default
             rows.text = "20"
             StandardEngine.sharedInstance.rows = 20
+            sender.value = 0    // reset, ready for next click
         }
     }
     
+    
+    // updates from stepper
+    @IBAction func incrementCols(sender: UIStepper) {
+        if let text = cols.text,
+            numCols = Int(text)  {
+            if (sender.value == 10) {
+                cols.text = String(numCols + 10)
+            }
+            if (sender.value == -10) {
+                cols.text = String(numCols - 10)
+            }
+            
+            if Int(cols.text!)! > 0 && Int(cols.text!)! <= 50 {  // set between 1 and 50
+                StandardEngine.sharedInstance.cols = Int(cols.text!)!
+            }
+            else if Int(cols.text!)! <= 0 {  // number too small. set to smallest possible, ie. 1
+                StandardEngine.sharedInstance.cols = 1
+                cols.text = "1"
+            }
+            else { // Int(cols.text!)! > 50 {   // number too large. set to largest possible, ie. 50
+                StandardEngine.sharedInstance.cols = 50
+                cols.text = "50"
+            }
+            sender.value = 0  // reset, ready for next click
+        }
+        else  {   // no text or invalid text - set to default
+            cols.text = "20"
+            StandardEngine.sharedInstance.cols = 20
+            sender.value = 0    // reset, ready for next click
+        }
+    }
+
+    
     @IBAction func changeRefreshRate(sender: UISlider) {
-        
         // Setting refreshRate will install a timer. Change UI to reflect that timer is now on.
         // User needs to turn it off if they want it off.
         // By default, refreshRate is 0.0, and timer is off
         StandardEngine.sharedInstance.refreshRate = Double(sender.value)
         timerSwitch.on = true
-        
     }
-    
+
     @IBAction func toggleTimedRefresh(sender: UISwitch) {
         if let _ = StandardEngine.sharedInstance.refreshTimer {
             // this will remove the timer in refreshRate's didSet
@@ -158,6 +167,46 @@ class InstrumentationViewController: UIViewController {
             StandardEngine.sharedInstance.refreshRate = Double(refreshRateSlider.value)
         }
     }
+    
+    @IBAction func toggleDiseaseSwitch(sender: UISwitch) {
+        if sender.on == true {
+            // select 1/50 random cells to be diseased
+            var newGrid = Grid(rows: StandardEngine.sharedInstance.rows, cols: StandardEngine.sharedInstance.cols) { _ in .Empty }
+            newGrid.cells = StandardEngine.sharedInstance.grid.cells.map {
+                if arc4random_uniform(50) == 1 {    // diseased cells will stay diseased
+                    return Cell($0.position, .Diseased)
+                }
+                else {
+                    return Cell($0.position, $0.state)
+                }
+            }
+            StandardEngine.sharedInstance.grid = newGrid
+            
+            // send EngineUpdate notification
+            if let delegate = StandardEngine.sharedInstance.delegate {
+                delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
+            }
+        }
+        else {
+            // change all diseased cells to living
+            var newGrid = Grid(rows: StandardEngine.sharedInstance.rows, cols: StandardEngine.sharedInstance.cols) { _ in .Empty }
+            newGrid.cells = StandardEngine.sharedInstance.grid.cells.map {
+                if $0.state == .Diseased {    // diseased cells will stay diseased
+                    return Cell($0.position, .Living)
+                }
+                else {
+                    return Cell($0.position, $0.state)
+                }
+            }
+            StandardEngine.sharedInstance.grid = newGrid
+            
+            // send EngineUpdate notification
+            if let delegate = StandardEngine.sharedInstance.delegate {
+                delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
+            }
+        }
+    }
+    
     
     func watchForNotifications(notification:NSNotification) {
         // step
