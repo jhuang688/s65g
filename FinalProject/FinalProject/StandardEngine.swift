@@ -17,36 +17,32 @@ class StandardEngine: EngineProtocol {
         }
     }
     
-    required init(rows: Int, cols: Int) {
-        self.cols = cols
+//    required init(rows: Int, cols: Int) {
+//        self.cols = cols
+//        self.rows = rows
+//        //refreshRate = 0.0    // set default refreshRate
+////        grid = Grid(rows, cols, cellInitializer: CellInitializer)
+//        grid = Grid(rows: rows, cols: cols) {_ in 
+//            .Empty
+//        }
+//        
+//    }
+    
+    init(rows: Int, cols: Int, cellInitializer: CellInitializer = {_ in .Empty }) {   // default value if nothing given
         self.rows = rows
-        refreshRate = 0.0    // set default refreshRate
-//        grid = Grid(rows, cols, cellInitializer: CellInitializer)
-        grid = Grid(rows: rows, cols: cols) {
-            return CellState.Empty
-        }
-        
+        self.cols = cols
+        self.grid = Grid(rows: rows,cols: cols, cellInitializer: cellInitializer)
     }
     
     var rows: Int {
         didSet {
             // re-initialise grid
-            grid = Grid(rows: rows, cols: cols) {
-                return CellState.Empty
+            grid = Grid(rows: rows, cols: cols) { _ in
+                .Empty
             }
-//            , cellInitializer: CellInitializer)
-//            for col in 0..<cols {
-//                for row in 0..<rows {
-//                    grid![col,row] = .Empty
-//                }
-//            }
-            
-            
             
             // TESTING AREA:
 //            grid!.points = [Position(1, 3), Position(3, 5)]
-            
-            
             
             
             
@@ -60,26 +56,21 @@ class StandardEngine: EngineProtocol {
     var cols: Int {
         didSet {
             // re-initialise grid
-            grid = Grid(rows: rows, cols: cols) {
-                return CellState.Empty
+            grid = Grid(rows: rows, cols: cols) { _ in
+                .Empty
             }
-//                , cellInitializer: CellInitializer)
-//            for col in 0..<cols {
-//                for row in 0..<rows {
-//                    grid![col,row] = .Empty
-//                }
-//            }
+
             // send EngineUpdate notification
             if let delegate = delegate {
-                delegate.engineDidUpdate(grid!)
+                delegate.engineDidUpdate(grid)
             }
         }
     }
     
     var delegate: EngineDelegateProtocol?
-    var grid: GridProtocol?
+    var grid: GridProtocol
     
-    var refreshRate: Double {
+    var refreshRate: Double = 0.0 {
         didSet {
             if refreshRate != 0 {   // remove existing timer if necessary and install new one
                 if let refreshTimer = refreshTimer {
@@ -102,6 +93,15 @@ class StandardEngine: EngineProtocol {
     }
     
     var refreshTimer: NSTimer?   // by default, the timer is off, and refreshRate is 0.0
+    
+    subscript (row:Int, col:Int) -> CellState {
+        get {
+            return grid.cells[row*cols+col].state
+        }
+        set {
+            grid.cells[row*cols+col].state = newValue
+        }
+    }
     
 //    func step() -> GridProtocol {
 //        var after: GridProtocol? = grid
@@ -151,8 +151,8 @@ class StandardEngine: EngineProtocol {
     
     
     func step() -> GridProtocol {
-        var newGrid = Grid(rows: grid!.rows, cols: grid!.cols) { .Empty }
-        newGrid.cells = grid!.cells.map {
+        var newGrid = Grid(rows: rows, cols: cols) { _ in .Empty }
+        newGrid.cells = grid.cells.map {
             if $0.state == .Diseased {    // diseased cells will stay diseased
                 return Cell($0.position, .Diseased)
             }
@@ -160,7 +160,7 @@ class StandardEngine: EngineProtocol {
                 return Cell($0.position, .Diseased)
             }
             else {        // all other cells are treated as usual
-                switch grid!.livingNeighbors($0) {
+                switch grid.livingNeighbors($0.position) {
                 case 2 where $0.state.isAlive(),
                 3 where $0.state.isAlive():  return Cell($0.position, .Living)
                 case 3 where !$0.state.isAlive(): return Cell($0.position, .Born)
@@ -174,9 +174,9 @@ class StandardEngine: EngineProtocol {
     }
     
     func hasDiseasedNeighbor (pos: Position) -> Bool {
-        let neighborArray = grid!.neighbors(pos)
+        let neighborArray = grid.neighbors(pos)
         for i in 0..<neighborArray.count {
-            if grid![neighborArray[i].row, neighborArray[i].col]!.state == .Diseased {
+            if grid[neighborArray[i].row, neighborArray[i].col] == .Diseased {
                 return true
             }
         }

@@ -8,11 +8,11 @@
 
 //func blah() -> CellState
 
-typealias CellInitializer = () -> CellState
+typealias CellInitializer = (Position) -> CellState
 
 struct Grid : GridProtocol {
-    var rows: Int
-    var cols: Int
+    private(set) var rows: Int
+    private(set) var cols: Int
     var cells: [Cell]
 //    var points: [Position]? {
 //        didSet {
@@ -38,15 +38,24 @@ struct Grid : GridProtocol {
     var empty:  Int { return cells.reduce(0) { return  $1.state == .Empty  ?  $0 + 1 : $0 } }
     var diseased:  Int { return cells.reduce(0) { return  $1.state == .Diseased  ?  $0 + 1 : $0 } }
     
-    init (rows: Int, cols: Int, cellInitializer: CellInitializer) {
+//    init (rows: Int, cols: Int, cellInitializer: CellInitializer) {
+//        self.rows = rows
+//        self.cols = cols
+//        self.cells = (0..<rows*cols).map {
+//            Cell(Position($0/cols, $0%cols), cellInitializer())
+//        }
+//    }
+    
+    init (rows: Int, cols: Int, cellInitializer: CellInitializer = {_ in .Empty }) {
         self.rows = rows
         self.cols = cols
         self.cells = (0..<rows*cols).map {
-            Cell(Position($0/cols, $0%cols), cellInitializer())
+            let pos = Position($0/cols, $0%cols)
+            return Cell(pos, cellInitializer(pos))
         }
     }
     
-    static let offsets:[Position] = [
+    private static let offsets:[Position] = [
         Position(-1, -1), Position(-1, 0), Position(-1, 1),
         Position( 0, -1),                  Position( 0, 1),
         Position( 1, -1), Position( 1, 0), Position( 1, 1)
@@ -56,10 +65,12 @@ struct Grid : GridProtocol {
             (pos.col + cols + $0.col) % cols) }
     }
     
-    func livingNeighbors(cell: Cell) -> Int {
-        return self.neighbors(Position(cell.position.row, cell.position.col))
-            .reduce(0) { cells[$1.row*cols + $1.col].state.isAlive() ? $0 + 1 : $0 }
+    func livingNeighbors(pos: Position) -> Int {
+        return neighbors(pos)
+            .reduce(0) { self[$1.row,$1.col]!.isAlive() ? $0 + 1 : $0 }
     }
+
+
     
 //    func step() -> Grid {
 //        var newGrid = Grid(self.rows, self.cols) { .Empty }
@@ -94,17 +105,17 @@ struct Grid : GridProtocol {
 //        }
 //    }
     
-    subscript(row: Int, col: Int) -> Cell? {
+    subscript(row: Int, col: Int) -> CellState? {
         get {
             if row < 0 || row >= rows || col < 0 || col >= cols {
                 return nil
             }
-            return cells[row * cols + col] //.state
+            return cells[row * cols + col].state
         }
         set (newValue) {
             if newValue == nil { return }
             if row < 0 || row >= rows || col < 0 || col >= cols { return }
-            cells[row * cols + col] = newValue!
+            cells[row * cols + col].state = newValue!
         }
     }
 }

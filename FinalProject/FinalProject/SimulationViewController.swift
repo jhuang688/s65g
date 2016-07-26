@@ -54,12 +54,13 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         // step
         let newGrid = StandardEngine.sharedInstance.step()
         StandardEngine.sharedInstance.grid = newGrid
+        
         // send EngineUpdate notification
         if let delegate = StandardEngine.sharedInstance.delegate {
             delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
         }
         
-//        // TESTING AREA:
+//        //        // TESTING AREA:
 //        gridView.points = [Position(1, 3), Position(3, 5)]
 //        print(gridView.points)
     }

@@ -16,11 +16,13 @@ protocol GridProtocol {
     
     //func neighbours(coords: (col: Int, row: Int), maxCol: Int, maxRow: Int) -> Array<(Int, Int)>
     func neighbors(pos: Position) -> [Position]
-    func livingNeighbors(cell: Cell) -> Int
+    func livingNeighbors(pos: Position) -> Int
     
-    subscript(row: Int, col: Int) -> Cell? { get set }
+    subscript(row: Int, col: Int) -> CellState { get set }
     //subscript(row: Int, col: Int) -> CellState? { get set }
     
+    var alive: Int { get }
+    var dead: Int { get }
     var living: Int { get }
     var born: Int { get }
     var died: Int { get }

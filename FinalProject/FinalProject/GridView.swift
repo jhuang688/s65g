@@ -29,8 +29,17 @@ import UIKit
 //    var touchCol = 0
 //    var touchRow = 0
     
+    private var actualGrid: [Cell] = []
+    
     var points: [Position]? {
-        didSet {
+        set {
+            // First:
+            //   Get the max row and col from positions added in
+            //   Set the max row and col from that
+            // Second:
+            //   Empty out actualGrid
+            // Third:
+            //   Set only the positions in the positions in the actualGrid to .Living
             let array: [Int] = points!.map { $0.row * cols + $0.col }
             for i in 0..<rows*cols {
                 if array.contains(i) {
@@ -41,16 +50,32 @@ import UIKit
                 }
             }
         }
-//        get {
-//            var livingArray: [Position] = []
-//            for i in 0..<rows*cols {
-//                if StandardEngine.sharedInstance.grid!.cells[i].state.isAlive() {
-//                    livingArray.append(StandardEngine.sharedInstance.grid!.cells[i].position)
-//                }
-//            }
-//            return livingArray
-//        }
+        get {
+            // return actualGrid.filter({$0 == .Living})
+            var livingArray: [Position] = []
+            for i in 0..<rows*cols {
+                if StandardEngine.sharedInstance.grid!.cells[i].state.isAlive() {
+                    livingArray.append(StandardEngine.sharedInstance.grid!.cells[i].position)
+                }
+            }
+            return livingArray
+        }
     }
+    
+    
+    //            let newGrid = Grid(rows: rows, cols: cols) {
+    //                for i in 0..<self.rows*self.cols {
+    //                    if array.contains(i) {
+    //                        return CellState.Living
+    //                    }
+    //                    else {
+    //                        return CellState.Empty
+    //                    }
+    //                }
+    //                return CellState.Empty   // needed to silence warnings
+    //            }
+    //            StandardEngine.sharedInstance.grid = newGrid
+    
     
     override func drawRect(rect: CGRect) {
         // super.drawRect(rect)  // not needed
