@@ -18,7 +18,7 @@ protocol GridProtocol {
     func neighbors(pos: Position) -> [Position]
     func livingNeighbors(pos: Position) -> Int
     
-    subscript(row: Int, col: Int) -> CellState { get set }
+    subscript(row: Int, col: Int) -> CellState? { get set }
     //subscript(row: Int, col: Int) -> CellState? { get set }
     
     var alive: Int { get }

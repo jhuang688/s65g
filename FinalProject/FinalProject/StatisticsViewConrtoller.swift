@@ -79,11 +79,11 @@ class StatisticsViewController: UIViewController {
 //        self.emptyCount.text = String(empty)
 //        self.diedCount.text = String(died)
         
-        self.livingCount.text = String(StandardEngine.sharedInstance.grid!.living)
-        self.bornCount.text = String(StandardEngine.sharedInstance.grid!.born)
-        self.emptyCount.text = String(StandardEngine.sharedInstance.grid!.empty)
-        self.diedCount.text = String(StandardEngine.sharedInstance.grid!.died)
-        self.diseasedCount.text = String(StandardEngine.sharedInstance.grid!.diseased)
+        self.livingCount.text = String(StandardEngine.sharedInstance.grid.living)
+        self.bornCount.text = String(StandardEngine.sharedInstance.grid.born)
+        self.emptyCount.text = String(StandardEngine.sharedInstance.grid.empty)
+        self.diedCount.text = String(StandardEngine.sharedInstance.grid.died)
+        self.diseasedCount.text = String(StandardEngine.sharedInstance.grid.diseased)
     }
 }
 

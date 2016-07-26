@@ -9,7 +9,7 @@
 import Foundation
 
 protocol EngineProtocol {
-    init(rows: Int, cols: Int) //, cellInitializer: CellInitializer)
+    init(rows: Int, cols: Int, cellInitializer: CellInitializer)
     
     var delegate: EngineDelegateProtocol? {get set}
     var grid: GridProtocol {get}

@@ -165,7 +165,7 @@ class InstrumentationViewController: UIViewController {
         StandardEngine.sharedInstance.grid = newGrid
         // send EngineUpdate notification
         if let delegate = StandardEngine.sharedInstance.delegate {
-            delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
+            delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
         }
         
     }

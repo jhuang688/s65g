@@ -28,7 +28,7 @@ class StandardEngine: EngineProtocol {
 //        
 //    }
     
-    init(rows: Int, cols: Int, cellInitializer: CellInitializer = {_ in .Empty }) {   // default value if nothing given
+    required init(rows: Int, cols: Int, cellInitializer: CellInitializer = {_ in .Empty }) {   // default value if nothing given
         self.rows = rows
         self.cols = cols
         self.grid = Grid(rows: rows,cols: cols, cellInitializer: cellInitializer)
@@ -48,7 +48,7 @@ class StandardEngine: EngineProtocol {
             
             // send EngineUpdate notification
             if let delegate = delegate {
-                delegate.engineDidUpdate(grid!)
+                delegate.engineDidUpdate(grid)
             }
         }
     }

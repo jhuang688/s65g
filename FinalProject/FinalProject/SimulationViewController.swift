@@ -57,7 +57,7 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         
         // send EngineUpdate notification
         if let delegate = StandardEngine.sharedInstance.delegate {
-            delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
+            delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
         }
         
 //        //        // TESTING AREA:
@@ -67,7 +67,7 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
     
     @IBAction func resetButtonClicked(sender: AnyObject) {
         // SHOULD THIS RESET GRIDVIEW ONLY AND NOT THE GRID ITSELF???
-        let emptyGrid = Grid(rows: StandardEngine.sharedInstance.rows, cols: StandardEngine.sharedInstance.cols) {
+        let emptyGrid = Grid(rows: StandardEngine.sharedInstance.rows, cols: StandardEngine.sharedInstance.cols) {_ in
             .Empty
         }
         StandardEngine.sharedInstance.grid = emptyGrid
@@ -87,7 +87,7 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
 //        StandardEngine.sharedInstance.grid = newGrid
         
         if let delegate = StandardEngine.sharedInstance.delegate {
-            delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
+            delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
         }
     }
 }

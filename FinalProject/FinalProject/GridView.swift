@@ -43,10 +43,10 @@ import UIKit
             let array: [Int] = points!.map { $0.row * cols + $0.col }
             for i in 0..<rows*cols {
                 if array.contains(i) {
-                    StandardEngine.sharedInstance.grid!.cells[i].state = .Living
+                    StandardEngine.sharedInstance.grid.cells[i].state = .Living
                 }
                 else {
-                    StandardEngine.sharedInstance.grid!.cells[i].state = .Empty
+                    StandardEngine.sharedInstance.grid.cells[i].state = .Empty
                 }
             }
         }
@@ -54,8 +54,8 @@ import UIKit
             // return actualGrid.filter({$0 == .Living})
             var livingArray: [Position] = []
             for i in 0..<rows*cols {
-                if StandardEngine.sharedInstance.grid!.cells[i].state.isAlive() {
-                    livingArray.append(StandardEngine.sharedInstance.grid!.cells[i].position)
+                if StandardEngine.sharedInstance.grid.cells[i].state.isAlive() {
+                    livingArray.append(StandardEngine.sharedInstance.grid.cells[i].position)
                 }
             }
             return livingArray
@@ -116,7 +116,7 @@ import UIKit
                 
                 let circle = UIBezierPath(ovalInRect: aCell)
                 var cellColor: UIColor
-                switch (StandardEngine.sharedInstance.grid!.cells[row * cols + col].state) {
+                switch (StandardEngine.sharedInstance.grid.cells[row * cols + col].state) {
                 case .Living:
                     cellColor = livingColor
                 case .Empty:
@@ -171,15 +171,15 @@ import UIKit
         // even if it then moves inside.
         if touchRow >= 0 && touchRow < rows && touchCol >= 0 && touchCol < cols {
             // toggle touched cell in newGrid (replica of grid)
-            var newGrid: GridProtocol = StandardEngine.sharedInstance.grid!
-            newGrid[touchRow,touchCol]!.state = newGrid[touchRow,touchCol]!.state.toggle(newGrid[touchRow,touchCol]!.state)
+            var newGrid: GridProtocol = StandardEngine.sharedInstance.grid
+            newGrid[touchRow,touchCol] = newGrid[touchRow,touchCol]!.toggle(newGrid[touchRow,touchCol]!)
             
             // set grid = newGrid
             StandardEngine.sharedInstance.grid = newGrid
             
             // send EngineUpdate notification
             if let delegate = StandardEngine.sharedInstance.delegate {
-                delegate.engineDidUpdate(StandardEngine.sharedInstance.grid!)
+                delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
             }
         }
     }
