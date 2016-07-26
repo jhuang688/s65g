@@ -29,28 +29,56 @@ import UIKit
 //    var touchCol = 0
 //    var touchRow = 0
     
-    private var actualGrid: [Cell] = []
+
     
     var points: [Position]? {
         set {
             // First:
             //   Get the max row and col from positions added in
             //   Set the max row and col from that
+            // safe to assume 20 by 20 ???
+            
+            var newGrid = Grid(rows: 20, cols: 20) { _ in .Empty }
+            
+            // change position to int
+            let array: [Int] = points!.map { $0.row * newGrid.cols + $0.col }
+            
             // Second:
             //   Empty out actualGrid
             // Third:
             //   Set only the positions in the positions in the actualGrid to .Living
-            let array: [Int] = points!.map { $0.row * cols + $0.col }
-            for i in 0..<rows*cols {
-                if array.contains(i) {
-                    StandardEngine.sharedInstance.grid.cells[i].state = .Living
+            newGrid.cells = StandardEngine.sharedInstance.grid.cells.map {
+                if array.contains($0.position.row * newGrid.cols + $0.position.col) {
+                    return Cell($0.position, .Living)
                 }
                 else {
-                    StandardEngine.sharedInstance.grid.cells[i].state = .Empty
+                    return Cell($0.position, .Empty)
                 }
             }
+            
+            StandardEngine.sharedInstance.grid = newGrid
+            
+            // send EngineUpdate notification
+            if let delegate = StandardEngine.sharedInstance.delegate {
+                delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
+            }
+            
+            
         }
         get {
+            // RUN THIS WHEN SAVE IS CLICKED
+            
+            // WHEN SAVE IS CLICKED
+            // GET NEW POINTS ARRAY
+            // UPDATE TABLE VIEW WITH NEW CONFIG
+            // UPDATE MODEL GRID and SIMULATION VIEW / STATISTICS VIEW
+            
+            // WHEN CANCEL IS CLICKED
+            // TABLE VIEW NOT UPDATED, NOR IS MODEL GRID / SIMULATION VIEW / STATISTICS VIEW
+            
+            // WHEN USER IS TOGGLING
+            // UPDATE GRIDVIEW, BUT DON'T UPDATE MODEL GRID / SIMULATION VIEW / STATISTICS VIEW
+            
             // return actualGrid.filter({$0 == .Living})
             var livingArray: [Position] = []
             for i in 0..<rows*cols {
