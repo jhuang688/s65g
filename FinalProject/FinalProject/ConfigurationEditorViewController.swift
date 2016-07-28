@@ -16,6 +16,7 @@ class ConfigurationEditorViewController: UIViewController {
     
     var nameString: String?
     var pointsArray: [Position] = []
+    var commit: (String -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +41,65 @@ class ConfigurationEditorViewController: UIViewController {
     }
     
     @IBAction func saveClicked(sender: UIBarButtonItem) {
+        
         // check that a name is entered. if not, alert panel
+        if let newTitle = nameText.text {
+            if newTitle != "" {
+                // update this for table display
+                (self.navigationController?.viewControllers[0] as! ConfigurationViewController).titles.append(newTitle)
+                (self.navigationController?.viewControllers[0] as! ConfigurationViewController).positions = gridViewForEdit.points
+                (self.navigationController?.viewControllers[0] as! ConfigurationViewController).configs.append(["title": newTitle, "contents": gridViewForEdit.points.map { [$0.row, $0.col] }])
+                
+                // also update model grid for simulation VC and statistics VC
+                var newGrid = Grid(rows: gridViewForEdit.rows, cols: gridViewForEdit.cols)
+                // change alive positions to ints
+                let array: [Int] = gridViewForEdit.points.map { $0.row * newGrid.cols + $0.col }
+                
+                // Second:
+                //   Empty out actualGrid
+                // Third:
+                //   Set only the positions in the positions in the actualGrid to .Living
+                newGrid.cells = newGrid.cells.map {
+                    if array.contains($0.position.row * newGrid.cols + $0.position.col) {
+                        return Cell($0.position, .Living)
+                    }
+                    else {
+                        return Cell($0.position, .Empty)
+                    }
+                }
+                
+                StandardEngine.sharedInstance.grid = newGrid
+                
+                // send EngineUpdate notification
+                if let delegate = StandardEngine.sharedInstance.delegate {
+                    delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
+                }
+                
+                
+                
+                // we can do this by setting points for GridView (not GridViewDisplayOnly)
+                // or some other way
+                
+                
+                
+            }
+            else {
+                // ALERT PANEL
+            }
+        }
+        else {
+            // ALERT PANEL
+        }
+
+        
+//        guard let newTitle = nameText.text, commit = commit
+//            else { return }
+//        commit(newTitle)
+//        navigationController!.popViewControllerAnimated(true)
+        
         // add to array of dictionaries and reload tableview
+        
+
         // update actual grid in model, hence updating simulation and statistics views
         
         // take user back to instrumentation view

@@ -39,10 +39,16 @@ import UIKit
         set {
             // First:
             //   Get the max row and col from positions added in
-            //   Set the max row and col from that - double the maximum
-            // safe to assume 20 by 20 ??? NO
+            let maxRow = newValue.map { $0.row }.maxElement()
+            let maxCol = newValue.map { $0.col }.maxElement()
+            var size = max(maxRow!, maxCol!)
             
-            newGrid = Grid(rows: 20, cols: 20) { _ in .Empty }
+            if size > 50 {
+                size = 50   // we will limit it at 100 by 100
+            }
+            
+            //   Set the max row and col from that - double the maximum
+            newGrid = Grid(rows: size * 2, cols: size * 2) { _ in .Empty }
             
             // change position to int
             let array: [Int] = newValue.map { $0.row * newGrid.cols + $0.col }

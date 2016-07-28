@@ -151,7 +151,7 @@ class StandardEngine: EngineProtocol {
     
     
     func step() -> GridProtocol {
-        var newGrid = Grid(rows: rows, cols: cols) { _ in .Empty }
+        var newGrid = Grid(rows: grid.rows, cols: grid.cols) { _ in .Empty }
         newGrid.cells = grid.cells.map {
             if $0.state == .Diseased {    // diseased cells will stay diseased
                 return Cell($0.position, .Diseased)

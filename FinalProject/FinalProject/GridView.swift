@@ -112,8 +112,8 @@ import UIKit
         // super.drawRect(rect)  // not needed
         
         // get the latest values
-        cols = StandardEngine.sharedInstance.cols
-        rows = StandardEngine.sharedInstance.rows
+        cols = StandardEngine.sharedInstance.grid.cols
+        rows = StandardEngine.sharedInstance.grid.rows
         
         // calculate cell size. This allows for non-square cells.
         // If they must be squares, they can both equal the minimum of the two.

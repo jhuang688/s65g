@@ -10,9 +10,9 @@ import UIKit
 
 class ConfigurationViewController: UITableViewController {
     
-    private var configs: Array<Dictionary<String,AnyObject>> = []
-    private var titles: Array<String> = []
-    private var positions: Array<Position> = []
+    var configs: Array<Dictionary<String,AnyObject>> = []
+    var titles: Array<String> = []
+    var positions: Array<Position> = []
     
     var urlString: String? {
         didSet {
@@ -151,6 +151,9 @@ class ConfigurationViewController: UITableViewController {
 //    }
     
     override func viewDidAppear(animated: Bool) {
+        
+        self.tableView.reloadData()
+        
 //        let url = NSURL(string: "https://dl.dropboxusercontent.com/u/7544475/S65g.json")!
 //        let fetcher = Fetcher()
 //        fetcher.requestJSON(url) { (json, message) in

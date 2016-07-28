@@ -33,6 +33,9 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
     func watchForNotifications(notification:NSNotification) {
         // re-draw
         gridView.setNeedsDisplay()
+        
+        // PRE-FILL NAME OF GRID HERE
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -75,7 +78,7 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
     
     @IBAction func resetButtonClicked(sender: AnyObject) {
         // SHOULD THIS RESET GRIDVIEW ONLY AND NOT THE GRID ITSELF???
-        let emptyGrid = Grid(rows: StandardEngine.sharedInstance.rows, cols: StandardEngine.sharedInstance.cols) {_ in
+        let emptyGrid = Grid(rows: StandardEngine.sharedInstance.grid.rows, cols: StandardEngine.sharedInstance.grid.cols) {_ in
             .Empty
         }
         StandardEngine.sharedInstance.grid = emptyGrid
