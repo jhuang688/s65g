@@ -19,6 +19,10 @@ class InstrumentationViewController: UIViewController {
     @IBOutlet weak var cols: UITextField!
     @IBOutlet weak var timerSwitch: UISwitch!
     @IBOutlet weak var refreshRateSlider: UISlider!
+    @IBOutlet weak var urlText: UITextField!
+    
+//    private var jsonInfo: NSMutableArray = [] //[NSDictionary] = []
+//    private var parsedJSON: NSObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +35,7 @@ class InstrumentationViewController: UIViewController {
         let sel = #selector(InstrumentationViewController.watchForNotifications(_:))
         let center  = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: sel, name: "TimerFired", object: nil)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -206,6 +211,105 @@ class InstrumentationViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func reloadClicked(sender: UIButton) {
+        //
+        if let urlTyped = urlText.text {
+            if urlTyped != "" {
+                // set urlString in ConfigurationViewController
+                
+            }
+        }
+        
+
+    }
+    
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        
+////        
+////        
+////        
+////        // default URL if nothing is provided
+////        var url = NSURL(string: "https://dl.dropboxusercontent.com/u/7544475/S65g.json")!
+////        
+////        // use provided URL if provided
+////        if let urlTyped = urlText.text {
+////            if urlTyped != "" {
+////                url = NSURL(string: urlTyped)!
+////            }
+////        }
+////        
+////        let fetcher = Fetcher()
+////        fetcher.requestJSON(url) { (json, message) in
+////            let op = NSBlockOperation {
+////                if let json = json {
+////                    // erase array of dictionaries
+////                    
+////                    // update array with new values
+////                    
+////                    // reload table
+////                    
+////                    //var array: NSArray = json[0] as NSArray //parsedJSON =
+////                    //let array = json as! NSArray
+////                    // THIS WORKS:
+////                    self.rows.text = (json as! NSMutableArray)[0]["title"] as? String
+////                    self.jsonInfo = json as! NSMutableArray
+////                    self.parsedJSON = json
+////                    
+////                    //                    if let vc = container.segue.destinationViewController as? UINavigationController
+////                    //                        where segue.identifier == "EmbedSegue" {
+////                    //                        let vcs = vc.childViewControllers
+////                    //                        for vc in vcs {
+////                    //                            if vc.isKindOfClass(ConfigurationViewController) {
+////                    //                                (vc as! ConfigurationViewController).configs = jsonInfo
+////                    //                                (vc as! ConfigurationViewController).viewWillAppear(true)
+////                    //                            }
+////                    //                        }
+////                    //let table : ConfigurationViewController = self.childViewControllers[1] as! ConfigurationViewController
+////                    //table.reloadData()
+////                    //table.viewWillAppear(true)
+////                }
+////                else if let message = message {
+////                    // handle errors here - ALERT PANEL!
+////                    
+////                    self.rows.text = message
+////                }
+////                else {
+////                    // handle errors here - ALERT PANEL!
+////                    
+////                    self.rows.text = "WTF?"
+////                }
+////            }
+////            NSOperationQueue.mainQueue().addOperation(op)
+////        }
+//
+//        
+//        
+//        
+//        
+//        
+//        
+//        
+//        
+//        
+//        
+//        if let vc = segue.destinationViewController as? UINavigationController
+//            where segue.identifier == "EmbedSegue" {
+//            
+//            let vcs = vc.childViewControllers
+//            for vc in vcs {
+//                if vc.isKindOfClass(ConfigurationViewController) {
+//                    (vc as! ConfigurationViewController).parsedJSON = parsedJSON
+//                    (vc as! ConfigurationViewController).configs = jsonInfo
+//                    (vc as! ConfigurationViewController).tableView.reloadData()
+//                    (vc as! ConfigurationViewController).viewWillAppear(true)
+//                }
+//            }
+// 
+//            //self.embeddedViewController = vc
+//            //vc.delegate = self
+//        }
+//    }
     
     
     func watchForNotifications(notification:NSNotification) {

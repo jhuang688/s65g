@@ -1,14 +1,17 @@
 //
-//  GridView.swift
+//  GridViewDisplayOnly.swift
 //  FinalProject
 //
-//  Created by Joanne Huang on 6/07/2016.
+//  Created by Joanne Huang on 27/07/2016.
 //  Copyright © 2016 Joanne Huang. All rights reserved.
 //
 
+// This version of GridView does not modify the model grid
+// It is for display purposes while editing
+
 import UIKit
 
-@IBDesignable class GridView: UIView {
+@IBDesignable class GridViewDisplayOnly: UIView {
     
     // default cell colours
     @IBInspectable var livingColor: UIColor = UIColor.yellowColor()
@@ -25,11 +28,12 @@ import UIKit
     var cols: Int = 20
     var rows: Int = 20
     
-//    // col and row of touched cell to redraw - this is set by processTouch
-//    var touchCol = 0
-//    var touchRow = 0
+    //    // col and row of touched cell to redraw - this is set by processTouch
+    //    var touchCol = 0
+    //    var touchRow = 0
     
-
+    private var newGrid = Grid(rows: 20, cols: 20) { _ in .Empty }
+    
     
     var points: [Position]? {
         set {
@@ -38,7 +42,7 @@ import UIKit
             //   Set the max row and col from that - double the maximum
             // safe to assume 20 by 20 ??? NO
             
-            var newGrid = Grid(rows: 20, cols: 20) { _ in .Empty }
+            newGrid = Grid(rows: 20, cols: 20) { _ in .Empty }
             
             // change position to int
             let array: [Int] = points!.map { $0.row * newGrid.cols + $0.col }
@@ -47,7 +51,7 @@ import UIKit
             //   Empty out actualGrid
             // Third:
             //   Set only the positions in the positions in the actualGrid to .Living
-            newGrid.cells = StandardEngine.sharedInstance.grid.cells.map {
+            newGrid.cells = newGrid.cells.map {
                 if array.contains($0.position.row * newGrid.cols + $0.position.col) {
                     return Cell($0.position, .Living)
                 }
@@ -85,8 +89,8 @@ import UIKit
             // return actualGrid.filter({$0 == .Living})
             var livingArray: [Position] = []
             for i in 0..<rows*cols {
-                if StandardEngine.sharedInstance.grid.cells[i].state.isAlive() {
-                    livingArray.append(StandardEngine.sharedInstance.grid.cells[i].position)
+                if newGrid.cells[i].state.isAlive() {
+                    livingArray.append(newGrid.cells[i].position)
                 }
             }
             return livingArray
@@ -112,8 +116,8 @@ import UIKit
         // super.drawRect(rect)  // not needed
         
         // get the latest values
-        cols = StandardEngine.sharedInstance.cols
-        rows = StandardEngine.sharedInstance.rows
+        cols = newGrid.cols
+        rows = newGrid.rows
         
         // calculate cell size. This allows for non-square cells.
         // If they must be squares, they can both equal the minimum of the two.
@@ -147,7 +151,7 @@ import UIKit
                 
                 let circle = UIBezierPath(ovalInRect: aCell)
                 var cellColor: UIColor
-                switch (StandardEngine.sharedInstance.grid.cells[row * cols + col].state) {
+                switch (newGrid.cells[row * cols + col].state) {
                 case .Living:
                     cellColor = livingColor
                 case .Empty:
@@ -182,8 +186,8 @@ import UIKit
     }
     
     func processTouch(touch: UITouch) {
-        let cols = StandardEngine.sharedInstance.cols
-        let rows = StandardEngine.sharedInstance.rows
+        let cols = newGrid.cols
+        let rows = newGrid.rows
         
         // calculate cell size. This allows for non-square cells.
         // If they must be squares, they can both equal the minimum of the two.
@@ -202,18 +206,24 @@ import UIKit
         // even if it then moves inside.
         if touchRow >= 0 && touchRow < rows && touchCol >= 0 && touchCol < cols {
             // toggle touched cell in newGrid (replica of grid)
-            var newGrid: GridProtocol = StandardEngine.sharedInstance.grid
+            //var newGrid2: GridProtocol = newGrid
             newGrid[touchRow,touchCol] = newGrid[touchRow,touchCol]!.toggle(newGrid[touchRow,touchCol]!)
             
-            // set grid = newGrid
-            StandardEngine.sharedInstance.grid = newGrid
-            
-            // send EngineUpdate notification
-            if let delegate = StandardEngine.sharedInstance.delegate {
-                delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
-            }
+            // send EditChanged notification if touched in instrumentation VC - don't need to go through delegate since model is not changing
+            editChanged()
 
         }
     }
+    
+    // TimerFired notifications are sent by the timer
+    @objc func editChanged() {
+        let center = NSNotificationCenter.defaultCenter()
+        let n = NSNotification(name: "EditChanged",
+                               object: nil,
+                               userInfo: nil)
+        //                               userInfo: ["gridObject": StandardEngine.sharedInstance.grid! as! AnyObject])
+        center.postNotification(n)
+    }
 }
+
 

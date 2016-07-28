@@ -11,6 +11,8 @@
 		960BBBFB1D47943B00E11FCA /* ConfigurationEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960BBBFA1D47943B00E11FCA /* ConfigurationEditorViewController.swift */; };
 		96274CFA1D3FF54A00CCA262 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96274CF91D3FF54A00CCA262 /* Position.swift */; };
 		96274CFC1D3FF5D400CCA262 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96274CFB1D3FF5D400CCA262 /* Cell.swift */; };
+		964EA01C1D49937B0042F090 /* GridViewDisplayOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964EA01B1D49937B0042F090 /* GridViewDisplayOnly.swift */; };
+		964EA01E1D49A4550042F090 /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964EA01D1D49A4550042F090 /* Fetcher.swift */; };
 		969C86A21D3FB37C00FB48BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969C86A11D3FB37C00FB48BC /* AppDelegate.swift */; };
 		969C86A41D3FB37C00FB48BC /* InstrumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969C86A31D3FB37C00FB48BC /* InstrumentationViewController.swift */; };
 		969C86A61D3FB37C00FB48BC /* SimulationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969C86A51D3FB37C00FB48BC /* SimulationViewController.swift */; };
@@ -32,6 +34,8 @@
 		960BBBFA1D47943B00E11FCA /* ConfigurationEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationEditorViewController.swift; sourceTree = "<group>"; };
 		96274CF91D3FF54A00CCA262 /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		96274CFB1D3FF5D400CCA262 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		964EA01B1D49937B0042F090 /* GridViewDisplayOnly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridViewDisplayOnly.swift; sourceTree = "<group>"; };
+		964EA01D1D49A4550042F090 /* Fetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
 		969C869E1D3FB37C00FB48BC /* FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		969C86A11D3FB37C00FB48BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		969C86A31D3FB37C00FB48BC /* InstrumentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentationViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +89,7 @@
 				969C86A51D3FB37C00FB48BC /* SimulationViewController.swift */,
 				969C86B51D3FB43300FB48BC /* StatisticsViewConrtoller.swift */,
 				969C86A71D3FB37C00FB48BC /* Main.storyboard */,
+				964EA01D1D49A4550042F090 /* Fetcher.swift */,
 				960BBBF81D47941600E11FCA /* ConfigurationViewController.swift */,
 				960BBBFA1D47943B00E11FCA /* ConfigurationEditorViewController.swift */,
 				969C86B71D3FB47E00FB48BC /* GridProtocol.swift */,
@@ -94,6 +99,7 @@
 				969C86BD1D3FB56B00FB48BC /* EngineProtocol.swift */,
 				969C86BF1D3FB59400FB48BC /* StandardEngine.swift */,
 				969C86C11D3FB5D400FB48BC /* GridView.swift */,
+				964EA01B1D49937B0042F090 /* GridViewDisplayOnly.swift */,
 				969C86C31D3FB5DB00FB48BC /* CellState.swift */,
 				96274CFB1D3FF5D400CCA262 /* Cell.swift */,
 				969C86AA1D3FB37C00FB48BC /* Assets.xcassets */,
@@ -187,7 +193,9 @@
 				969C86C41D3FB5DB00FB48BC /* CellState.swift in Sources */,
 				960BBBF91D47941600E11FCA /* ConfigurationViewController.swift in Sources */,
 				969C86C21D3FB5D400FB48BC /* GridView.swift in Sources */,
+				964EA01C1D49937B0042F090 /* GridViewDisplayOnly.swift in Sources */,
 				969C86BE1D3FB56B00FB48BC /* EngineProtocol.swift in Sources */,
+				964EA01E1D49A4550042F090 /* Fetcher.swift in Sources */,
 				960BBBFB1D47943B00E11FCA /* ConfigurationEditorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

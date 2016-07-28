@@ -20,6 +20,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         _ = StandardEngine.sharedInstance    // shared instance with default values
+
+        // Need to set delegate here instead of simulationVC's viewDidLoad.
+        // This is because we may need to update the model grid from the user's use of the instrumentationVC
+        // before the simulationVC is even loaded. (instrumentationVC may want to save
+        // something to the model grid, hence notifying the other tabs to update
+        // before the user clicks on simulationVC tab for the first time. If the delegate is set
+        // in simulation VC's viewDidLoad instead of here, it will have not yet been set)
+        if let viewControllers = self.window?.rootViewController?.childViewControllers {
+            for viewController in viewControllers {
+                if viewController.isKindOfClass(SimulationViewController) {
+                    StandardEngine.sharedInstance.delegate = viewController as! SimulationViewController
+                }
+            }
+        }
         
         return true
     }

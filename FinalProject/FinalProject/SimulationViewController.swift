@@ -13,12 +13,15 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
     var stdEngine: EngineProtocol!
     
     @IBOutlet weak var gridView: GridView!
+    @IBOutlet weak var nameText: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        StandardEngine.sharedInstance.delegate = self   // SimulationVC is the delegate
+        
+        // Instead, we are doing this when the app launches, not when the simulationVC loads
+        //StandardEngine.sharedInstance.delegate = self   // SimulationVC is the delegate
         
         // subscribe to EngineUpdate notifications
         let sel = #selector(SimulationViewController.watchForNotifications(_:))
@@ -48,6 +51,11 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
     }
     
     @IBAction func saveButtonClicked(sender: AnyObject) {
+        // check that a name is entered. if not, alert panel
+        // add to array of dictionaries and reload tableview
+        
+        // take user back to instrumentation view
+        tabBarController?.selectedIndex = 0
     }
     
     @IBAction func stepButtonClicked(sender: AnyObject) {
@@ -71,20 +79,6 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
             .Empty
         }
         StandardEngine.sharedInstance.grid = emptyGrid
-        
-//        // TESTING AREA:
-//        // randomly select 1/20 diseased cells
-//        var newGrid = Grid(rows: StandardEngine.sharedInstance.rows, cols: StandardEngine.sharedInstance.cols) {
-//            .Empty
-//        }
-//        for col in 0..<newGrid.cols{
-//            for row in 0..<newGrid.rows{
-//                if arc4random_uniform(20) == 1 {
-//                    newGrid[row, col]!.state = .Diseased
-//                }
-//            }
-//        }
-//        StandardEngine.sharedInstance.grid = newGrid
         
         if let delegate = StandardEngine.sharedInstance.delegate {
             delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
