@@ -10,8 +10,9 @@ import UIKit
 
 class ConfigurationViewController: UITableViewController {
     
-//    private var configs: Array<Dictionary<String,AnyObject>> = []
+    private var configs: Array<Dictionary<String,AnyObject>> = []
     private var titles: Array<String> = []
+    private var positions: Array<Position> = []
     
     var urlString: String? {
         didSet {
@@ -22,6 +23,7 @@ class ConfigurationViewController: UITableViewController {
             fetcher.requestJSON(url) { (json, message) in
                 if let json = json,
                     topArray = json as? Array<Dictionary<String,AnyObject>> {
+                    self.configs = topArray
                     for i in 0..<topArray.count {
                         self.titles.append(topArray[i]["title"] as! String)
                     }
@@ -202,9 +204,20 @@ class ConfigurationViewController: UITableViewController {
             editingVC.navigationItem.title = "New Configuration"
         }
         else {
-            let editingRow = (sender as! UITableViewCell).tag
-            let editingString = titles[editingRow]
-            editingVC.nameText.text = editingString
+            let editingRow: Int = (sender as! UITableViewCell).tag
+            let editingString: String = titles[editingRow]
+            
+            editingVC.nameString = editingString //nameText.text = "\(editingString)"
+            
+            print(configs[editingRow]["contents"]!.count)
+            positions = []
+            for i in 0..<(configs[editingRow]["contents"]!.count) {
+                positions.append(Position((configs[editingRow]["contents"]![i] as! Array)[0], (configs[editingRow]["contents"]![i] as! Array)[1]))
+            }
+//            positions = configs[editingRow]["contents"].map {
+//                return Position(Int($0 as! NSNumber)/20, Int($0 as! NSNumber)%20)     // HARDCODED FOR NOW TO 20/20
+//            }!
+            editingVC.pointsArray = positions
             
         }
 //        editingVC.commit = {

@@ -10,18 +10,28 @@ import UIKit
 
 class ConfigurationEditorViewController: UIViewController {
     
-    @IBOutlet weak var gridView: GridView!
+
+    @IBOutlet weak var gridViewForEdit: GridViewDisplayOnly!
     @IBOutlet weak var nameText: UITextField!
+    
+    var nameString: String?
+    var pointsArray: [Position] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
         // subscribe to EngineUpdate notifications
         let sel = #selector(SimulationViewController.watchForNotifications(_:))
         let center  = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: sel, name: "EditChanged", object: nil)
+
+        // Do any additional setup after loading the view.
+        
+        if let name = nameString {
+            nameText.text = name
+        }
+        
+        gridViewForEdit.points = pointsArray
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,7 +50,7 @@ class ConfigurationEditorViewController: UIViewController {
     
     func watchForNotifications(notification:NSNotification) {
         // re-draw
-        gridView.setNeedsDisplay()
+        gridViewForEdit.setNeedsDisplay()
     }
     
     

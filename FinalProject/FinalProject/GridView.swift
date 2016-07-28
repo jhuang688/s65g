@@ -31,7 +31,7 @@ import UIKit
     
 
     
-    var points: [Position]? {
+    var points: [Position] {
         set {
             // First:
             //   Get the max row and col from positions added in
@@ -41,7 +41,7 @@ import UIKit
             var newGrid = Grid(rows: 20, cols: 20) { _ in .Empty }
             
             // change position to int
-            let array: [Int] = points!.map { $0.row * newGrid.cols + $0.col }
+            let array: [Int] = points.map { $0.row * newGrid.cols + $0.col }
             
             // Second:
             //   Empty out actualGrid

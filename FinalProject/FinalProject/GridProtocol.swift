@@ -12,7 +12,7 @@ protocol GridProtocol {
     var rows: Int { get }
     var cols: Int { get }
     var cells: [Cell] { get set }
-//    var points: [Position]? { get set }
+//    var points: [Position] { get set }
     
     //func neighbours(coords: (col: Int, row: Int), maxCol: Int, maxRow: Int) -> Array<(Int, Int)>
     func neighbors(pos: Position) -> [Position]

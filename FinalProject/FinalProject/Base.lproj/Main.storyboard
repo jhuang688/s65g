@@ -805,7 +805,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="gridView" destination="OUo-kn-fgr" id="kge-e6-aZn"/>
+                        <outlet property="gridViewForEdit" destination="OUo-kn-fgr" id="MaH-Ui-Mnd"/>
                         <outlet property="nameText" destination="vLl-WG-WTY" id="8vG-Eb-g2u"/>
                     </connections>
                 </viewController>

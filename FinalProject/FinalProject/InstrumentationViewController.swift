@@ -47,16 +47,16 @@ class InstrumentationViewController: UIViewController {
     @IBAction func didUpdateRows(sender: UITextField) {
         if let text = rows.text,
             numRows = Int(text)  {
-            if numRows > 0 && numRows <= 50 {   // set between 1 and 50
+            if numRows > 0 && numRows <= 100 {   // set between 1 and 100
                 StandardEngine.sharedInstance.rows = numRows
             }
             else if numRows <= 0 {   // number too small. set to smallest possible, ie. 1
                 StandardEngine.sharedInstance.rows = 1
                 rows.text = "1"
             }
-            else { // numRows > 50 { // number too large. set to largest possible, ie. 50
-                StandardEngine.sharedInstance.rows = 50
-                rows.text = "50"
+            else { // numRows > 100 { // number too large. set to largest possible, ie. 100
+                StandardEngine.sharedInstance.rows = 100
+                rows.text = "100"
             }
         }
         else { // else (no text, or non-integer text) - set to default
@@ -71,16 +71,16 @@ class InstrumentationViewController: UIViewController {
     @IBAction func didUpdateCols(sender: UITextField) {
         if let text = cols.text,
             numCols = Int(text)  {
-            if numCols > 0 && numCols <= 50 {   // set between 1 and 50
+            if numCols > 0 && numCols <= 100 {   // set between 1 and 100
                 StandardEngine.sharedInstance.cols = numCols
             }
             else if numCols <= 0 {   // number too small. set to smallest possible, ie. 1
                 StandardEngine.sharedInstance.cols = 1
                 cols.text = "1"
             }
-            else { // numCols > 50 { // number too large. set to largest possible, ie. 50
-                StandardEngine.sharedInstance.cols = 50
-                cols.text = "50"
+            else { // numCols > 100 { // number too large. set to largest possible, ie. 100
+                StandardEngine.sharedInstance.cols = 100
+                cols.text = "100"
             }
         }
         else { // else (no text, or non-integer text) - set to default
@@ -100,16 +100,16 @@ class InstrumentationViewController: UIViewController {
                 rows.text = String(numRows - 10)
             }
             
-            if Int(rows.text!)! > 0 && Int(rows.text!)! <= 50 {  // set between 1 and 50
+            if Int(rows.text!)! > 0 && Int(rows.text!)! <= 100 {  // set between 1 and 100
                 StandardEngine.sharedInstance.rows = Int(rows.text!)!
             }
             else if Int(rows.text!)! <= 0 {  // number too small. set to smallest possible, ie. 1
                 StandardEngine.sharedInstance.rows = 1
                 rows.text = "1"
             }
-            else { // Int(rows.text!)! > 50 {   // number too large. set to largest possible, ie. 50
-                StandardEngine.sharedInstance.rows = 50
-                rows.text = "50"
+            else { // Int(rows.text!)! > 100 {   // number too large. set to largest possible, ie. 100
+                StandardEngine.sharedInstance.rows = 100
+                rows.text = "100"
             }
             
             sender.value = 0    // reset, ready for next click
@@ -133,16 +133,16 @@ class InstrumentationViewController: UIViewController {
                 cols.text = String(numCols - 10)
             }
             
-            if Int(cols.text!)! > 0 && Int(cols.text!)! <= 50 {  // set between 1 and 50
+            if Int(cols.text!)! > 0 && Int(cols.text!)! <= 100 {  // set between 1 and 100
                 StandardEngine.sharedInstance.cols = Int(cols.text!)!
             }
             else if Int(cols.text!)! <= 0 {  // number too small. set to smallest possible, ie. 1
                 StandardEngine.sharedInstance.cols = 1
                 cols.text = "1"
             }
-            else { // Int(cols.text!)! > 50 {   // number too large. set to largest possible, ie. 50
-                StandardEngine.sharedInstance.cols = 50
-                cols.text = "50"
+            else { // Int(cols.text!)! > 100 {   // number too large. set to largest possible, ie. 100
+                StandardEngine.sharedInstance.cols = 100
+                cols.text = "100"
             }
             sender.value = 0  // reset, ready for next click
         }
