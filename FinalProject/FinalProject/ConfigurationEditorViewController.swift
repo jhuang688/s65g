@@ -68,6 +68,8 @@ class ConfigurationEditorViewController: UIViewController {
                     }
                 }
                 
+                newGrid.title = newTitle
+                
                 StandardEngine.sharedInstance.grid = newGrid
                 
                 // send EngineUpdate notification

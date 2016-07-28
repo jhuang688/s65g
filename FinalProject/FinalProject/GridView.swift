@@ -182,8 +182,8 @@ import UIKit
     }
     
     func processTouch(touch: UITouch) {
-        let cols = StandardEngine.sharedInstance.cols
-        let rows = StandardEngine.sharedInstance.rows
+        let cols = StandardEngine.sharedInstance.grid.cols
+        let rows = StandardEngine.sharedInstance.grid.rows
         
         // calculate cell size. This allows for non-square cells.
         // If they must be squares, they can both equal the minimum of the two.

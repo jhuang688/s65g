@@ -23,6 +23,10 @@ class ConfigurationViewController: UITableViewController {
             fetcher.requestJSON(url) { (json, message) in
                 if let json = json,
                     topArray = json as? Array<Dictionary<String,AnyObject>> {
+                    // clear existing
+                    self.configs = []
+                    self.titles = []
+                    
                     self.configs = topArray
                     for i in 0..<topArray.count {
                         self.titles.append(topArray[i]["title"] as! String)
@@ -134,6 +138,17 @@ class ConfigurationViewController: UITableViewController {
         urlString = "https://dl.dropboxusercontent.com/u/7544475/S65g.json"
         // urlString = "http://api.openweathermap.org/data/2.5/weather?q=boston,%20ma&appid=77e555f36584bc0c3d55e1e584960580"
 
+        
+        // subscribe to SaveConfig notifications
+        let sel = #selector(ConfigurationViewController.watchForNotifications(_:))
+        let center  = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: sel, name: "SaveConfig", object: nil)
+
+        // subscribe to ReloadURL notifications
+        let sel2 = #selector(ConfigurationViewController.setURLString(_:))
+       // let center  = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: sel2, name: "ReloadURL", object: nil)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -263,11 +278,21 @@ class ConfigurationViewController: UITableViewController {
         if editingStyle == .Delete {
         //    (configs as! NSMutableArray).removeObjectAtIndex(indexPath.row) //.removeAtIndex 
             titles.removeAtIndex(indexPath.row)
+            configs.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath],
                                              withRowAnimation: .Automatic)
         }
     }
     
+    func watchForNotifications(notification:NSNotification) {
+        // add new config to table
+        titles.append((notification.userInfo?["title"])! as! String)
+        configs.append(notification.userInfo as! Dictionary<String,AnyObject>)
+    }
+
+    func setURLString(notification:NSNotification) {
+        urlString = notification.userInfo?["url"] as? String
+    }
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

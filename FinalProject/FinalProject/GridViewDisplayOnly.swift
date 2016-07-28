@@ -41,11 +41,19 @@ import UIKit
             //   Get the max row and col from positions added in
             let maxRow = newValue.map { $0.row }.maxElement()
             let maxCol = newValue.map { $0.col }.maxElement()
-            var size = max(maxRow!, maxCol!)
             
-            if size > 50 {
-                size = 50   // we will limit it at 100 by 100
+            var size: Int = 10 // default is 20 by 20
+            
+            if let maxRow = maxRow, maxCol = maxCol {
+                size = max(maxRow, maxCol)
+                if size > 50 {
+                    size = 50   // we will limit it at 100 by 100
+                }
+                if size < 5 {
+                    size = 5  // provide 10 by 10 room for stepping as a minimum
+                }
             }
+
             
             //   Set the max row and col from that - double the maximum
             newGrid = Grid(rows: size * 2, cols: size * 2) { _ in .Empty }

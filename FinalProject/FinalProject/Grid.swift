@@ -14,6 +14,7 @@ struct Grid : GridProtocol {
     private(set) var rows: Int
     private(set) var cols: Int
     var cells: [Cell]
+    var title: String?
 //    var points: [Position]? {
 //        didSet {
 //            let array: [Int] = points!.map { $0.row * cols + $0.col }

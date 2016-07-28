@@ -213,10 +213,15 @@ class InstrumentationViewController: UIViewController {
     }
     
     @IBAction func reloadClicked(sender: UIButton) {
-        //
+
         if let urlTyped = urlText.text {
             if urlTyped != "" {
-                // set urlString in ConfigurationViewController
+                // send notification with url text for ConfigurationViewController
+                let center = NSNotificationCenter.defaultCenter()
+                let n = NSNotification(name: "ReloadURL",
+                                       object: nil,
+                                       userInfo: ["url": urlTyped])
+                center.postNotification(n)
                 
             }
         }

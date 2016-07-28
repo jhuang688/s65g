@@ -23,16 +23,20 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         // Instead, we are doing this when the app launches, not when the simulationVC loads
         //StandardEngine.sharedInstance.delegate = self   // SimulationVC is the delegate
         
+        
+        
         // subscribe to EngineUpdate notifications
         let sel = #selector(SimulationViewController.watchForNotifications(_:))
         let center  = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: sel, name: "EngineUpdate", object: nil)
+        
         
     }
     
     func watchForNotifications(notification:NSNotification) {
         // re-draw
         gridView.setNeedsDisplay()
+        nameText.text = StandardEngine.sharedInstance.grid.title
         
         // PRE-FILL NAME OF GRID HERE
 
@@ -54,8 +58,36 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
     }
     
     @IBAction func saveButtonClicked(sender: AnyObject) {
-        // check that a name is entered. if not, alert panel
         // add to array of dictionaries and reload tableview
+        
+        // check that a name is entered. if not, alert panel
+        if let newTitle = nameText.text {
+            if newTitle != "" {
+                // update this for table display
+//                (self.navigationController?.viewControllers[0] as! ConfigurationViewController).titles.append(newTitle)
+//                (self.navigationController?.viewControllers[0] as! ConfigurationViewController).positions = gridView.points
+//                (self.navigationController?.viewControllers[0] as! ConfigurationViewController).configs.append(["title": newTitle, "contents": gridView.points.map { [$0.row, $0.col] }])
+                
+                // send notification with required info as dictionary
+                let center = NSNotificationCenter.defaultCenter()
+                let n = NSNotification(name: "SaveConfig",
+                                       object: nil,
+                                       userInfo: ["title": newTitle, "contents": gridView.points.map { [$0.row, $0.col] }])
+                center.postNotification(n)
+//                // send EngineUpdate notification
+//                if let delegate = StandardEngine.sharedInstance.delegate {
+//                    delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
+//                }
+        
+                
+            }
+            else {
+                // ALERT PANEL
+            }
+        }
+        else {
+            // ALERT PANEL
+        }
         
         // take user back to instrumentation view
         tabBarController?.selectedIndex = 0
