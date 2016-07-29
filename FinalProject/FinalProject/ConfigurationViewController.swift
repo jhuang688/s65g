@@ -39,12 +39,10 @@ class ConfigurationViewController: UITableViewController {
                         NSOperationQueue.mainQueue().addOperation(op)
                     }
                     else if let message = message {
-                        print(message)
                         self.presentAlert(message)
-                        //self.fetchError(message)
                     }
                     else {
-                        //self.fetchError("An error has occurred.")
+                        self.presentAlert("An error has occurred.")
                     }
                 }
             } catch {
@@ -170,16 +168,6 @@ class ConfigurationViewController: UITableViewController {
 
     func setURLString(notification:NSNotification) {
         urlString = notification.userInfo?["url"] as? String
-    }
-
-    
-    // sends FetchError notifications
-    @objc func fetchError(text : String) {
-        let center = NSNotificationCenter.defaultCenter()
-        let n = NSNotification(name: "FetchError",
-                               object: nil,
-                               userInfo: ["message":text])
-        center.postNotification(n)
     }
     
     func presentAlert(text: String) {

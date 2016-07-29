@@ -27,11 +27,6 @@ class InstrumentationViewController: UIViewController {
         let sel = #selector(InstrumentationViewController.watchForNotifications(_:))
         let center  = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: sel, name: "TimerFired", object: nil)
-        
-        // subscribe to FetchError notifications
-        let sel2 = #selector(InstrumentationViewController.presentAlert(_:))
-        center.addObserver(self, selector: sel2, name: "FetchError", object: nil)
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -232,19 +227,6 @@ class InstrumentationViewController: UIViewController {
         // send EngineUpdate notification
         if let delegate = StandardEngine.sharedInstance.delegate {
             delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
-        }
-        
-    }
-    
-    func presentAlert(notification: NSNotification) {
-        let refreshAlert = UIAlertController(title: "Could not fetch data", message: ((notification.userInfo?["message"])! as! String), preferredStyle: UIAlertControllerStyle.Alert)
-        
-        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            // Handle "Ok" logic here (do nothing)
-        }))
-        
-        NSOperationQueue.mainQueue().addOperationWithBlock {
-            self.presentViewController(refreshAlert, animated: true, completion: nil)
         }
         
     }
