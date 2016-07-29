@@ -67,7 +67,7 @@ class StandardEngine: EngineProtocol {
         }
     }
     
-    var delegate: EngineDelegateProtocol?
+    weak var delegate: EngineDelegateProtocol?
     var grid: GridProtocol
     
     var refreshRate: Double = 0.0 {

@@ -6,6 +6,6 @@
 //  Copyright © 2016 Joanne Huang. All rights reserved.
 //
 
-protocol EngineDelegateProtocol {
+protocol EngineDelegateProtocol : class {
     func engineDidUpdate(withGrid: GridProtocol)
 }

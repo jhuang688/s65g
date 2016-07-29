@@ -11,7 +11,7 @@ import Foundation
 protocol EngineProtocol {
     init(rows: Int, cols: Int, cellInitializer: CellInitializer)
     
-    var delegate: EngineDelegateProtocol? {get set}
+    weak var delegate: EngineDelegateProtocol? {get set}
     var grid: GridProtocol {get}
     var refreshRate: Double {get set} //= 0.0
     var refreshTimer: NSTimer? {get set}

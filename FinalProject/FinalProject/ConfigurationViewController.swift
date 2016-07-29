@@ -305,6 +305,7 @@ class ConfigurationViewController: UITableViewController {
             configs.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath],
                                              withRowAnimation: .Automatic)
+            tableView.reloadData()
         }
     }
     
