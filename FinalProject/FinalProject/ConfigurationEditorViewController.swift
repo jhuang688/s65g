@@ -45,7 +45,7 @@ class ConfigurationEditorViewController: UIViewController {
         // check that a name is entered. if not, alert panel
         if let newTitle = nameText.text {
             if newTitle != "" {
-                // update this for table display
+                // update this for table view
                 (self.navigationController?.viewControllers[0] as! ConfigurationViewController).titles.append(newTitle)
                 (self.navigationController?.viewControllers[0] as! ConfigurationViewController).positions = gridViewForEdit.points
                 (self.navigationController?.viewControllers[0] as! ConfigurationViewController).configs.append(["title": newTitle, "contents": gridViewForEdit.points.map { [$0.row, $0.col] }])
@@ -55,10 +55,7 @@ class ConfigurationEditorViewController: UIViewController {
                 // change alive positions to ints
                 let array: [Int] = gridViewForEdit.points.map { $0.row * newGrid.cols + $0.col }
                 
-                // Second:
-                //   Empty out actualGrid
-                // Third:
-                //   Set only the positions in the positions in the actualGrid to .Living
+                // set the new grid and title
                 newGrid.cells = newGrid.cells.map {
                     if array.contains($0.position.row * newGrid.cols + $0.position.col) {
                         return Cell($0.position, .Living)
@@ -94,19 +91,6 @@ class ConfigurationEditorViewController: UIViewController {
         else {
             presentAlert()
         }
-
-        
-//        guard let newTitle = nameText.text, commit = commit
-//            else { return }
-//        commit(newTitle)
-//        navigationController!.popViewControllerAnimated(true)
-        
-        // add to array of dictionaries and reload tableview
-        
-
-        // update actual grid in model, hence updating simulation and statistics views
-        
-
     }
     
     func watchForNotifications(notification:NSNotification) {
@@ -118,7 +102,7 @@ class ConfigurationEditorViewController: UIViewController {
         let refreshAlert = UIAlertController(title: "Could not save", message: "Please enter a name to save this configuration", preferredStyle: UIAlertControllerStyle.Alert)
         
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            //print("Handle Ok logic here")
+            // handle "Ok" logic here (do nothing)
         }))
         
         presentViewController(refreshAlert, animated: true, completion: nil)

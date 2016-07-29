@@ -85,9 +85,4 @@ extension Fetcher {
                     completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
         completionHandler(.PerformDefaultHandling, nil)
     }
-
-    
-//    func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
-//        
-//    }
 }

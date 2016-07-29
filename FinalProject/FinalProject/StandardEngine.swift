@@ -17,17 +17,6 @@ class StandardEngine: EngineProtocol {
         }
     }
     
-//    required init(rows: Int, cols: Int) {
-//        self.cols = cols
-//        self.rows = rows
-//        //refreshRate = 0.0    // set default refreshRate
-////        grid = Grid(rows, cols, cellInitializer: CellInitializer)
-//        grid = Grid(rows: rows, cols: cols) {_ in 
-//            .Empty
-//        }
-//        
-//    }
-    
     required init(rows: Int, cols: Int, cellInitializer: CellInitializer = {_ in .Empty }) {   // default value if nothing given
         self.rows = rows
         self.cols = cols
@@ -40,11 +29,6 @@ class StandardEngine: EngineProtocol {
             grid = Grid(rows: rows, cols: cols) { _ in
                 .Empty
             }
-            
-            // TESTING AREA:
-//            grid!.points = [Position(1, 3), Position(3, 5)]
-            
-            
             
             // send EngineUpdate notification
             if let delegate = delegate {
@@ -103,53 +87,6 @@ class StandardEngine: EngineProtocol {
         }
     }
     
-//    func step() -> GridProtocol {
-//        var after: GridProtocol? = grid
-//        
-//        // check neighbours' states and update count of living neighbours
-//        for col in 0..<cols{
-//            for row in 0..<rows{
-//                var livingNeighbours = 0  // stores count of living neighbours
-//                // get the list of neighbours
-//                let neighboursList: [Position] = grid!.neighbors(Position(row, col))
-//                // for each tuple returned from neighbours, check status and update count
-//                for (column, row) in neighboursList {
-//                    if grid![column,row] == .Living || grid![column,row] == .Born {
-//                        livingNeighbours += 1
-//                    }
-//                }
-//                
-//                // update after array accordingly
-//                switch livingNeighbours {
-//                case 2:   // 2 living neighbours - stay living or stay dead
-//                    if grid![col,row] == .Living || grid![col,row] == .Born {
-//                        after![col,row] = .Living
-//                    }
-//                    else {
-//                        after![col,row] = .Empty
-//                    }
-//                case 3:   // 3 living neighbours - stay living or be born
-//                    if grid![col,row] == .Living || grid![col,row] == .Born {
-//                        after![col,row] = .Living
-//                    }
-//                    else {
-//                        after![col,row] = .Born
-//                    }
-//                default:   // all others - die or stay dead
-//                    if grid![col,row] == .Living || grid![col,row] == .Born {
-//                        after![col,row] = .Died
-//                    }
-//                    else {
-//                        after![col,row] = .Empty
-//                    }
-//                }
-//            }
-//        }
-//        
-//        return after!
-//    }
-    
-    
     func step() -> GridProtocol {
         var newGrid = Grid(rows: grid.rows, cols: grid.cols) { _ in .Empty }
         newGrid.cells = grid.cells.map {
@@ -189,7 +126,6 @@ class StandardEngine: EngineProtocol {
         let n = NSNotification(name: "TimerFired",
                                object: nil,
                                userInfo: nil)
-//                               userInfo: ["gridObject": StandardEngine.sharedInstance.grid! as! AnyObject])
         center.postNotification(n)
     }
 }

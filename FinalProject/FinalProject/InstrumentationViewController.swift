@@ -10,19 +10,11 @@ import UIKit
 
 class InstrumentationViewController: UIViewController {
     
-//    @IBOutlet weak var rows: UITextField!
-//    @IBOutlet weak var cols: UITextField!
-//    @IBOutlet weak var timerSwitch: UISwitch!
-//    @IBOutlet weak var refreshRateSlider: UISlider!
-    
     @IBOutlet weak var rows: UITextField!
     @IBOutlet weak var cols: UITextField!
     @IBOutlet weak var timerSwitch: UISwitch!
     @IBOutlet weak var refreshRateSlider: UISlider!
     @IBOutlet weak var urlText: UITextField!
-    
-//    private var jsonInfo: NSMutableArray = [] //[NSDictionary] = []
-//    private var parsedJSON: NSObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +27,10 @@ class InstrumentationViewController: UIViewController {
         let sel = #selector(InstrumentationViewController.watchForNotifications(_:))
         let center  = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: sel, name: "TimerFired", object: nil)
+        
+        // subscribe to FetchError notifications
+        let sel2 = #selector(InstrumentationViewController.presentAlert(_:))
+        center.addObserver(self, selector: sel2, name: "FetchError", object: nil)
 
     }
     
@@ -175,10 +171,10 @@ class InstrumentationViewController: UIViewController {
     
     @IBAction func toggleDiseaseSwitch(sender: UISwitch) {
         if sender.on == true {
-            // select 1/50 random cells to be diseased
+            // select 1/100 random cells to be diseased
             var newGrid = Grid(rows: StandardEngine.sharedInstance.rows, cols: StandardEngine.sharedInstance.cols) { _ in .Empty }
             newGrid.cells = StandardEngine.sharedInstance.grid.cells.map {
-                if arc4random_uniform(50) == 1 {    // diseased cells will stay diseased
+                if arc4random_uniform(100) == 1 {    // diseased cells will stay diseased
                     return Cell($0.position, .Diseased)
                 }
                 else {
@@ -228,95 +224,7 @@ class InstrumentationViewController: UIViewController {
         
 
     }
-    
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        
-////        
-////        
-////        
-////        // default URL if nothing is provided
-////        var url = NSURL(string: "https://dl.dropboxusercontent.com/u/7544475/S65g.json")!
-////        
-////        // use provided URL if provided
-////        if let urlTyped = urlText.text {
-////            if urlTyped != "" {
-////                url = NSURL(string: urlTyped)!
-////            }
-////        }
-////        
-////        let fetcher = Fetcher()
-////        fetcher.requestJSON(url) { (json, message) in
-////            let op = NSBlockOperation {
-////                if let json = json {
-////                    // erase array of dictionaries
-////                    
-////                    // update array with new values
-////                    
-////                    // reload table
-////                    
-////                    //var array: NSArray = json[0] as NSArray //parsedJSON =
-////                    //let array = json as! NSArray
-////                    // THIS WORKS:
-////                    self.rows.text = (json as! NSMutableArray)[0]["title"] as? String
-////                    self.jsonInfo = json as! NSMutableArray
-////                    self.parsedJSON = json
-////                    
-////                    //                    if let vc = container.segue.destinationViewController as? UINavigationController
-////                    //                        where segue.identifier == "EmbedSegue" {
-////                    //                        let vcs = vc.childViewControllers
-////                    //                        for vc in vcs {
-////                    //                            if vc.isKindOfClass(ConfigurationViewController) {
-////                    //                                (vc as! ConfigurationViewController).configs = jsonInfo
-////                    //                                (vc as! ConfigurationViewController).viewWillAppear(true)
-////                    //                            }
-////                    //                        }
-////                    //let table : ConfigurationViewController = self.childViewControllers[1] as! ConfigurationViewController
-////                    //table.reloadData()
-////                    //table.viewWillAppear(true)
-////                }
-////                else if let message = message {
-////                    // handle errors here - ALERT PANEL!
-////                    
-////                    self.rows.text = message
-////                }
-////                else {
-////                    // handle errors here - ALERT PANEL!
-////                    
-////                    self.rows.text = "WTF?"
-////                }
-////            }
-////            NSOperationQueue.mainQueue().addOperation(op)
-////        }
-//
-//        
-//        
-//        
-//        
-//        
-//        
-//        
-//        
-//        
-//        
-//        if let vc = segue.destinationViewController as? UINavigationController
-//            where segue.identifier == "EmbedSegue" {
-//            
-//            let vcs = vc.childViewControllers
-//            for vc in vcs {
-//                if vc.isKindOfClass(ConfigurationViewController) {
-//                    (vc as! ConfigurationViewController).parsedJSON = parsedJSON
-//                    (vc as! ConfigurationViewController).configs = jsonInfo
-//                    (vc as! ConfigurationViewController).tableView.reloadData()
-//                    (vc as! ConfigurationViewController).viewWillAppear(true)
-//                }
-//            }
-// 
-//            //self.embeddedViewController = vc
-//            //vc.delegate = self
-//        }
-//    }
-    
-    
+        
     func watchForNotifications(notification:NSNotification) {
         // step
         let newGrid = StandardEngine.sharedInstance.step()
@@ -324,6 +232,19 @@ class InstrumentationViewController: UIViewController {
         // send EngineUpdate notification
         if let delegate = StandardEngine.sharedInstance.delegate {
             delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
+        }
+        
+    }
+    
+    func presentAlert(notification: NSNotification) {
+        let refreshAlert = UIAlertController(title: "Could not fetch data", message: ((notification.userInfo?["message"])! as! String), preferredStyle: UIAlertControllerStyle.Alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            // Handle "Ok" logic here (do nothing)
+        }))
+        
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            self.presentViewController(refreshAlert, animated: true, completion: nil)
         }
         
     }

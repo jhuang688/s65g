@@ -756,7 +756,6 @@
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="lkh-a2-4oC"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="6Oh-lE-IOw">
                             <connections>
-                                <action selector="addConfig:" destination="69n-aR-6sH" id="jLr-wf-kxo"/>
                                 <segue destination="85t-Yd-kgK" kind="show" identifier="newConfig" id="ba5-tc-gqd"/>
                             </connections>
                         </barButtonItem>

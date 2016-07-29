@@ -28,17 +28,12 @@ import UIKit
     var cols: Int = 20
     var rows: Int = 20
     
-    //    // col and row of touched cell to redraw - this is set by processTouch
-    //    var touchCol = 0
-    //    var touchRow = 0
-    
     private var newGrid = Grid(rows: 20, cols: 20) { _ in .Empty }
     
     
     var points: [Position] {
         set {
-            // First:
-            //   Get the max row and col from positions added in
+            // get the max row and col from positions added in. We will set to double the max.
             let maxRow = newValue.map { $0.row }.maxElement()
             let maxCol = newValue.map { $0.col }.maxElement()
             
@@ -54,17 +49,13 @@ import UIKit
                 }
             }
 
-            
-            //   Set the max row and col from that - double the maximum
+            // set the row and col from that - double the maximum
             newGrid = Grid(rows: size * 2, cols: size * 2) { _ in .Empty }
             
-            // change position to int
+            // change positions to int
             let array: [Int] = newValue.map { $0.row * newGrid.cols + $0.col }
             
-            // Second:
-            //   Empty out actualGrid
-            // Third:
-            //   Set only the positions in the positions in the actualGrid to .Living
+            // set new grid
             newGrid.cells = newGrid.cells.map {
                 if array.contains($0.position.row * newGrid.cols + $0.position.col) {
                     return Cell($0.position, .Living)
@@ -74,35 +65,11 @@ import UIKit
                 }
             }
             
+            // send EditChanged notification
             editChanged()
-            
-//            StandardEngine.sharedInstance.grid = newGrid
-//            
-//            // send EngineUpdate notification
-//            if let delegate = StandardEngine.sharedInstance.delegate {
-//                delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
-//            }
-//            
-            
         }
         get {
-            // RUN THIS WHEN SAVE IS CLICKED
-            
-            // ONLY UPDATE STANDARD ENGINE WHEN SAVE IS CLICKED
-            
-            
-            // WHEN SAVE IS CLICKED
-            // GET NEW POINTS ARRAY
-            // UPDATE TABLE VIEW WITH NEW CONFIG
-            // UPDATE MODEL GRID and SIMULATION VIEW / STATISTICS VIEW
-            
-            // WHEN CANCEL IS CLICKED
-            // TABLE VIEW NOT UPDATED, NOR IS MODEL GRID / SIMULATION VIEW / STATISTICS VIEW
-            
-            // WHEN USER IS TOGGLING
-            // UPDATE GRIDVIEW, BUT DON'T UPDATE MODEL GRID / SIMULATION VIEW / STATISTICS VIEW
-            
-            // return actualGrid.filter({$0 == .Living})
+            // return array of all alive cells (includes born, living, diseased)
             var livingArray: [Position] = []
             for i in 0..<rows*cols {
                 if newGrid.cells[i].state.isAlive() {
@@ -112,21 +79,6 @@ import UIKit
             return livingArray
         }
     }
-    
-    
-    //            let newGrid = Grid(rows: rows, cols: cols) {
-    //                for i in 0..<self.rows*self.cols {
-    //                    if array.contains(i) {
-    //                        return CellState.Living
-    //                    }
-    //                    else {
-    //                        return CellState.Empty
-    //                    }
-    //                }
-    //                return CellState.Empty   // needed to silence warnings
-    //            }
-    //            StandardEngine.sharedInstance.grid = newGrid
-    
     
     override func drawRect(rect: CGRect) {
         // super.drawRect(rect)  // not needed
@@ -139,7 +91,6 @@ import UIKit
         // If they must be squares, they can both equal the minimum of the two.
         let cellWidth: CGFloat = self.frame.size.width / CGFloat(cols)
         let cellHeight: CGFloat = self.frame.size.height / CGFloat (rows)
-        
         
         // draw gridlines
         let gridLines = UIBezierPath()
@@ -222,7 +173,6 @@ import UIKit
         // even if it then moves inside.
         if touchRow >= 0 && touchRow < rows && touchCol >= 0 && touchCol < cols {
             // toggle touched cell in newGrid (replica of grid)
-            //var newGrid2: GridProtocol = newGrid
             newGrid[touchRow,touchCol] = newGrid[touchRow,touchCol]!.toggle(newGrid[touchRow,touchCol]!)
             
             // send EditChanged notification if touched in instrumentation VC - don't need to go through delegate since model is not changing
@@ -231,13 +181,12 @@ import UIKit
         }
     }
     
-    // TimerFired notifications are sent by the timer
+    // sends EditChanged notifications
     @objc func editChanged() {
         let center = NSNotificationCenter.defaultCenter()
         let n = NSNotification(name: "EditChanged",
                                object: nil,
                                userInfo: nil)
-        //                               userInfo: ["gridObject": StandardEngine.sharedInstance.grid! as! AnyObject])
         center.postNotification(n)
     }
 }

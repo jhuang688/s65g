@@ -6,8 +6,6 @@
 //  Copyright © 2016 Joanne Huang. All rights reserved.
 //
 
-//import Foundation
-
 struct Cell {
     var position:Position
     var state:   CellState

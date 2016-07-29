@@ -19,11 +19,8 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
         // Instead, we are doing this when the app launches, not when the simulationVC loads
         //StandardEngine.sharedInstance.delegate = self   // SimulationVC is the delegate
-        
-        
         
         // subscribe to EngineUpdate notifications
         let sel = #selector(SimulationViewController.watchForNotifications(_:))
@@ -51,36 +48,22 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         let n = NSNotification(name: "EngineUpdate",
                                object: nil,
                                userInfo: nil)
-//                               userInfo: ["gridObject": withGrid as! AnyObject])
         center.postNotification(n)
     }
     
     @IBAction func saveButtonClicked(sender: AnyObject) {
-        // add to array of dictionaries and reload tableview
-        
         // check that a name is entered. if not, alert panel
         if let newTitle = nameText.text {
             if newTitle != "" {
-                // update this for table display
-//                (self.navigationController?.viewControllers[0] as! ConfigurationViewController).titles.append(newTitle)
-//                (self.navigationController?.viewControllers[0] as! ConfigurationViewController).positions = gridView.points
-//                (self.navigationController?.viewControllers[0] as! ConfigurationViewController).configs.append(["title": newTitle, "contents": gridView.points.map { [$0.row, $0.col] }])
-                
-                // send notification with required info as dictionary
+                // send notification with required info as dictionary. The table will be updated.
                 let center = NSNotificationCenter.defaultCenter()
                 let n = NSNotification(name: "SaveConfig",
                                        object: nil,
                                        userInfo: ["title": newTitle, "contents": gridView.points.map { [$0.row, $0.col] }])
                 center.postNotification(n)
-//                // send EngineUpdate notification
-//                if let delegate = StandardEngine.sharedInstance.delegate {
-//                    delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
-//                }
                 
                 // take user back to instrumentation view
                 tabBarController?.selectedIndex = 0
-        
-                
             }
             else {
                 presentAlert()
@@ -97,7 +80,7 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         let refreshAlert = UIAlertController(title: "Could not save", message: "Please enter a name to save this configuration", preferredStyle: UIAlertControllerStyle.Alert)
         
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            //print("Handle Ok logic here")
+            // handle "Ok" logic here (do nothing)
         }))
         
         presentViewController(refreshAlert, animated: true, completion: nil)
@@ -112,14 +95,9 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         if let delegate = StandardEngine.sharedInstance.delegate {
             delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
         }
-        
-//        //        // TESTING AREA:
-//        gridView.points = [Position(1, 3), Position(3, 5)]
-//        print(gridView.points)
     }
     
     @IBAction func resetButtonClicked(sender: AnyObject) {
-        // SHOULD THIS RESET GRIDVIEW ONLY AND NOT THE GRID ITSELF???
         let emptyGrid = Grid(rows: StandardEngine.sharedInstance.grid.rows, cols: StandardEngine.sharedInstance.grid.cols) {_ in
             .Empty
         }

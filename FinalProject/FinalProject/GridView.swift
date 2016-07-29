@@ -25,29 +25,32 @@ import UIKit
     var cols: Int = 20
     var rows: Int = 20
     
-//    // col and row of touched cell to redraw - this is set by processTouch
-//    var touchCol = 0
-//    var touchRow = 0
-    
-
-    
     var points: [Position] {
         set {
-            // First:
-            //   Get the max row and col from positions added in
-            //   Set the max row and col from that - double the maximum
-            // safe to assume 20 by 20 ??? NO
+            // get the max row and col from positions added in. We will set to double the max.
+            let maxRow = newValue.map { $0.row }.maxElement()
+            let maxCol = newValue.map { $0.col }.maxElement()
             
-            var newGrid = Grid(rows: 20, cols: 20) { _ in .Empty }
+            var size: Int = 10 // default is 20 by 20
             
-            // change position to int
-            let array: [Int] = points.map { $0.row * newGrid.cols + $0.col }
+            if let maxRow = maxRow, maxCol = maxCol {
+                size = max(maxRow, maxCol)
+                if size > 50 {
+                    size = 50   // we will limit it at 100 by 100
+                }
+                if size < 5 {
+                    size = 5  // provide 10 by 10 room for stepping as a minimum
+                }
+            }
             
-            // Second:
-            //   Empty out actualGrid
-            // Third:
-            //   Set only the positions in the positions in the actualGrid to .Living
-            newGrid.cells = StandardEngine.sharedInstance.grid.cells.map {
+            // set the row and col from that - double the maximum
+            var newGrid = Grid(rows: size * 2, cols: size * 2) { _ in .Empty }
+            
+            // change positions to int
+            let array: [Int] = newValue.map { $0.row * newGrid.cols + $0.col }
+            
+            // set new grid
+            newGrid.cells = newGrid.cells.map {
                 if array.contains($0.position.row * newGrid.cols + $0.position.col) {
                     return Cell($0.position, .Living)
                 }
@@ -62,27 +65,9 @@ import UIKit
             if let delegate = StandardEngine.sharedInstance.delegate {
                 delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
             }
-            
-            
         }
         get {
-            // RUN THIS WHEN SAVE IS CLICKED
-            
-            // ONLY UPDATE STANDARD ENGINE WHEN SAVE IS CLICKED
-            
-            
-            // WHEN SAVE IS CLICKED
-            // GET NEW POINTS ARRAY
-            // UPDATE TABLE VIEW WITH NEW CONFIG
-            // UPDATE MODEL GRID and SIMULATION VIEW / STATISTICS VIEW
-            
-            // WHEN CANCEL IS CLICKED
-            // TABLE VIEW NOT UPDATED, NOR IS MODEL GRID / SIMULATION VIEW / STATISTICS VIEW
-            
-            // WHEN USER IS TOGGLING
-            // UPDATE GRIDVIEW, BUT DON'T UPDATE MODEL GRID / SIMULATION VIEW / STATISTICS VIEW
-            
-            // return actualGrid.filter({$0 == .Living})
+            // return array of all alive cells (includes born, living, diseased)
             var livingArray: [Position] = []
             for i in 0..<rows*cols {
                 if StandardEngine.sharedInstance.grid.cells[i].state.isAlive() {
@@ -92,21 +77,6 @@ import UIKit
             return livingArray
         }
     }
-    
-    
-    //            let newGrid = Grid(rows: rows, cols: cols) {
-    //                for i in 0..<self.rows*self.cols {
-    //                    if array.contains(i) {
-    //                        return CellState.Living
-    //                    }
-    //                    else {
-    //                        return CellState.Empty
-    //                    }
-    //                }
-    //                return CellState.Empty   // needed to silence warnings
-    //            }
-    //            StandardEngine.sharedInstance.grid = newGrid
-    
     
     override func drawRect(rect: CGRect) {
         // super.drawRect(rect)  // not needed

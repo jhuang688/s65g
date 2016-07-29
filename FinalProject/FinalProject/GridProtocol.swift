@@ -13,14 +13,11 @@ protocol GridProtocol {
     var cols: Int { get }
     var cells: [Cell] { get set }
     var title: String? { get set }
-//    var points: [Position] { get set }
     
-    //func neighbours(coords: (col: Int, row: Int), maxCol: Int, maxRow: Int) -> Array<(Int, Int)>
     func neighbors(pos: Position) -> [Position]
     func livingNeighbors(pos: Position) -> Int
     
     subscript(row: Int, col: Int) -> CellState? { get set }
-    //subscript(row: Int, col: Int) -> CellState? { get set }
     
     var alive: Int { get }
     var dead: Int { get }
