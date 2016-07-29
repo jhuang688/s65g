@@ -27,24 +27,24 @@ import UIKit
     
     var points: [Position] {
         set {
-            // get the max row and col from positions added in. We will set to double the max.
+            // get the max row and col from positions added in. We will set to the max + 10.
             let maxRow = newValue.map { $0.row }.maxElement()
             let maxCol = newValue.map { $0.col }.maxElement()
             
-            var size: Int = 10 // default is 20 by 20
+            var size: Int = 20 // default is 20 by 20
             
             if let maxRow = maxRow, maxCol = maxCol {
-                size = max(maxRow, maxCol)
-                if size > 50 {
-                    size = 50   // we will limit it at 100 by 100
+                size = max(maxRow, maxCol) + 10    // give it a margin of space
+                if size > 100 {
+                    size = 100   // we will limit it at 100 by 100
                 }
-                if size < 5 {
-                    size = 5  // provide 10 by 10 room for stepping as a minimum
-                }
+//                if size < 5 {
+//                    size = 5  // provide 10 by 10 room for stepping as a minimum
+//                }
             }
             
             // set the row and col from that - double the maximum
-            var newGrid = Grid(rows: size * 2, cols: size * 2) { _ in .Empty }
+            var newGrid = Grid(rows: size, cols: size) { _ in .Empty }
             
             // change positions to int
             let array: [Int] = newValue.map { $0.row * newGrid.cols + $0.col }
