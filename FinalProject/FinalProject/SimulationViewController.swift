@@ -34,11 +34,9 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
     }
     
     func watchForNotifications(notification:NSNotification) {
-        // re-draw
+        // re-draw and update grid title
         gridView.setNeedsDisplay()
         nameText.text = StandardEngine.sharedInstance.grid.title
-        
-        // PRE-FILL NAME OF GRID HERE
 
     }
     
@@ -78,19 +76,31 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
 //                if let delegate = StandardEngine.sharedInstance.delegate {
 //                    delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
 //                }
+                
+                // take user back to instrumentation view
+                tabBarController?.selectedIndex = 0
         
                 
             }
             else {
-                // ALERT PANEL
+                presentAlert()
             }
         }
         else {
-            // ALERT PANEL
+            presentAlert()
         }
         
-        // take user back to instrumentation view
-        tabBarController?.selectedIndex = 0
+
+    }
+    
+    func presentAlert() {
+        let refreshAlert = UIAlertController(title: "Could not save", message: "Please enter a name to save this configuration", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            //print("Handle Ok logic here")
+        }))
+        
+        presentViewController(refreshAlert, animated: true, completion: nil)
     }
     
     @IBAction func stepButtonClicked(sender: AnyObject) {

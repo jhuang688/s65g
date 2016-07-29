@@ -17,36 +17,44 @@ class ConfigurationViewController: UITableViewController {
     var urlString: String? {
         didSet {
 
-            let url = NSURL(string: urlString!)!
+            let url: NSURL?
 
-            let fetcher = Fetcher()
-            fetcher.requestJSON(url) { (json, message) in
-                if let json = json,
-                    topArray = json as? Array<Dictionary<String,AnyObject>> {
-                    // clear existing
-                    self.configs = []
-                    self.titles = []
-                    
-                    self.configs = topArray
-                    for i in 0..<topArray.count {
-                        self.titles.append(topArray[i]["title"] as! String)
+            do {
+                try url = makeURL(urlString!) //url = NSURL(string: urlString!)
+                let fetcher = Fetcher()
+                fetcher.requestJSON(url!) { (json, message) in
+                    if let json = json,
+                        topArray = json as? Array<Dictionary<String,AnyObject>> {
+                        // clear existing
+                        self.configs = []
+                        self.titles = []
+                        
+                        self.configs = topArray
+                        for i in 0..<topArray.count {
+                            self.titles.append(topArray[i]["title"] as! String)
+                        }
+                        let op = NSBlockOperation {
+                            self.tableView.reloadData()
+                        }
+                        NSOperationQueue.mainQueue().addOperation(op)
                     }
-                    let op = NSBlockOperation {
-                        self.tableView.reloadData()
+                    else if let message = message {
+                        // handle errors here - ALERT PANEL!
+                        self.presentAlert(message)
+                        //self.rows.text = message
                     }
-                    NSOperationQueue.mainQueue().addOperation(op)
+                    else {
+                        // handle errors here - ALERT PANEL!
+                        self.presentAlert("An error has occurred.")
+                        //print("wtf")
+                        //self.rows.text = "WTF?"
+                    }
                 }
-                else if let message = message {
-                    // handle errors here - ALERT PANEL!
-                    print(message)
-                    //self.rows.text = message
-                }
-                else {
-                    // handle errors here - ALERT PANEL!
-                    print("wtf")
-                    //self.rows.text = "WTF?"
-                }
+            } catch {
+                presentAlert("Invalid URL")
             }
+
+
             
 //            let url = NSURL(string: urlString!)!
 //            
@@ -129,7 +137,23 @@ class ConfigurationViewController: UITableViewController {
 //        }
 //    }
     @IBOutlet weak var addButton: UIBarButtonItem!
+    
+    func makeURL(urlString: String) throws -> NSURL? {
+        let url = NSURL(string: urlString)
+        if url == nil {
+            throw Errors.InvalidURL
+        }
+        return url
+    }
+    
+//    struct IncorrectURL : ErrorType {
+//        let _domain: String = "Invalid URL"
+//        let _code: Int = 1
+//    }
 
+    enum Errors : ErrorType {
+        case InvalidURL
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -294,6 +318,16 @@ class ConfigurationViewController: UITableViewController {
         urlString = notification.userInfo?["url"] as? String
     }
 
+    func presentAlert(text: String) {
+        let refreshAlert = UIAlertController(title: "Could not fetch data", message: text, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            //print("Handle Ok logic here")
+        }))
+        
+        presentViewController(refreshAlert, animated: true, completion: nil)
+    }
+    
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)

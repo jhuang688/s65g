@@ -82,15 +82,17 @@ class ConfigurationEditorViewController: UIViewController {
                 // we can do this by setting points for GridView (not GridViewDisplayOnly)
                 // or some other way
                 
+                // take user back to instrumentation view
+                self.navigationController?.popToRootViewControllerAnimated(true)
                 
                 
             }
             else {
-                // ALERT PANEL
+                presentAlert()
             }
         }
         else {
-            // ALERT PANEL
+            presentAlert()
         }
 
         
@@ -104,8 +106,7 @@ class ConfigurationEditorViewController: UIViewController {
 
         // update actual grid in model, hence updating simulation and statistics views
         
-        // take user back to instrumentation view
-        self.navigationController?.popToRootViewControllerAnimated(true)
+
     }
     
     func watchForNotifications(notification:NSNotification) {
@@ -113,6 +114,15 @@ class ConfigurationEditorViewController: UIViewController {
         gridViewForEdit.setNeedsDisplay()
     }
     
+    func presentAlert() {
+        let refreshAlert = UIAlertController(title: "Could not save", message: "Please enter a name to save this configuration", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            //print("Handle Ok logic here")
+        }))
+        
+        presentViewController(refreshAlert, animated: true, completion: nil)
+    }
     
 
     /*
