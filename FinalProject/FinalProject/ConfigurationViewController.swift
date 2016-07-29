@@ -20,7 +20,7 @@ class ConfigurationViewController: UITableViewController {
             let url: NSURL?
 
             do {
-                try url = makeURL(urlString!) //url = NSURL(string: urlString!)
+                try url = makeURL(urlString!)
                 let fetcher = Fetcher()
                 fetcher.requestJSON(url!) { (json, message) in
                     if let json = json,
@@ -93,7 +93,6 @@ class ConfigurationViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        
         self.tableView.reloadData()
     }
 

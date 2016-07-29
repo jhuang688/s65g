@@ -74,11 +74,10 @@ class ConfigurationEditorViewController: UIViewController {
                     delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
                 }
                 
-                
-                
-                // ******
-                // could also do this by setting points for GridView (not GridViewDisplayOnly)
-                // but it would double the max row col
+                // *********
+                // could also do this by setting points for GridView (not GridViewDisplayOnly),
+                // but it would change the max col/row, and we want to pre-fill the title too,
+                // so this method is preferred.
                 // *********
                 
                 // take user back to instrumentation view

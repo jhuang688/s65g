@@ -38,9 +38,6 @@ import UIKit
                 if size > 100 {
                     size = 100   // we will limit it at 100 by 100
                 }
-//                if size < 5 {
-//                    size = 5  // provide 10 by 10 room for stepping as a minimum
-//                }
             }
             
             // set the row and col from that - double the maximum
