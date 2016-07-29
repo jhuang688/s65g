@@ -46,7 +46,7 @@ class ConfigurationViewController: UITableViewController {
                     }
                 }
             } catch {
-                //fetchError("Invalid URL")
+                presentAlert("Invalid URL")
             }
         }
     }
