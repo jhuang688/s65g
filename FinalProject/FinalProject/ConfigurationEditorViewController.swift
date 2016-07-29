@@ -76,13 +76,13 @@ class ConfigurationEditorViewController: UIViewController {
                 
                 
                 
-                // we can do this by setting points for GridView (not GridViewDisplayOnly)
-                // or some other way
+                // ******
+                // could also do this by setting points for GridView (not GridViewDisplayOnly)
+                // but it would double the max row col
+                // *********
                 
                 // take user back to instrumentation view
-                self.navigationController?.popToRootViewControllerAnimated(true)
-                
-                
+                self.navigationController?.popToRootViewControllerAnimated(true)   
             }
             else {
                 presentAlert()

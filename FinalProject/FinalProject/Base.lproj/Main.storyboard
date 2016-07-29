@@ -840,9 +840,9 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="VXo-kY-Khb"/>
                                 <exclude reference="mWB-AV-bKL"/>
                                 <exclude reference="zQ9-Oi-tFg"/>
-                                <exclude reference="VXo-kY-Khb"/>
                             </mask>
                         </variation>
                     </view>

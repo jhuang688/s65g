@@ -109,7 +109,6 @@ import UIKit
         gridColor.setStroke()
         gridLines.stroke()
         
-        
         // draw all circles in cells
         for col in 0..<cols {
             for row in 0..<rows {

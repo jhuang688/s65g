@@ -104,7 +104,6 @@ class StandardEngine: EngineProtocol {
                 case _ where $0.state.isAlive():  return Cell($0.position, .Died)
                 default:                           return Cell($0.position, .Empty)
                 }
-
             }
         }
         return newGrid

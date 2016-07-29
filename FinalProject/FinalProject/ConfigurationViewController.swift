@@ -121,14 +121,11 @@ class ConfigurationViewController: UITableViewController {
             let editingString: String = titles[editingRow]
             
             editingVC.nameString = editingString
-            
-            positions = []
-            for i in 0..<(configs[editingRow]["contents"]!.count) {
-                positions.append(Position((configs[editingRow]["contents"]![i] as! Array)[0], (configs[editingRow]["contents"]![i] as! Array)[1]))
+
+            positions = (configs[editingRow]["contents"]! as! Array<Array<Int>>).map {
+                return Position($0[0], $0[1])
             }
-//            positions = configs[editingRow]["contents"].map {
-//                return Position(Int($0 as! NSNumber)/20, Int($0 as! NSNumber)%20)     // HARDCODED FOR NOW TO 20/20
-//            }!
+            
             editingVC.pointsArray = positions
             
         }

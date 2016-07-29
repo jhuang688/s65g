@@ -204,7 +204,6 @@ class InstrumentationViewController: UIViewController {
     }
     
     @IBAction func reloadClicked(sender: UIButton) {
-
         if let urlTyped = urlText.text {
             if urlTyped != "" {
                 // send notification with url text for ConfigurationViewController
@@ -213,11 +212,8 @@ class InstrumentationViewController: UIViewController {
                                        object: nil,
                                        userInfo: ["url": urlTyped])
                 center.postNotification(n)
-                
             }
         }
-        
-
     }
         
     func watchForNotifications(notification:NSNotification) {
