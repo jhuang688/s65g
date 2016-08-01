@@ -40,7 +40,7 @@ import UIKit
                 }
             }
             
-            // set the row and col from that - double the maximum
+            // set the row and col from that - maximum + 10
             var newGrid = Grid(rows: size, cols: size) { _ in .Empty }
             
             // change positions to int
