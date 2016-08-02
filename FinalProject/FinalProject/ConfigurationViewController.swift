@@ -30,9 +30,11 @@ class ConfigurationViewController: UITableViewController {
                         self.titles = []
                         
                         self.configs = topArray
-                        for i in 0..<topArray.count {
-                            self.titles.append(topArray[i]["title"] as! String)
+                        
+                        self.titles = topArray.reduce([]) { (array, config) -> [String] in
+                            return array + [config["title"] as! String]
                         }
+
                         let op = NSBlockOperation {
                             self.tableView.reloadData()
                         }

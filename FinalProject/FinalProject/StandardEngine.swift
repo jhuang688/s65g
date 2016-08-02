@@ -111,6 +111,16 @@ class StandardEngine: EngineProtocol {
     
     func hasDiseasedNeighbor (pos: Position) -> Bool {
         let neighborArray = grid.neighbors(pos)
+        
+//        return neighborArray.reduce(false) { (result, position) -> Bool in
+//            if grid[position.row, position.col] == .Diseased {
+//                return true
+//            }
+//            return false
+//        }
+        
+        // ****** get rid of this for loop ??? *******
+        
         for i in 0..<neighborArray.count {
             if grid[neighborArray[i].row, neighborArray[i].col] == .Diseased {
                 return true

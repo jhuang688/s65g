@@ -45,7 +45,7 @@ class ConfigurationEditorViewController: UIViewController {
         // check that a name is entered. if not, alert panel
         if let newTitle = nameText.text {
             if newTitle != "" {
-                // update this for table view
+                // update this for table view. We will add another row so that we don't lose the original.
                 (self.navigationController?.viewControllers[0] as! ConfigurationViewController).titles.append(newTitle)
                 (self.navigationController?.viewControllers[0] as! ConfigurationViewController).positions = gridViewForEdit.points
                 (self.navigationController?.viewControllers[0] as! ConfigurationViewController).configs.append(["title": newTitle, "contents": gridViewForEdit.points.map { [$0.row, $0.col] }])
@@ -69,7 +69,7 @@ class ConfigurationEditorViewController: UIViewController {
                 
                 StandardEngine.sharedInstance.grid = newGrid
                 
-                // send EngineUpdate notification
+                // send EngineUpdate notification to update Simulation VC and Statistics VC with the latest saved config.
                 if let delegate = StandardEngine.sharedInstance.delegate {
                     delegate.engineDidUpdate(StandardEngine.sharedInstance.grid)
                 }
