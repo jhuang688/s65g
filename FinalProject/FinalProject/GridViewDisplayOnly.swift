@@ -46,45 +46,22 @@ import UIKit
                 }
             }
 
-            // set the row and col from that - maximum + 10
+            // set the row and col from that, and set new grid
             newGrid = Grid(rows: size, cols: size) { position in
                 return newValue.contains({ return position.row == $0.row && position.col == $0.col }) ? .Living : .Empty
             }
-
-//            newGrid = Grid(rows: size, cols: size) { _ in .Empty }
-//            
-//            // change positions to int
-//            let array: [Int] = newValue.map { $0.row * newGrid.cols + $0.col }
-//            
-//            // set new grid
-//            newGrid.cells = newGrid.cells.map {
-//                if array.contains($0.position.row * newGrid.cols + $0.position.col) {
-//                    return Cell($0.position, .Living)
-//                }
-//                else {
-//                    return Cell($0.position, .Empty)
-//                }
-//            }
             
-            // send EditChanged notification
+            // send EditChanged notification (model grid will not be modified)
             editChanged()
         }
         get {
             // return array of all alive cells (includes born, living, diseased)
-//            var livingArray: [Position] = []
-            
             return newGrid.cells.reduce([]) { (array, cell) -> [Position] in
                 if cell.state == .Living {
                     return array + [cell.position]
                 }
                 return array
             }
-//            for i in 0..<rows*cols {
-//                if newGrid.cells[i].state.isAlive() {
-//                    livingArray.append(newGrid.cells[i].position)
-//                }
-//            }
-//            return livingArray
         }
     }
     
@@ -183,7 +160,7 @@ import UIKit
             // toggle touched cell in newGrid (replica of grid)
             newGrid[touchRow,touchCol] = newGrid[touchRow,touchCol]!.toggle(newGrid[touchRow,touchCol]!)
             
-            // send EditChanged notification if touched in instrumentation VC - don't need to go through delegate since model is not changing
+            // send EditChanged notification if touched in instrumentation VC - doesn't change model grid
             editChanged()
 
         }

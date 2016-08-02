@@ -26,8 +26,6 @@ class SimulationViewController: UIViewController, EngineDelegateProtocol {
         let sel = #selector(SimulationViewController.watchForNotifications(_:))
         let center  = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: sel, name: "EngineUpdate", object: nil)
-        
-        
     }
     
     func watchForNotifications(notification:NSNotification) {
