@@ -41,20 +41,22 @@ import UIKit
             }
             
             // set the row and col from that - maximum + 10
-            var newGrid = Grid(rows: size, cols: size) { _ in .Empty }
-            
-            // change positions to int
-            let array: [Int] = newValue.map { $0.row * newGrid.cols + $0.col }
-            
-            // set new grid
-            newGrid.cells = newGrid.cells.map {
-                if array.contains($0.position.row * newGrid.cols + $0.position.col) {
-                    return Cell($0.position, .Living)
-                }
-                else {
-                    return Cell($0.position, .Empty)
-                }
+            let newGrid = Grid(rows: size, cols: size) { position in
+                return newValue.contains({ return position.row == $0.row && position.col == $0.col }) ? .Living : .Empty
             }
+            
+//            // change positions to int
+//            let array: [Int] = newValue.map { $0.row * newGrid.cols + $0.col }
+//            
+//            // set new grid
+//            newGrid.cells = newGrid.cells.map {
+//                if array.contains($0.position.row * newGrid.cols + $0.position.col) {
+//                    return Cell($0.position, .Living)
+//                }
+//                else {
+//                    return Cell($0.position, .Empty)
+//                }
+//            }
             
             StandardEngine.sharedInstance.grid = newGrid
             
@@ -65,13 +67,20 @@ import UIKit
         }
         get {
             // return array of all alive cells (includes born, living, diseased)
-            var livingArray: [Position] = []
-            for i in 0..<rows*cols {
-                if StandardEngine.sharedInstance.grid.cells[i].state.isAlive() {
-                    livingArray.append(StandardEngine.sharedInstance.grid.cells[i].position)
+//            var livingArray: [Position] = []
+//            for i in 0..<rows*cols {
+//                if StandardEngine.sharedInstance.grid.cells[i].state.isAlive() {
+//                    livingArray.append(StandardEngine.sharedInstance.grid.cells[i].position)
+//                }
+//            }
+//            return livingArray
+            
+            return StandardEngine.sharedInstance.grid.cells.reduce([]) { (array, cell) -> [Position] in
+                if cell.state == .Living {
+                    return array + [cell.position]
                 }
+                return array
             }
-            return livingArray
         }
     }
     

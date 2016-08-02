@@ -47,33 +47,44 @@ import UIKit
             }
 
             // set the row and col from that - maximum + 10
-            newGrid = Grid(rows: size, cols: size) { _ in .Empty }
-            
-            // change positions to int
-            let array: [Int] = newValue.map { $0.row * newGrid.cols + $0.col }
-            
-            // set new grid
-            newGrid.cells = newGrid.cells.map {
-                if array.contains($0.position.row * newGrid.cols + $0.position.col) {
-                    return Cell($0.position, .Living)
-                }
-                else {
-                    return Cell($0.position, .Empty)
-                }
+            newGrid = Grid(rows: size, cols: size) { position in
+                return newValue.contains({ return position.row == $0.row && position.col == $0.col }) ? .Living : .Empty
             }
+
+//            newGrid = Grid(rows: size, cols: size) { _ in .Empty }
+//            
+//            // change positions to int
+//            let array: [Int] = newValue.map { $0.row * newGrid.cols + $0.col }
+//            
+//            // set new grid
+//            newGrid.cells = newGrid.cells.map {
+//                if array.contains($0.position.row * newGrid.cols + $0.position.col) {
+//                    return Cell($0.position, .Living)
+//                }
+//                else {
+//                    return Cell($0.position, .Empty)
+//                }
+//            }
             
             // send EditChanged notification
             editChanged()
         }
         get {
             // return array of all alive cells (includes born, living, diseased)
-            var livingArray: [Position] = []
-            for i in 0..<rows*cols {
-                if newGrid.cells[i].state.isAlive() {
-                    livingArray.append(newGrid.cells[i].position)
+//            var livingArray: [Position] = []
+            
+            return newGrid.cells.reduce([]) { (array, cell) -> [Position] in
+                if cell.state == .Living {
+                    return array + [cell.position]
                 }
+                return array
             }
-            return livingArray
+//            for i in 0..<rows*cols {
+//                if newGrid.cells[i].state.isAlive() {
+//                    livingArray.append(newGrid.cells[i].position)
+//                }
+//            }
+//            return livingArray
         }
     }
     
